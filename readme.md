@@ -8,7 +8,6 @@
 
 ## 📅 30-Day Capstone Plan
 
----
 
 ### 🔹 **Week 1: Ideation & Setup**
 
