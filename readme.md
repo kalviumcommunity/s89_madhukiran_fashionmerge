@@ -55,6 +55,7 @@
 **Day 27:** Polish mobile responsiveness and UX flow  
 **Day 28:** Write full README, project walkthrough, and documentation
 
+---
 
 ### 🔹 **Week 5: Final Touches & Deployment**
 
