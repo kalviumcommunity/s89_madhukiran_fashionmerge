@@ -5,7 +5,6 @@ const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 const bcrypt = require('bcrypt');
 
-// Forgot Password Route
 router.put('/forgot-password', async (req, res) => {
   console.log(req.body); // Debugging: Log the request body
   const { email } = req.body;
