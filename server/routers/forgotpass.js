@@ -54,7 +54,6 @@ router.put('/forgot-password', async (req, res) => {
   }
 });
 
-// Reset Password Route
 router.put('/reset-password', async (req, res) => {
   const { token, password } = req.body;
   console.log('Token received:', token); // Debugging

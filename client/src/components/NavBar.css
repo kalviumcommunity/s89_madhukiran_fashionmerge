@@ -1,59 +1,89 @@
+/* Reset default styles for the navbar */
 nav {
-    background-color: #221273;
-    color: #fff;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 40px;
-}
-.navbar-logo a {
-    color: white;
-    text-decoration: none;
-    font-size: 24px;
-}
-.navbar-links {
-    list-style: none;
-    display: flex;
-    gap: 60px;
-}
-.navbar-links li {
-    display: inline;
-}
-.navbar-links a {
-    color: white;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-.navbar-links a:hover {
-    color: #9d00ff;
+  background-color: #333; /* Dark background for the navbar */
+  color: #fff; /* White text color */
+  display: flex; /* Use flexbox for layout */
+  justify-content: space-between; /* Space between elements */
+  align-items: center; /* Align items vertically centered */
+  padding: 10px 20px; /* Add padding to the navbar */
 }
 
+/* Logo styles */
+.navbar-logo a {
+  color: white; /* Logo text color */
+  text-decoration: none; /* Remove underline from logo link */
+  font-size: 24px; /* Increased font size for logo */
+}
+
+/* Navbar links styles */
+.navbar-links {
+  list-style: none; /* Remove bullet points from list */
+  display: flex; /* Display links in a row */
+  gap: 20px; /* Space between links */
+}
+
+.navbar-links li {
+  display: inline; /* Inline display for list items */
+}
+
+/* Link styles */
+.navbar-links a {
+  color: white; /* Link color */
+  text-decoration: none; /* Remove underline from links */
+  transition: color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.navbar-links a:hover {
+  color: #ffcc00; /* Change color on hover */
+}
+
+/* Logout button styles */
+.logout-button {
+  background-color: #e63946; /* Red background for logout */
+  color: white; /* White text color */
+  border: none; /* No border */
+  padding: 10px 15px; /* Padding for button */
+  cursor: pointer; /* Change cursor to pointer */
+  border-radius: 5px; /* Rounded corners */
+  transition: background-color 0.3s ease; /* Smooth transition for background */
+}
+
+.logout-button:hover {
+  background-color: #d62839; /* Darker red on hover */
+}
+
+/* Navbar toggle button for mobile */
 .navbar-toggle {
-    display: none;
-    flex-direction: column;
-    cursor: pointer;
+  display: none; /* Hide toggle button by default */
+  flex-direction: column; /* Stack bars vertically */
+  cursor: pointer; /* Change cursor to pointer */
 }
+
 .navbar-toggle span {
-    width: 25px;
-    height: 3px;
-    background: white;
-    margin: 4px 0;
+  width: 25px; /* Width of each bar */
+  height: 3px; /* Height of each bar */
+  background: white; /* Color of each bar */
+  margin: 4px 0; /* Space between bars */
 }
+
+/* Responsive styles */
 @media (max-width: 768px) {
-    .navbar-links {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 60px;
-        background-color: #333;
-        width: 100%;
-        padding: 10px 0;
-        z-index: 1000;
-    }
-    .navbar-toggle {
-        display: flex;
-    }
-    .navbar-links.show {
-        display: flex;
-    }
+  .navbar-links {
+      display: none; /* Hide links by default on mobile */
+      flex-direction: column; /* Stack links vertically when displayed */
+      position: absolute; /* Position absolute for dropdown effect */
+      top: 60px; /* Position below the navbar */
+      background-color: #333; /* Same background color */
+      width: 100%; /* Full width */
+      padding: 10px 0; /* Pad top and bottom */
+      z-index: 1000; /* Ensure links are above other content */
+  }
+
+  .navbar-toggle {
+      display: flex; /* Show toggle button on mobile */
+  }
+
+  .navbar-links.show {
+      display: flex; /* Show links when the toggle is activated */
+  }
 }
