@@ -5,8 +5,9 @@ const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 const bcrypt = require('bcrypt');
 
-router.post('/forgot-password', async (req, res) => {
-  console.log(req.body); 
+// Forgot Password Route
+router.put('/forgot-password', async (req, res) => {
+  console.log(req.body); // Debugging: Log the request body
   const { email } = req.body;
 
   try {
@@ -19,20 +20,22 @@ router.post('/forgot-password', async (req, res) => {
       return res.status(404).send({ msg: 'Email not found' });
     }
 
+    // Generate a secure reset token
     const resetToken = crypto.randomBytes(32).toString('hex');
     user.resetToken = resetToken;
-    user.resetTokenExpiration = Date.now() + 3600000; 
+    user.resetTokenExpiration = Date.now() + 3600000; // Token valid for 1 hour
 
+    // Save the token and expiration in the database
     await user.save();
 
-    console.log('Reset token saved:', resetToken); 
-    console.log('Token expiration saved:', user.resetTokenExpiration); 
+    console.log('Reset token saved:', resetToken); // Debugging
+    console.log('Token expiration saved:', user.resetTokenExpiration); // Debugging
 
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
         user: 'fashionmergeforyou@gmail.com',
-        pass: 'vzar dqxu bmlb azyj' 
+        pass: 'vzar dqxu bmlb azyj' // Replace with your App Password
       }
     });
 
@@ -52,10 +55,11 @@ router.post('/forgot-password', async (req, res) => {
   }
 });
 
-router.post('/reset-password', async (req, res) => {
+// Reset Password Route
+router.put('/reset-password', async (req, res) => {
   const { token, password } = req.body;
-  console.log('Token received:', token); 
-  console.log('Password received:', password); 
+  console.log('Token received:', token); // Debugging
+  console.log('Password received:', password); // Debugging
 
   try {
     if (!token || !password) {
@@ -64,17 +68,19 @@ router.post('/reset-password', async (req, res) => {
 
     const user = await User.findOne({
       resetToken: token,
-      resetTokenExpiration: { $gt: Date.now() }
+      resetTokenExpiration: { $gt: Date.now() } // Ensure token is not expired
     });
 
-    console.log('User found:', user); 
+    console.log('User found:', user); // Debugging
 
     if (!user) {
       return res.status(400).send({ msg: 'Invalid or expired token' });
     }
 
+    // Hash the new password
     const hashedPassword = await bcrypt.hash(password, 12);
 
+    // Update the user's password and clear the reset token
     user.password = hashedPassword;
     user.resetToken = undefined;
     user.resetTokenExpiration = undefined;

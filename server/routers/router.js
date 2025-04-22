@@ -2,8 +2,13 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/schema.js');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken'); // Import jsonwebtoken
 const passport = require('passport');
 
+// JWT Secret Key
+const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret_key';
+
+// Signup Route
 router.post('/signup', async (req, res) => {
   try {
     const { username, email, password } = req.body;
@@ -21,14 +26,14 @@ router.post('/signup', async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 12);
     const newUser = new User({ username, email, password: hashedPassword });
     const savedUser = await newUser.save();
-    res.status(200).send({ msg: 'User created successfully', data: savedUser });
+    res.status(201).send({ msg: 'User created successfully', data: savedUser });
   } catch (err) {
     console.error('Error during signup:', err);
     return res.status(500).send({ msg: 'Something went wrong. Please try again later.' });
   }
 });
 
-
+// Login Route
 router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -40,51 +45,68 @@ router.post('/login', async (req, res) => {
     if (!isPasswordValid) {
       return res.status(409).send({ msg: 'Incorrect password' });
     }
-    req.login(user, (err) => {
-      if (err) {
-        console.error('Error during login:', err);
-        return res.status(500).send({ msg: 'Login failed. Please try again later.' });
-      }
-      res.status(200).send({ msg: 'Login successful' });
-    });
+
+    // Generate JWT Token
+    const token = jwt.sign({ id: user._id, email: user.email }, JWT_SECRET, { expiresIn: '1h' });
+    res.status(200).send({ msg: 'Login successful', token });
   } catch (err) {
     console.error('Error during login:', err);
     return res.status(500).send({ msg: 'Something went wrong. Please try again later.' });
   }
 });
 
+// Delete User Account
+router.delete('/delete-account', async (req, res) => {
+  try {
+    const userId = req.user.id; // Extract user ID from the JWT payload
 
-router.get('/user', (req, res) => {
-  console.log('Authenticated user:', req.user);
-  if (req.isAuthenticated()) {
-    res.status(200).send({ username: req.user.username });
-  } else {
-    res.status(401).send({ msg: 'Unauthorized. Please log in.' });
+    // Find and delete the user
+    const deletedUser = await User.findByIdAndDelete(userId);
+
+    if (!deletedUser) {
+      return res.status(404).send({ msg: 'User not found' });
+    }
+
+    res.status(200).send({ msg: 'Account deleted successfully' });
+  } catch (err) {
+    console.error('Error deleting account:', err);
+    res.status(500).send({ msg: 'Something went wrong. Please try again later.' });
   }
 });
 
+// Middleware to Verify JWT
+const authenticateJWT = (req, res, next) => {
+  const token = req.headers.authorization?.split(' ')[1]; // Extract token from Authorization header
+  if (!token) {
+    return res.status(401).send({ msg: 'Unauthorized. Token is missing.' });
+  }
+  jwt.verify(token, JWT_SECRET, (err, user) => {
+    if (err) {
+      return res.status(403).send({ msg: 'Invalid or expired token.' });
+    }
+    req.user = user; // Attach user info to the request
+    next();
+  });
+};
 
+// Get Authenticated User
+router.get('/user', authenticateJWT, (req, res) => {
+  res.status(200).send({ username: req.user.email });
+});
+
+// Google OAuth Login Route
 router.get('/auth/google',
   passport.authenticate('google', { scope: ['profile', 'email'] })
 );
 
-
+// Google OAuth Callback Route
 router.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/login' }),
   (req, res) => {
-    res.redirect('http://localhost:5173/home');
+    // Generate JWT Token for Google OAuth
+    const token = jwt.sign({ id: req.user._id, email: req.user.email }, JWT_SECRET, { expiresIn: '1h' });
+    res.redirect(`http://localhost:5173/home?token=${token}`); // Pass token to frontend
   }
 );
-
-
-router.get('/logout', (req, res) => {
-  req.logout((err) => {
-    if (err) {
-      console.error('Error during logout:', err);
-      return res.status(500).send({ msg: 'Logout failed. Please try again later.' });
-    }
-    res.status(200).send({ msg: 'Logged out successfully' });
-  });
-});
 
 module.exports = router;
