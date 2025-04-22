@@ -22,7 +22,6 @@ app.use(passport.session());
 const PORT = process.env.PORT || 5000;
 const STRING = process.env.MONGO_URI;
 
-// Routers
 const router = require('./routers/router');
 const forgotPassRouter = require('./routers/forgotpass'); // Import forgotpass router
 
