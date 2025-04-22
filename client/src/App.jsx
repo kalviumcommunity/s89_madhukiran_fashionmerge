@@ -1,13 +1,34 @@
-import React from 'react';
 import './App.css';
-import Navbar from './components/NavBar'; // Import Navbar component
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import Signup from './components/signup';
+import Login from './components/Login';
+import ResetPassword from './components/ResetPassword';
+import Home from './components/Home';
+import Navbar from './components/Navbar'; // Import the Navbar component
 
 function App() {
+  const location = useLocation(); // Get the current route
+
   return (
     <>
-      <Navbar />
+      {location.pathname === '/home' && <Navbar />} {/* Show Navbar only on /home */}
+      <Routes>
+        <Route path="/" element={<Signup />} /> {/* Default route */}
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/home" element={<Home />} /> {/* Add Home route */}
+      </Routes>
     </>
   );
 }
 
-export default App;
+function AppWrapper() {
+  return (
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  );
+}
+
+export default AppWrapper;
