@@ -25,8 +25,8 @@ const STRING = process.env.MONGO_URI;
 const router = require('./routers/router');
 const forgotPassRouter = require('./routers/forgotpass'); // Import forgotpass router
 
-app.use('/route', router); // Register main router
-app.use('/route', forgotPassRouter); // Register forgot-password router
+app.use(router); // Register main router
+app.use(forgotPassRouter); // Register forgot-password router
 
 // Google OAuth Routes
 app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
@@ -34,8 +34,10 @@ app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'em
 app.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/login' }),
   (req, res) => {
-    // Successful authentication
-    res.status(200).send({ msg: 'Google login successful', user: req.user });
+    // Generate JWT Token for Google OAuth
+    const token = jwt.sign({ id: req.user._id, email: req.user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    // Redirect to frontend with token
+    res.redirect(`http://localhost:5173/home?token=${token}`);
   }
 );
 

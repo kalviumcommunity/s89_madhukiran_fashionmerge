@@ -22,7 +22,7 @@ const ResetPassword = () => {
     try {
       const token = searchParams.get('token'); // Extract token from URL
       console.log('Token being sent:', token); // Debugging
-      const res = await axios.put('http://localhost:5000/route/reset-password', {
+      const res = await axios.put('http://localhost:5000/reset-password', {
         token,
         password,
       });

@@ -5,7 +5,7 @@ const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 const bcrypt = require('bcrypt');
 
-router.put('/forgot-password', async (req, res) => {
+router.post('/forgot-password', async (req, res) => {
   console.log(req.body); // Debugging: Log the request body
   const { email } = req.body;
 
@@ -30,24 +30,62 @@ router.put('/forgot-password', async (req, res) => {
     console.log('Reset token saved:', resetToken); // Debugging
     console.log('Token expiration saved:', user.resetTokenExpiration); // Debugging
 
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: 'fashionmergeforyou@gmail.com',
-        pass: 'vzar dqxu bmlb azyj' // Replace with your App Password
-      }
-    });
+// ... existing code ...
 
-    const mailOptions = {
-      from: 'fashionmergeforyou@gmail.com',
-      to: email,
-      subject: 'Password Reset',
-      text: `Click the link to reset your password: http://localhost:5173/reset-password?token=${resetToken}`
-    };
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'fashionmergeforyou@gmail.com',
+    pass: 'vzar dqxu bmlb azyj'
+  },
+  tls: {
+    rejectUnauthorized: false
+  }
+});
 
-    await transporter.sendMail(mailOptions);
+const mailOptions = {
+  from: {
+    name: 'FashionMerge Support',
+    address: 'fashionmergeforyou@gmail.com'
+  },
+  to: email,
+  subject: 'Password Reset Request - FashionMerge',
+  priority: 'high',
+  headers: {
+    'List-Unsubscribe': '<mailto:fashionmergeforyou@gmail.com>'
+  },
+  text: `Hello,\n\nWe received a password reset request for your FashionMerge account.\n\nClick the link below to reset your password:\nhttp://localhost:5173/reset-password?token=${resetToken}\n\nThis link will expire in 1 hour.\n\nIf you didn't request this, please ignore this email.\n\nBest regards,\nFashionMerge Team`,
+  html: `
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+      <div style="text-align: center; margin-bottom: 20px;">
+        <h2 style="color: #333;">Password Reset Request</h2>
+      </div>
+      <div style="background-color: #f9f9f9; padding: 20px; border-radius: 5px;">
+        <p>Hello,</p>
+        <p>We received a password reset request for your FashionMerge account.</p>
+        <div style="text-align: center; margin: 30px 0;">
+          <a href="http://localhost:5173/reset-password?token=${resetToken}"
+             style="background-color: #4CAF50; color: white; padding: 12px 25px; 
+                    text-decoration: none; border-radius: 4px; display: inline-block;">
+            Reset Password
+          </a>
+        </div>
+        <p style="color: #666;">This link will expire in 1 hour.</p>
+        <p style="color: #666;">If you didn't request this, please ignore this email.</p>
+      </div>
+      <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee; color: #666; font-size: 12px;">
+        <p>This is an automated message from FashionMerge. Please do not reply to this email.</p>
+        <p>© 2024 FashionMerge. All rights reserved.</p>
+      </div>
+    </div>
+  `
+};
 
-    res.status(200).send({ msg: 'Password reset link sent to your email' });
+await transporter.sendMail(mailOptions);
+
+// ... rest of the code ...
+
+    res.status(200).send({ msg: 'Password reset link sent to your email, please check your spam folder incase if you didnt receive the mail' });
   } catch (err) {
     console.error(err);
     res.status(500).send({ msg: 'Something went wrong', error: err.message });
@@ -78,7 +116,6 @@ router.put('/reset-password', async (req, res) => {
     // Hash the new password
     const hashedPassword = await bcrypt.hash(password, 12);
 
-    // Update the user's password and clear the reset token
     user.password = hashedPassword;
     user.resetToken = undefined;
     user.resetTokenExpiration = undefined;
