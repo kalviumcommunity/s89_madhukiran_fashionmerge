@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import axios from 'axios'; 
+import axios from 'axios';
 import './signup.css'; // Import the CSS file for styling
+
 const SignupForm = () => {
     const [formData, setFormData] = useState({
         username: '',
@@ -15,17 +16,19 @@ const SignupForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log('Form Data:', formData); // Debugging: Log the form data
         try {
-            const res = await axios.post('http://localhost:5000/route/signup', formData);
-            alert(res.data.msg); 
+            const res = await axios.post('http://localhost:5000/signup', formData);
+            alert(res.data.msg);
         } catch (error) {
-            if (error.response && error.response.status === 409) {
-                alert(error.response.data.msg); 
+            if (error.response) {
+                console.error('Error Response:', error.response.data); // Debugging: Log the error response
+                alert(error.response.data.msg);
             } else {
-                console.error(error);
+                console.error('Error:', error);
                 alert('Something went wrong, please try again.');
             }
-        }    
+        }
     };
 
     return (

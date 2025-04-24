@@ -31,7 +31,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/route/login', formData);
+      const res = await axios.post('http://localhost:5000/login', formData);
       alert(res.data.msg);
 
       if (res.status === 200) {
@@ -54,7 +54,7 @@ const Login = () => {
   const handleForgotPasswordSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/route/forgot-password', { email: forgotPasswordEmail });
+      const res = await axios.post('http://localhost:5000/forgot-password', { email: forgotPasswordEmail });
       alert(res.data.msg);
     } catch (error) {
       if (error.response) {
