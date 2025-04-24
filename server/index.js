@@ -7,7 +7,6 @@ const app = express();
 require('dotenv').config();
 require('./passport-config'); // Import passport configuration
 
-// Middleware
 app.use(express.json());
 app.use(cors());
 app.use(session({
