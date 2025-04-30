@@ -10,10 +10,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fontsource/bangers": "^5.2.5",
+    "@fontsource/great-vibes": "^5.2.5",
+    "@fontsource/kings": "^5.2.5",
+    "@fontsource/knewave": "^5.2.5",
+    "@fontsource/ms-madi": "^5.2.5",
     "axios": "^1.8.4",
     "react": "^19.0.0",
     "react-dom": "^19.1.0",
-    "react-router-dom": "^7.5.1"
+    "react-router-dom": "^7.5.1",
+    "react-toastify": "^11.0.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",

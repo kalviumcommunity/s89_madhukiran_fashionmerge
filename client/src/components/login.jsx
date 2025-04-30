@@ -1,25 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import './login.css'; // Import the CSS file for styling
+import './signup.css';
 
 const Login = () => {
   const [formData, setFormData] = useState({
     email: '',
     password: ''
   });
-
   const [forgotPasswordEmail, setForgotPasswordEmail] = useState('');
   const [showForgotPassword, setShowForgotPassword] = useState(false);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
   const navigate = useNavigate();
 
-  // Handle token from Google OAuth
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const token = params.get('token');
     if (token) {
-      localStorage.setItem('token', token); // Store token in local storage
-      navigate('/home'); // Redirect to home page
+      localStorage.setItem('token', token);
+      navigate('/home');
     }
   }, [navigate]);
 
@@ -30,114 +30,162 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
+    setSuccess('');
+    
     try {
+      // Updated endpoint URL - removed '/route'
       const res = await axios.post('http://localhost:5000/login', formData);
-      alert(res.data.msg);
+      setSuccess(res.data.msg || 'Login successful!');
 
       if (res.status === 200) {
-        // Store the JWT token in local storage
         localStorage.setItem('token', res.data.token);
-
-        // Redirect to the home page
-        navigate('/home');
+        setTimeout(() => {
+          navigate('/home');
+        }, 1000);
       }
     } catch (error) {
       if (error.response) {
-        alert(error.response.data.msg);
+        setError(error.response.data.msg || 'Login failed');
       } else {
         console.error(error);
-        alert('An error occurred. Please try again.');
+        setError('An error occurred. Please try again.');
       }
     }
   };
 
   const handleForgotPasswordSubmit = async (e) => {
     e.preventDefault();
+    setError('');
+    setSuccess('');
+    
     try {
+      // Updated endpoint URL - removed '/route'
       const res = await axios.post('http://localhost:5000/forgot-password', { email: forgotPasswordEmail });
-      alert(res.data.msg);
+      setSuccess(res.data.msg || 'Password reset link sent!');
     } catch (error) {
       if (error.response) {
-        alert(error.response.data.msg);
+        setError(error.response.data.msg || 'Failed to send reset link');
       } else {
         console.error(error);
-        alert('An error occurred. Please try again.');
+        setError('An error occurred. Please try again.');
       }
     }
   };
 
+  const redirectToSignup = () => {
+    navigate('/signup');
+  };
+
   return (
-    <div className="login-container">
-      <div className="login-left">
-        <h1>Welcome to Your Fashion Journey</h1>
-        <p>Connect with the latest trends and unlock your style potential.</p>
+    <div className="signup-container">
+      <div className="left-panel">
+        <div className="welcome-content">
+          <br />
+          <br />
+          <br />
+          <br />
+          <h1>Welcome Back!</h1>
+          <p style={{ fontFamily: '"Lucida Handwriting", cursive', fontSize: '1rem' }}>
+          Sign in to access your account and continue your fashion journey with us.
+    </p>
+          <button onClick={redirectToSignup} className="signin-button">
+            Don't have an account? Sign up.
+          </button>
+        </div>
       </div>
-      <div className="login-right">
-        {!showForgotPassword ? (
-          <>
-            <h2>Sign In</h2>
-            <p>Welcome back! Please enter your details</p>
-            <form onSubmit={handleSubmit}>
-              <label>Email Address</label>
+      
+      <div className="right-panel">
+        <div className="form-container">
+          <div className="form-header">
+            <h2>{showForgotPassword ? 'Reset Password' : 'Sign In'}</h2>
+          </div>
+          
+          {error && <div className="error-message">{error}</div>}
+         
+          
+          {!showForgotPassword ? (
+            <form onSubmit={handleSubmit} className="signup-form">
               <input
                 type="email"
                 name="email"
-                placeholder="Enter your email"
                 value={formData.email}
                 onChange={handleChange}
+                placeholder="Email"
                 required
+                className="form-input"
               />
-              <label>Password</label>
+              
               <input
                 type="password"
                 name="password"
-                placeholder="Enter your password"
                 value={formData.password}
                 onChange={handleChange}
+                placeholder="Password"
                 required
+                className="form-input"
               />
-              <div className="login-options">
-                <label>
-                  <input type="checkbox" /> Remember me
-                </label>
-                <a href="#" onClick={() => setShowForgotPassword(true)}>
-                  Forgot Password?
-                </a>
+              
+              <div className="form-footer">
+                <div className="terms-container">
+                  <input type="checkbox" id="remember" className="terms-checkbox" />
+                  <label htmlFor="remember" className="terms-text">Remember me</label>
+                  <a 
+                    href="#" 
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setShowForgotPassword(true);
+                    }}
+                    className="forgot-password-link"
+                  >
+                    Forgot Password?
+                  </a>
+                </div>
+                <button type="submit" className="signup-button">Login</button>
+                <div className="social-icons">
+                  <p className="or-text">or</p>
+                  <a href="http://localhost:5000/auth/google" className="google-icon-link">
+                    <img 
+                      src="https://cdn-icons-png.flaticon.com/128/281/281764.png" 
+                      alt="Google logo" 
+                      className="google-icon-only" 
+                    />
+                  </a>
+                </div>
               </div>
-              <button type="submit">Continue</button>
             </form>
-            <div className="google-signup">
-              <p>Or</p>
-              <a href="http://localhost:5000/auth/google">
-                <button className="google-button">Sign In with Google</button>
-              </a>
-            </div>
-          </>
-        ) : (
-          <>
-            <h2>Forgot Password</h2>
-            <p>Enter your email to reset your password</p>
-            <form onSubmit={handleForgotPasswordSubmit}>
-              <label>Email Address</label>
+          ) : (
+            <form onSubmit={handleForgotPasswordSubmit} className="signup-form">
               <input
                 type="email"
                 name="forgotPasswordEmail"
-                placeholder="Enter your email"
                 value={forgotPasswordEmail}
                 onChange={(e) => setForgotPasswordEmail(e.target.value)}
+                placeholder="Enter your email"
                 required
+                className="form-input"
               />
-              <button type="submit">Send Reset Link</button>
+              
+              <div className="form-footer">
+                <button type="submit" className="signup-button">Send Reset Link</button>
+                <p className="back-to-login">
+                  <a 
+                    href="#" 
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setShowForgotPassword(false);
+                    }}
+                  >
+                    Back to Login
+                  </a>
+                </p>
+              </div>
             </form>
-            <p>
-              Remembered your password?{' '}
-              <a href="#" onClick={() => setShowForgotPassword(false)}>
-                Go back to login
-              </a>
-            </p>
-          </>
-        )}
+          )}
+        </div>
+        
       </div>
+      {success && <div className="success-message">{success}</div>}
     </div>
   );
 };
