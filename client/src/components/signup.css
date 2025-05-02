@@ -1,0 +1,380 @@
+@import '@fontsource/bangers';
+@import '@fontsource/great-vibes';
+@import '@fontsource/kings';
+
+.terms-text {
+  font-family: 'Bangers', cursive;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+}
+
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Arial, sans-serif';
+}
+
+.signup-container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+  background-image: 
+    linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
+    url('https://images.unsplash.com/photo-1585914924626-15adac1e6402?q=80&w=2942&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 0rem;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  filter: brightness(0.9);
+}
+
+.left-panel {
+  flex: 1;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(0, 0, 0);
+  padding: 2rem;
+  position: relative;
+}
+
+.left-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+.welcome-content {
+  max-width: 400px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.welcome-content h1 {
+  font-size: 3.5rem;
+  margin-bottom: 1.5rem;
+  font-family: 'Great Vibes', cursive;
+  color: #ddd;
+}
+
+.welcome-content p {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.8;
+  margin-bottom: 2rem;
+  font-family: 'Great Vibes', cursive;
+  color: #e4e4e4;
+  letter-spacing: 0.5px;
+}
+
+.signin-button {
+  background: transparent;
+  border: 2px solid white;
+  color: white;
+  padding: 0.8rem 1rem;
+  border-radius: 30px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.signin-button:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.right-panel {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  padding: 2rem;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.form-container {
+  width: 200%;
+  max-width: 320px;
+  background-color: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.form-header h2 {
+  font-size: 1.7rem;
+  margin: 0;
+  font-family: 'Great Vibes', cursive;
+}
+
+.form-container h2 {
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
+  color: #222;
+  text-align: left;
+  font-weight: 600;
+  font-family: 'Great Vibes', cursive;
+}
+
+.form-container p {
+  color: #000000;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.8rem 0;
+  border: none;
+  border-bottom: 1px solid #e5e7eb;
+  border-radius: 0;
+  background-color: transparent;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  color: #000000;
+  box-sizing: border-box;
+  margin-bottom: 1rem;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #ddd;
+  box-shadow: none;
+}
+
+.signup-button {
+  width: 100%;
+  padding: 0.8rem 1.5rem;
+  background-color: #000000;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+}
+
+.signup-button:hover {
+  background-color: #3b3b3b;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.terms-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin: 1rem 0;
+}
+
+.terms-checkbox {
+  margin-right: 10px;
+  accent-color: #000000;
+}
+
+.terms-text {
+  font-size: 0.85rem;
+  color: #2b2b2b;
+}
+
+.terms-text a {
+  color: #6b7280;
+  text-decoration: underline;
+}
+
+.signin-link {
+  text-align: right;
+  margin-bottom: 1.5rem;
+}
+
+.signin-link a {
+  color: #6b7280;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.forgot-password-link {
+  margin-left: auto;
+  color: #6b7280;
+  font-size: 0.85rem;
+  text-decoration: none;
+}
+
+.forgot-password-link:hover {
+  color: #000000;
+  text-decoration: underline;
+}
+
+.back-to-login {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.back-to-login a {
+  color: #6b7280;
+  text-decoration: none;
+}
+
+.back-to-login a:hover {
+  color: #000000;
+  text-decoration: underline;
+}
+
+.or-text {
+  text-align: center;
+  color: #666;
+  margin: 0.5rem 0;
+  font-size: 0.8rem;
+  position: relative;
+}
+
+.or-text::before,
+.or-text::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 40px;
+  height: 1px;
+  background-color: #ddd;
+}
+
+.or-text::before {
+  left: -50px;
+}
+
+.or-text::after {
+  right: -50px;
+}
+
+.social-signup {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.social-icons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.google-icon-only {
+  width: 30px;
+  height: 30px;
+  margin: 8px auto;
+  display: block;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.google-icon-link {
+  display: block;
+  text-align: center;
+  margin: 0 auto;
+  text-decoration: none;
+}
+
+.google-icon {
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+}
+
+.google-signin-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0rem;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  background-color: white;
+  color: #444;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+}
+
+.google-signin-btn:hover {
+  background-color: #f8f8f8;
+}
+
+.google-text {
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 5px;
+  text-align: center;
+}
+
+.error-message {
+  color: #ef4444;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.success-message {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #d4edda;
+  color: #155724;
+  padding: 15px 20px;
+  border-radius: 5px;
+  font-family: 'bangers';
+  border: 1px solid #c3e6cb;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  z-index: 9999;
+  animation: slideInRight 0.5s ease-out;
+}
+
+@keyframes slideInRight {
+  from {
+    right: -300px;
+    opacity: 0;
+  }
+  to {
+    right: 20px;
+    opacity: 1;
+  }
+}
+

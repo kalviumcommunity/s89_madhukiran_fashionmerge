@@ -1,38 +1,30 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import './navbar.css'; // Import the CSS file for styling
+import { Search, Heart, User } from 'lucide-react';
+import './Navbar.css';
 
-const Navbar = () => {
-
-
+const Navbar = ({ scrolled }) => {
   return (
-    <nav className="navbar">
-      <div className="navbar-logo">
-        <Link to="/home">FashionMerge</Link>
+    <nav className="navbar" style={{ background: scrolled ? "white" : "transparent" }}>
+      <div className="nav-left">
+        <a href="/contact" className="nav-title" style={{ fontSize: '11px', fontWeight: 'bold' }}>CONTACT</a> {/* Updated href */}
+        <div className="language-selector">
+        </div>
       </div>
-      <ul className="navbar-links">
-        <li>
-          <Link to="/home">Home</Link>
-        </li>
-        <li>
-          <Link to="/explore">Explore</Link>
-        </li> 
-        <li>
-          <Link to="/Music">Music</Link>
-        </li>
-        <li>
-          <Link to="/AI">AI stylist</Link>
-        </li>
-        <li>
-          <Link to="/profile">Profile</Link>
-        </li>
-       
-      
-      </ul>
-      <div className="navbar-toggle">
-        <span></span>
-        <span></span>
-        <span></span>
+      <div className="nav-center">
+        <a href="/music" className="nav-title" style={{ fontSize: '11px', fontWeight: 'bold' }}>MUSIC</a>
+        <a href="/collections" className="nav-title" style={{ fontSize: '11px', fontWeight: 'bold' }}>COLLECTIONS</a>
+        <a href="/about" className="nav-title" style={{ fontSize: '11px', fontWeight: 'bold' }}>ABOUT</a>
+        <a href="/home" className="logo" style={{ fontFamily: 'Playfair Display, serif', fontSize: '30px', fontWeight: 'semi-bold' }}>
+          FashionMerge
+        </a>
+        <a href="/wardrobe" className="nav-title" style={{ fontSize: '11px', fontWeight: 'bold' }}>WARDROBE</a>
+        <a href="/alita" className="nav-title" style={{ fontSize: '11px', fontWeight: 'bold' }}>ALITA</a>
+        <a href="/login" className="nav-title" style={{ fontSize: '11px', fontWeight: 'bold' }}>ACCOUNT</a>
+      </div>
+      <div className="nav-right">
+        <Search size={20} />
+        <Heart size={20} />
+        <User size={20} />
       </div>
     </nav>
   );

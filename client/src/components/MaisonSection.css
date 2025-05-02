@@ -1,0 +1,55 @@
+.maison-section {
+  height: 80vh;
+  background: url('https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg') center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.maison-section::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.maison-content {
+  text-align: center;
+  color: #fff;
+  z-index: 2;
+  max-width: 600px;
+  padding: 0 20px;
+}
+
+.maison-content h2 {
+  font-size: 36px;
+  font-weight: 300;
+  letter-spacing: 6px;
+  margin-bottom: 20px;
+}
+
+.maison-content p {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+.discover-btn {
+  display: inline-block;
+  padding: 15px 30px;
+  border: 1px solid #fff;
+  color: #fff;
+  text-decoration: none;
+  font-size: 12px;
+  letter-spacing: 2px;
+  transition: all 0.3s ease;
+}
+
+.discover-btn:hover {
+  background: #fff;
+  color: #000;
+}

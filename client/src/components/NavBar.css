@@ -1,89 +1,109 @@
-/* Reset default styles for the navbar */
-nav {
-  background-color: #333; /* Dark background for the navbar */
-  color: #fff; /* White text color */
-  display: flex; /* Use flexbox for layout */
-  justify-content: space-between; /* Space between elements */
-  align-items: center; /* Align items vertically centered */
-  padding: 10px 20px; /* Add padding to the navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 30px;
+  background: transparent;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Logo styles */
-.navbar-logo a {
-  color: white; /* Logo text color */
-  text-decoration: none; /* Remove underline from logo link */
-  font-size: 24px; /* Increased font size for logo */
+.navbar.scrolled {
+  background-color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Navbar links styles */
-.navbar-links {
-  list-style: none; /* Remove bullet points from list */
-  display: flex; /* Display links in a row */
-  gap: 20px; /* Space between links */
+.nav-left, .nav-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex: 1;
 }
 
-.navbar-links li {
-  display: inline; /* Inline display for list items */
+.nav-left {
+  justify-content: flex-start;
 }
 
-/* Link styles */
-.navbar-links a {
-  color: white; /* Link color */
-  text-decoration: none; /* Remove underline from links */
-  transition: color 0.3s ease; /* Smooth transition for hover effect */
+.nav-right {
+  justify-content: flex-end;
 }
 
-.navbar-links a:hover {
-  color: #ffcc00; /* Change color on hover */
+.nav-center {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+  justify-content: center;
+  flex: 2;
 }
 
-/* Logout button styles */
-.logout-button {
-  background-color: #e63946; /* Red background for logout */
-  color: white; /* White text color */
-  border: none; /* No border */
-  padding: 10px 15px; /* Padding for button */
-  cursor: pointer; /* Change cursor to pointer */
-  border-radius: 5px; /* Rounded corners */
-  transition: background-color 0.3s ease; /* Smooth transition for background */
+.logo {
+  font-size: 28px;
+  font-weight: 300;
+  letter-spacing: 3px;
+  padding: 0 40px;
+  display: inline-block;
+  position: relative;
 }
 
-.logout-button:hover {
-  background-color: #d62839; /* Darker red on hover */
+.logo::before, .logo::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 20px;
+  background: rgba(0, 0, 0, 0.1);
 }
 
-/* Navbar toggle button for mobile */
-.navbar-toggle {
-  display: none; /* Hide toggle button by default */
-  flex-direction: column; /* Stack bars vertically */
-  cursor: pointer; /* Change cursor to pointer */
+.logo::before {
+  left: -15px;
 }
 
-.navbar-toggle span {
-  width: 25px; /* Width of each bar */
-  height: 3px; /* Height of each bar */
-  background: white; /* Color of each bar */
-  margin: 4px 0; /* Space between bars */
+.logo::after {
+  right: -15px;
 }
 
-/* Responsive styles */
-@media (max-width: 768px) {
-  .navbar-links {
-      display: none; /* Hide links by default on mobile */
-      flex-direction: column; /* Stack links vertically when displayed */
-      position: absolute; /* Position absolute for dropdown effect */
-      top: 60px; /* Position below the navbar */
-      background-color: #333; /* Same background color */
-      width: 100%; /* Full width */
-      padding: 10px 0; /* Pad top and bottom */
-      z-index: 1000; /* Ensure links are above other content */
-  }
+.navbar a {
+  text-decoration: none;
+  color: #000;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  font-weight: 400;
+  transition: color 0.3s ease;
+}
 
-  .navbar-toggle {
-      display: flex; /* Show toggle button on mobile */
-  }
+.navbar a:not(.logo):hover {
+  color: #666;
+}
 
-  .navbar-links.show {
-      display: flex; /* Show links when the toggle is activated */
-  }
+.cart-icon {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.cart-count {
+  font-size: 11px;
+  font-weight: 300;
+}
+
+.language-selector {
+  font-size: 11px;
+  cursor: pointer;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+}
+
+.nav-right svg {
+  stroke-width: 1.25;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.nav-right svg:hover {
+  color: #666;
 }

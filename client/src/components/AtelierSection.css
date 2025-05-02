@@ -1,0 +1,52 @@
+.atelier-section {
+  padding: 100px 40px;
+}
+
+.atelier-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  max-width: 1400px;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.atelier-text {
+  padding-right: 60px;
+}
+
+.atelier-text h2 {
+  font-size: 32px;
+  font-weight: 300;
+  letter-spacing: 4px;
+  margin-bottom: 30px;
+}
+
+.atelier-text p {
+  font-size: 16px;
+  line-height: 1.8;
+  margin-bottom: 40px;
+  color: #666;
+}
+
+.craft-btn {
+  display: inline-block;
+  padding: 15px 30px;
+  border: 1px solid #000;
+  color: #000;
+  text-decoration: none;
+  font-size: 12px;
+  letter-spacing: 2px;
+  transition: all 0.3s ease;
+}
+
+.craft-btn:hover {
+  background: #000;
+  color: #fff;
+}
+
+.atelier-image img {
+  width: 100%;
+  height: 600px;
+  object-fit: cover;
+}
