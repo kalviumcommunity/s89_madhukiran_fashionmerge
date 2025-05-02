@@ -55,8 +55,8 @@ const ResetPassword = () => {
           <br />
           <br />
           <h1>Reset Your Password</h1>
-          <p>Create a new password to secure your account.</p>
-          <button onClick={redirectToLogin} className="signin-button">
+          <p style={{ fontFamily: '"Lucida Handwriting", cursive', fontSize: '1rem' }}>
+          Create a new password to secure your account.    </p>          <button onClick={redirectToLogin} className="signin-button">
             Back to Login
           </button>
         </div>

@@ -1,23 +1,44 @@
+import React, { useEffect, useRef } from 'react'; // Import useRef
 import './App.css';
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Signup from './components/signup';
 import Login from './components/login';
 import ResetPassword from './components/ResetPassword';
 import Home from './components/Home';
-import Navbar from './components/Navbar'; // Import the Navbar component
+import MusicPage from './pages/music';
+import Navbar from './components/NavBar';
+import { MusicPlayerProvider, useMusicPlayer } from './context/MusicPlayerContext';
+import AboutUs from './pages/AboutUs';
+import CreateCollections from './pages/CreateCollections';
+import Contact from './pages/Contact';
 
 function App() {
-  const location = useLocation(); // Get the current route
+  const { currentPlaylist } = useMusicPlayer();
+  const audioRef = useRef(new Audio()); // Use useRef to persist audio object
+
+  useEffect(() => {
+    if (currentPlaylist) {
+      audioRef.current.src = currentPlaylist;
+      audioRef.current.play();
+    }
+    return () => {
+      audioRef.current.pause();
+    };
+  }, [currentPlaylist]);
 
   return (
     <>
-      {location.pathname === '/home' && <Navbar />} {/* Show Navbar only on /home */}
+      <Navbar />
       <Routes>
-        <Route path="/" element={<Signup />} /> {/* Default route */}
+        <Route path="/" element={<Home />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/reset-password" element={<ResetPassword />} />
-        <Route path="/home" element={<Home />} /> {/* Add Home route */}
+        <Route path="/contact" element={<Contact />} />        
+        <Route path="/home" element={<Home />} />
+        <Route path="/music" element={<MusicPage />} />
+        <Route path="/about" element={<AboutUs />} />
+        <Route path="/collections" element={<CreateCollections />} />
       </Routes>
     </>
   );
@@ -26,7 +47,9 @@ function App() {
 function AppWrapper() {
   return (
     <BrowserRouter>
-      <App />
+      <MusicPlayerProvider>
+        <App />
+      </MusicPlayerProvider>
     </BrowserRouter>
   );
 }

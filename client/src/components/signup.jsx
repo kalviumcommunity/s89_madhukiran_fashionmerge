@@ -67,7 +67,8 @@ const SignupForm = () => {
     };
 
     return (
-        <div className="signup-container">
+        <div
+        className="signup-container">
             <div className="left-panel">
                 <div className="welcome-content">
                     <br />
@@ -138,7 +139,7 @@ const SignupForm = () => {
                         <div className="form-footer">
                             <div className="terms-container">
                                 <input type="checkbox" id="terms" required className="terms-checkbox" />
-                                <label htmlFor="terms" className="terms-text">Agree to Terms</label>
+                                <label htmlFor="terms" className="terms-text">I agree to the terms and conditions</label>
                             </div>
                             <button type="submit" className="signup-button">Register</button>
                             <div className="social-icons">

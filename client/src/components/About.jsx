@@ -1,0 +1,44 @@
+import React from 'react';
+import './About.css';
+
+const About = () => {
+  return (
+    <section
+    className="about-section">
+      <div className="about-container">
+        <div className="about-content">
+          <div className="about-image">
+            <img 
+              src="https://images.pexels.com/photos/6069552/pexels-photo-6069552.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 
+              alt="Fashion design studio" 
+              className="image"
+            />
+          </div>
+          
+          <div className="about-text">
+            <h2 className="title">OUR STORY</h2>
+            
+            <p className="description">
+              <br />
+              
+              Fashion Merge was born from a desire to blend timeless elegance with contemporary sensibilities. 
+              
+              Our journey began in 2018, with a vision to create pieces that transcend seasonal trends and become 
+              cherished staples in discerning wardrobes.
+            </p>
+            <p className="description">
+              Each Fashion Merge creation embodies our commitment to exceptional craftsmanship and sustainable 
+              practices. We collaborate with artisans who share our passion for quality and detail, 
+              ensuring every piece tells a story of heritage and innovation.
+            </p>
+            <button className="learn-more-btn">
+              LEARN MORE
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default About;

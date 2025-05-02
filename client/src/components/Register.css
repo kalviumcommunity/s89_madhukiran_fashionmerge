@@ -1,0 +1,64 @@
+.register-section {
+  padding: 80px 0;
+  background-color: #f0f0f0;
+}
+
+.register-container {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.register-title {
+  font-size: 24px;
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 20px;
+}
+
+.divider {
+  width: 64px;
+  height: 2px;
+  background-color: black;
+  margin: 0 auto 24px;
+}
+
+.register-description {
+  color: #666;
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.register-input {
+  flex-grow: 1;
+  background-color: white;
+  border-bottom: 1px solid #ccc;
+  padding: 12px;
+  transition: border-color 0.3s ease;
+}
+
+.register-input:focus {
+  border-color: black;
+  outline: none;
+}
+
+.register-button {
+  background-color: black;
+  color: white;
+  padding: 12px 32px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.register-button:hover {
+  background-color: rgba(0, 0, 0, 0.9);
+}

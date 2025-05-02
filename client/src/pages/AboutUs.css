@@ -1,0 +1,73 @@
+.about {
+  overflow-y: auto; /* Enable vertical scrolling for the entire page */
+  height: 100vh; /* Ensure the page takes full viewport height */
+}
+
+.about-us-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff; /* White background for a clean look */
+  padding: 2rem 0; /* Add padding for better spacing */
+}
+
+.about-us-container {
+  max-width: 1200px;
+  width: 100%;
+  padding: 2rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4rem;
+}
+
+.about-us-container.reverse {
+  flex-direction: row; /* Ensure "Our Story" is on the right and image on the left */
+}
+
+.about-us-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.about-us-description {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 1rem;
+  max-width: 600px;
+}
+
+.about-us-image {
+  width: 100%;
+  padding-top: 8rem;
+  max-width: 400px;
+  margin-left: 2rem;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.contact-btn {
+  background-color: black;
+  color: white;
+  padding: 12px 32px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border-color: #000000;
+  font-size: 11px;
+}
+
+.contact-btn:hover {
+  background-color:#efeeee;
+  color: black;
+  border-color: #000000;
+
+}

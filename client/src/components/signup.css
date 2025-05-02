@@ -1,9 +1,6 @@
-
 @import '@fontsource/bangers';
 @import '@fontsource/great-vibes';
 @import '@fontsource/kings';
-
-
 
 .terms-text {
   font-family: 'Bangers', cursive;
@@ -11,16 +8,12 @@
   letter-spacing: 0.5px;
 }
 
-/* Remove the duplicate @import statement from line 102 */
-/* Update base styles */
-
 html, body {
-    margin: 0;
-    height: 100%;
-    overflow: hidden; /* Make the page unscrollable */
-    font-family: 'Arial, sans-serif';
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Arial, sans-serif';
 }
-  
 
 .signup-container {
   display: flex;
@@ -37,56 +30,19 @@ html, body {
   padding: 0rem;
 }
 
-
-/* Ensure no gradient overlay is applied */
 body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    filter: brightness(0.9); /* Only apply brightness filter */
-}
-
-
-/* Remove the background-image from body::before */
-  .left-panel {
-    flex: 1;
-    /* background-image: url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80'); */
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: rgb(0, 0, 0);
-    padding: 2rem;
-    position: relative;
-  }
-  
-  /* Update the right-panel background */
-  .right-panel {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: transparent;
-    padding: 1rem;
-  }
-  
-  /* Rest of your CSS remains the same */
-
-
-.signup-container {
-  display: flex;
-  height: 100vh;
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
+  height: 100%;
+  z-index: -1;
+  filter: brightness(0.9);
 }
 
 .left-panel {
   flex: 1;
-  /* background-image: url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80'); */
   background-size: cover;
   background-position: center;
   display: flex;
@@ -97,7 +53,6 @@ body::before {
   position: relative;
 }
 
-/* Add this to create an overlay for better text readability */
 .left-panel::before {
   content: '';
   position: absolute;
@@ -116,48 +71,22 @@ body::before {
   z-index: 2;
 }
 
-/* Add this at the top of your CSS file */
-/* Remove or comment out this line since we're using the link tag in HTML */
-/* @import url('https://fonts.cdnfonts.com/css/calligraphy-burnt-rose'); */
-
-/* Your existing font styles will work as they are */
-/* Add this import at the top of your CSS file */
-
-
-/* Update the welcome content heading */
 .welcome-content h1 {
   font-size: 3.5rem;
   margin-bottom: 1.5rem;
-  font-family:'Great Vibes', cursive;
+  font-family: 'Great Vibes', cursive;
   color: #ddd;
 }
 
-/* Update form container heading */
-.form-container h2 {
-  font-size: 1.6rem;
-  margin-bottom: 0.5rem;
-  color: #000000;
-  text-align: left;
-  font-weight: 600;
-  font-family: 'Great Vibes', cursive;
-}
-
-/* Update form header heading */
-.form-header h2 {
-  font-size: 1.7rem;
-  margin: 0;
-  font-family:'Great Vibes', cursive;
-}
-
 .welcome-content p {
-    font-size: 1.5rem;
-    font-weight: 600;
-    line-height: 1.8;
-    margin-bottom: 2rem;
-    font-family:'Great Vibes', cursive;
-    color:#e4e4e4;
-    letter-spacing: 0.5px;
-  }
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.8;
+  margin-bottom: 2rem;
+  font-family: 'Great Vibes', cursive;
+  color: #e4e4e4;
+  letter-spacing: 0.5px;
+}
 
 .signin-button {
   background: transparent;
@@ -174,33 +103,25 @@ body::before {
   background-color: rgba(0, 0, 0, 0.1);
 }
 
-/* Keep your existing styles for left panel and container */
-
-/* Update right panel styles for the minimalist design */
 .right-panel {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  /* background-image: url('https://images.unsplash.com/photo-1583591900414-7031eb309cb6?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjR8fHRleHR1cmUlMjBiYWNrZ3JvdW5kfGVufDB8fDB8fHww'); */
-  background-size: cover;
-  /* background-color: #D8D3CF; */
-  background-position: center;
-  background-color: rgba(0, 0, 0, 0.1);
+  background: transparent;
   padding: 2rem;
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
-/* Update form container to be smaller */
 .form-container {
-  width: 100%;
-  max-width: 300px;
+  width: 200%;
+  max-width: 320px;
   background-color: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(10px);
   padding: 2rem;
   border-radius: 15px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
-
 
 .form-header {
   display: flex;
@@ -210,110 +131,31 @@ body::before {
 }
 
 .form-header h2 {
-  font-size: 1.3rem;
+  font-size: 1.7rem;
   margin: 0;
-}
-
-.form-input {
-  width: 100%;
-  padding: 0.5rem 0;
-  margin-bottom: 0.5rem;
-}
-
-.form-footer {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
-}
-
-.terms-container {
-  margin: 0;
-}
-
-.social-icons {
-  display: flex;
-  justify-content: center;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
-}
-
-.social-icon {
-  width: 30px;
-  height: 30px;
-  font-size: 0.8rem;
-}
-
-.signup-button {
-  padding: 0.5rem;
-  margin: 0;
+  font-family: 'Great Vibes', cursive;
 }
 
 .form-container h2 {
-  font-size: 1.3rem;
-  margin-bottom: 0.3rem;
-}
-
-.form-container p {
-  margin-bottom: 0.8rem;
-  font-size: 0.75rem;
-}
-
-.form-group {
-  margin-bottom: 0.8rem;
-}
-
-.form-input {
-  padding: 0.5rem 0;
-  margin-bottom: 0.5rem;
-}
-
-.terms-container {
-  margin: 0.5rem 0;
-}
-
-.social-signup {
-  margin-top: 1rem;
-}
-
-.signup-button {
-  margin-top: 0.5rem;
-  padding: 0.6rem 1.2rem;
-}
-
-/* Adjust form elements for better contrast against transparent background */
-.form-container h2 {
-  font-size: 1.6rem; /* Reduced from 1.8rem */
+  font-size: 1.6rem;
   margin-bottom: 0.5rem;
   color: #222;
   text-align: left;
   font-weight: 600;
+  font-family: 'Great Vibes', cursive;
 }
 
-.form-container p {
-  color: #000000; /* Darker than before for better contrast */
-  margin-bottom: 1.2rem;
-  font-size: 0.85rem; /* Slightly smaller */
-}
-
-/* Make inputs stand out better on transparent background */
-/* .form-input {
-  background-color: rgba(255, 255, 255, 0.5);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-}
-
-.form-input:focus {
-  background-color: rgba(255, 255, 255, 0.8);
-} */
-
-/* Add subtitle text like in the image */
 .form-container p {
   color: #000000;
   margin-bottom: 1.5rem;
   font-size: 0.9rem;
 }
 
-/* Make inputs more like the image - simple underline style */
+.form-group {
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
 .form-input {
   width: 100%;
   padding: 0.8rem 0;
@@ -334,13 +176,6 @@ body::before {
   box-shadow: none;
 }
 
-/* Add label for inputs */
-.form-group {
-  margin-bottom: 1.5rem;
-  position: relative;
-}
-
-/* Style the signup button like in the image - green button */
 .signup-button {
   width: 100%;
   padding: 0.8rem 1.5rem;
@@ -357,20 +192,13 @@ body::before {
 
 .signup-button:hover {
   background-color: #3b3b3b;
-  transform: none;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Update social signup section to match the image */
-.social-signup {
-  margin-top: 1.5rem;
-  text-align: center;
-}
-
-/* Add terms and conditions checkbox */
 .terms-container {
   display: flex;
   align-items: center;
+  width: 100%;
   margin: 1rem 0;
 }
 
@@ -389,10 +217,8 @@ body::before {
   text-decoration: underline;
 }
 
-/* Add sign in link */
 .signin-link {
   text-align: right;
-  margin-top: 0;
   margin-bottom: 1.5rem;
 }
 
@@ -402,8 +228,6 @@ body::before {
   text-decoration: none;
 }
 
-
-/* Additional styles for login page */
 .forgot-password-link {
   margin-left: auto;
   color: #6b7280;
@@ -414,12 +238,6 @@ body::before {
 .forgot-password-link:hover {
   color: #000000;
   text-decoration: underline;
-}
-
-.terms-container {
-  display: flex;
-  align-items: center;
-  width: 100%;
 }
 
 .back-to-login {
@@ -442,7 +260,55 @@ body::before {
   text-align: center;
   color: #666;
   margin: 0.5rem 0;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
+  position: relative;
+}
+
+.or-text::before,
+.or-text::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 40px;
+  height: 1px;
+  background-color: #ddd;
+}
+
+.or-text::before {
+  left: -50px;
+}
+
+.or-text::after {
+  right: -50px;
+}
+
+.social-signup {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.social-icons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.google-icon-only {
+  width: 30px;
+  height: 30px;
+  margin: 8px auto;
+  display: block;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.google-icon-link {
+  display: block;
+  text-align: center;
+  margin: 0 auto;
+  text-decoration: none;
 }
 
 .google-icon {
@@ -472,6 +338,13 @@ body::before {
   background-color: #f8f8f8;
 }
 
+.google-text {
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 5px;
+  text-align: center;
+}
+
 .error-message {
   color: #ef4444;
   margin-bottom: 1rem;
@@ -480,72 +353,6 @@ body::before {
 }
 
 .success-message {
-  color: #000000;
-  margin-bottom: 1rem;
-  font-size: 0.9rem;
-  text-align: center;
-}
-
-/* Google sign-in styling to match the reference design */
-.google-text {
-  font-size: 0.8rem;
-  color: #666;
-  margin-top: 5px;
-  text-align: center;
-}
-
-.social-icons {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 1rem;
-  margin-bottom: 0.5rem;
-}
-
-.google-icon-only {
-  width: 30px;
-  height: 30px;
-  margin: 8px auto;
-  display: block;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-.google-icon-link {
-  display: block;
-  text-align: center;
-  margin: 0 auto;
-  text-decoration: none;
-}
-
-
-.or-text {
-  text-align: center;
-  color: #666;
-  margin: 0.5rem 0;
-  font-size: 0.8rem;
-  position: relative;
-}
-
-.or-text::before,
-.or-text::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  width: 40px;
-  height: 1px;
-  background-color: #ddd;
-}
-
-.or-text::before {
-  left: -50px;
-}
-
-.or-text::after {
-  right: -50px;
-}
-
-.success-message{
   position: fixed;
   top: 20px;
   right: 20px;
@@ -570,3 +377,4 @@ body::before {
     opacity: 1;
   }
 }
+
