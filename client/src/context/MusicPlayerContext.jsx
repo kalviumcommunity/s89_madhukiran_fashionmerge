@@ -31,10 +31,10 @@ export const MusicPlayerProvider = ({ children }) => {
   return (
     <MusicPlayerContext.Provider value={{ currentPlaylist, playPlaylist }}>
       {children}
-      {currentPlaylist && (
+      
         <iframe
-          ref={playerRef}
-          src={currentPlaylist}
+          
+          src={'https://open.spotify.com/embed/playlist/37i9dQZF1DX4WYpdgoIcn6?utm_source=generator'}
           width="300"
           height="80"
           frameBorder="0"
@@ -51,7 +51,7 @@ export const MusicPlayerProvider = ({ children }) => {
             backgroundColor: 'white', // Ensure background is visible
           }}
         ></iframe>
-      )}
+      
     </MusicPlayerContext.Provider>
   );
 };

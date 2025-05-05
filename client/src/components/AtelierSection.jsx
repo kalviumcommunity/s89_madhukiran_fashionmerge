@@ -5,12 +5,15 @@ const AtelierSection = () => (
   <section className="atelier-section">
     <div className="atelier-grid">
       <div className="atelier-text">
-        <h2>THE ATELIER</h2>
-        <p>Each piece is meticulously crafted by our master artisans, bringing together centuries of tradition with modern innovation.</p>
-        <a href="#craftsmanship" className="craft-btn">EXPLORE CRAFTSMANSHIP</a>
+        <h2>THE ALITA</h2>
+        <p>ALITA is your personal fashion design assistant in FashionMerge.
+She analyzes outfit images uploaded by users and offers smart styling tips.
+From improving your look to matching it with trends or wardrobe items, ALITA’s got you.
+Whether you're dressing up or designing, ALITA helps you refine your fashion game.</p>
+        <a href="#craftsmanship" className="craft-btn">EXPLORE ALITA</a>
       </div>
       <div className="atelier-image">
-        <img src="https://images.pexels.com/photos/5370706/pexels-photo-5370706.jpeg" alt="Jewelry craftsmanship" />
+        <img src="https://images.pexels.com/photos/2681751/pexels-photo-2681751.jpeg" alt="Jewelry craftsmanship" />
       </div>
     </div>
   </section>
