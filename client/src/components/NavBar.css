@@ -9,6 +9,7 @@
   left: 0;
   right: 0;
   z-index: 1000;
+  
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -74,6 +75,7 @@
   letter-spacing: 1.5px;
   font-weight: 400;
   transition: color 0.3s ease;
+  cursor: pointer; /* Added pointer cursor */
 }
 
 .navbar a:not(.logo):hover {
