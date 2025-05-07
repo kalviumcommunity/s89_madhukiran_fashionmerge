@@ -55,7 +55,6 @@ app.get('/logout', (req, res) => {
   });
 });
 
-// Start Server
 app.listen(PORT, async () => {
     try {
         await mongoose.connect(STRING, { useNewUrlParser: true, useUnifiedTopology: true });
