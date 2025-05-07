@@ -1,5 +1,4 @@
 import CollectionCard from './CollectionsCard';
-import Navbar from '../components/NavBar'
 import { collections } from './collections';
 import React, { useState, useEffect } from 'react';
 import { Filter } from 'lucide-react';
@@ -51,7 +50,6 @@ const CollectionsPage = () => {
 
   return (
     <div className={`collections-container ${scrolled ? 'scrolled' : ''}`}>
-      {/* Remove this line if Navbar is included in a higher-level component */}
       {/* <Navbar scrolled={scrolled} /> */}
       <div className="collections-header">
         <h1>FashionMerge Collections</h1>
@@ -91,7 +89,11 @@ const CollectionsPage = () => {
             key={item.id} 
             item={item} 
             onClick={() => openCollectionModal(item)}
-          />
+          >
+            <button className="add-to-cart-button" onClick={() => addToCart(item)}>
+              Add to Cart
+            </button>
+          </CollectionCard>
         ))}
       </div>
       
@@ -103,6 +105,12 @@ const CollectionsPage = () => {
       )}
     </div>
   );
+};
+
+// Function to handle adding items to the cart
+const addToCart = (item) => {
+  // Logic to add item to cart
+  console.log(`Added ${item.name} to cart`);
 };
 
 export default CollectionsPage;

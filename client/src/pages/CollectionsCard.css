@@ -1,0 +1,21 @@
+.add-to-cart-button {
+    display: flex;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: #1a1a1a;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .add-to-cart-button:hover {
+    background-color: #333333;
+  }
+  .price-addtocart-button{
+    all: unset;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }

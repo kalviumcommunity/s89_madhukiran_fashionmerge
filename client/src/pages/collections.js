@@ -6,7 +6,6 @@ export const collections = [
       items: Array.from({ length: 100 }, (_, i) => ({
         id: 1000 + i,
         name: `Signature Collection Item ${i + 1}`,
-        description: "Elevate your style with this meticulously crafted piece that combines contemporary design with timeless elegance. Perfect for both casual and formal occasions.",
         image: `https://images.pexels.com/photos/${5709661 + i}/pexels-photo-${5709661 + i}.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2`,
         price: 199.99 + (i * 10),
         details: {
@@ -24,7 +23,6 @@ export const collections = [
       items: Array.from({ length: 100 }, (_, i) => ({
         id: 2000 + i,
         name: `Luxury Accessory ${i + 1}`,
-        description: "Complete your look with this exquisite accessory, handcrafted by skilled artisans using the finest materials. A perfect blend of form and function.",
         image: `https://images.pexels.com/photos/${1152077 + i}/pexels-photo-${1152077 + i}.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2`,
         price: 89.99 + (i * 5),
         details: {
@@ -42,7 +40,6 @@ export const collections = [
       items: Array.from({ length: 100 }, (_, i) => ({
         id: 3000 + i,
         name: `Men's Essential ${i + 1}`,
-        description: "Refined menswear that combines classic tailoring with modern sensibilities. Made from premium materials for lasting comfort and style.",
         image: `https://images.pexels.com/photos/${1300550 + i}/pexels-photo-${1300550 + i}.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2`,
         price: 149.99 + (i * 8),
         details: {
@@ -60,7 +57,6 @@ export const collections = [
       items: Array.from({ length: 100 }, (_, i) => ({
         id: 4000 + i,
         name: `Women's Collection ${i + 1}`,
-        description: "Sophisticated pieces that celebrate feminine elegance. Each garment is thoughtfully designed to provide both comfort and style.",
         image: `https://images.pexels.com/photos/${1036623 + i}/pexels-photo-${1036623 + i}.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2`,
         price: 179.99 + (i * 7),
         details: {
@@ -78,7 +74,7 @@ export const collections = [
       items: Array.from({ length: 100 }, (_, i) => ({
         id: 5000 + i,
         name: `Home Collection ${i + 1}`,
-        description: "Transform your living space with our curated home collection. Each piece is designed to add sophistication and comfort to your environment.",
+        description: "Transform your living space with our curated home collection.",
         image: `https://images.pexels.com/photos/${1571459 + i}/pexels-photo-${1571459 + i}.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2`,
         price: 129.99 + (i * 6),
         details: {

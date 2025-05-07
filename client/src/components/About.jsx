@@ -2,9 +2,12 @@ import React from 'react';
 import './About.css';
 
 const About = () => {
+  const handleLearnMoreClick = () => {
+    window.location.href = '/about'; // Redirect to the about us page
+  };
+
   return (
-    <section
-    className="about-section">
+    <section className="about-section">
       <div className="about-container">
         <div className="about-content">
           <div className="about-image">
@@ -31,7 +34,7 @@ const About = () => {
               practices. We collaborate with artisans who share our passion for quality and detail, 
               ensuring every piece tells a story of heritage and innovation.
             </p>
-            <button className="learn-more-btn">
+            <button className="learn-more-btn" onClick={handleLearnMoreClick}>
               LEARN MORE
             </button>
           </div>

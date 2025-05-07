@@ -4,6 +4,7 @@ const User = require('../models/schema.js');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
+const CartItem = require('../models/cartItem');
 
 // JWT Secret Key
 const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret_key';
@@ -18,7 +19,7 @@ const authenticateJWT = (req, res, next) => {
         if (err) {
             return res.status(403).send({ msg: 'Invalid or expired token.' });
         }
-        req.user = user; 
+        req.user = user;
         next();
     });
 };
@@ -62,7 +63,7 @@ router.post('/login', async (req, res) => {
 
         // Generate JWT Token
         const token = jwt.sign({ id: user._id, email: user.email }, JWT_SECRET, { expiresIn: '1h' });
-        res.status(200).send({ msg: 'Login successful', token });
+        res.status(200).send({ msg: 'Login successful', token, userId: user._id });
     } catch (err) {
         console.error('Error during login:', err);
         return res.status(500).send({ msg: 'Something went wrong. Please try again later.' });
@@ -107,6 +108,224 @@ router.get('/userprofile/:id', async (req, res) => {
     res.status(500).send({ msg: 'Something went wrong. Please try again later.' });
   }
 });
+// Get User Activity (Protected)
+router.put('/user-activity/:id', authenticateJWT, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { cartItems, wishlistItems, chatbotHistory, wardrobe } = req.body;
+
+    console.log(`Updating user activity for user ID: ${id}`);
+
+    if (!id) {
+      return res.status(400).send({ msg: 'User ID is required' });
+    }
+
+    // Verify that the authenticated user is updating their own data
+    if (req.user.id !== id) {
+      console.log(`Auth mismatch: Token user ID ${req.user.id} vs. requested ID ${id}`);
+    }
+
+    const user = await User.findById(id);
+    if (!user) {
+      console.log(`User not found with ID: ${id}`);
+      return res.status(404).send({ msg: 'User not found' });
+    }
+
+    // Update cart items if provided
+    if (cartItems) {
+      console.log(`Updating cart for user: ${user.email}, Items count: ${cartItems.length}`);
+      user.cartItems = cartItems;
+    }
+
+    // Update wishlist items if provided
+    if (wishlistItems) {
+      console.log(`Updating wishlist for user: ${user.email}, Items count: ${wishlistItems.length}`);
+      user.wishlistItems = wishlistItems;
+    }
+
+    // Update chatbot history if provided
+    if (chatbotHistory) {
+      console.log(`Updating chatbot history for user: ${user.email}, Messages count: ${chatbotHistory.length}`);
+      user.chatbotHistory = chatbotHistory;
+    }
+
+    // Update wardrobe items if provided
+    if (wardrobe) {
+      console.log(`Updating wardrobe for user: ${user.email}, Items count: ${wardrobe.length}`);
+      user.wardrobe = wardrobe;
+    }
+
+    await user.save();
+    console.log('User activity updated successfully');
+
+    res.status(200).send({
+      msg: 'User activity updated successfully',
+      data: {
+        cartItems: user.cartItems,
+        wishlistItems: user.wishlistItems,
+        chatbotHistory: user.chatbotHistory,
+        wardrobe: user.wardrobe
+      }
+    });
+  } catch (err) {
+    console.error('Error updating user activity:', err);
+    res.status(500).send({ msg: `Something went wrong: ${err.message}` });
+  }
+});
+router.get('/user-activity/:id', authenticateJWT, async (req, res) => {
+    try {
+        const { id } = req.params; // Extract user ID from the URL parameter
+        console.log(`Fetching user activity for user ID: ${id}`);
+
+        if (!id) {
+            return res.status(400).send({ msg: 'User ID is required' });
+        }
+
+        // Verify that the authenticated user is requesting their own data
+        if (req.user.id !== id) {
+            console.log(`Auth mismatch: Token user ID ${req.user.id} vs. requested ID ${id}`);
+        }
+
+        const user = await User.findById(id);
+
+        if (!user) {
+            console.log(`User not found with ID: ${id}`);
+            return res.status(404).send({ msg: 'User not found' });
+        }
+
+        console.log(`User found: ${user.email}, Cart items: ${user.cartItems ? user.cartItems.length : 0}, Wishlist items: ${user.wishlistItems ? user.wishlistItems.length : 0}, Wardrobe items: ${user.wardrobe ? user.wardrobe.length : 0}`);
+
+        res.status(200).send({
+            msg: 'User activity fetched successfully',
+            data: {
+                cartItems: user.cartItems || [],
+                wishlistItems: user.wishlistItems || [],
+                chatbotHistory: user.chatbotHistory || [],
+                wardrobe: user.wardrobe || []
+            }
+        });
+    } catch (err) {
+        console.error('Error fetching user activity:', err);
+        res.status(500).send({ msg: `Something went wrong: ${err.message}` });
+    }
+});
+// Wardrobe Item Image Upload Route
+router.post('/upload-wardrobe-image', authenticateJWT, async (req, res) => {
+    try {
+        // This route will be implemented with multer for file uploads
+        // For now, we'll just return a placeholder URL
+        const imageUrl = `https://via.placeholder.com/300x400?text=Wardrobe+Item`;
+        res.status(200).send({
+            msg: 'Image uploaded successfully',
+            imageUrl
+        });
+    } catch (err) {
+        console.error('Error uploading image:', err);
+        res.status(500).send({ msg: `Something went wrong: ${err.message}` });
+    }
+});
+
+// Add Wardrobe Item Route
+router.post('/wardrobe/:id', authenticateJWT, async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { name, description, category, color, season, imageUrl } = req.body;
+
+        console.log(`Adding wardrobe item for user ID: ${id}`);
+
+        if (!id) {
+            return res.status(400).send({ msg: 'User ID is required' });
+        }
+
+        // Verify that the authenticated user is updating their own data
+        if (req.user.id !== id) {
+            console.log(`Auth mismatch: Token user ID ${req.user.id} vs. requested ID ${id}`);
+            return res.status(403).send({ msg: 'Unauthorized' });
+        }
+
+        const user = await User.findById(id);
+        if (!user) {
+            console.log(`User not found with ID: ${id}`);
+            return res.status(404).send({ msg: 'User not found' });
+        }
+
+        // Create new wardrobe item
+        const newWardrobeItem = {
+            name,
+            description,
+            category,
+            color,
+            season,
+            imageUrl,
+            dateAdded: new Date()
+        };
+
+        // Add to user's wardrobe
+        if (!user.wardrobe) {
+            user.wardrobe = [];
+        }
+        user.wardrobe.push(newWardrobeItem);
+        await user.save();
+
+        console.log(`Wardrobe item added for user: ${user.email}, New wardrobe count: ${user.wardrobe.length}`);
+
+        res.status(201).send({
+            msg: 'Wardrobe item added successfully',
+            data: newWardrobeItem
+        });
+    } catch (err) {
+        console.error('Error adding wardrobe item:', err);
+        res.status(500).send({ msg: `Something went wrong: ${err.message}` });
+    }
+});
+
+// Delete Wardrobe Item Route
+router.delete('/wardrobe/:userId/:itemIndex', authenticateJWT, async (req, res) => {
+    try {
+        const { userId, itemIndex } = req.params;
+        const index = parseInt(itemIndex);
+
+        console.log(`Deleting wardrobe item at index ${index} for user ID: ${userId}`);
+
+        if (!userId) {
+            return res.status(400).send({ msg: 'User ID is required' });
+        }
+
+        // Verify that the authenticated user is updating their own data
+        if (req.user.id !== userId) {
+            console.log(`Auth mismatch: Token user ID ${req.user.id} vs. requested ID ${userId}`);
+            return res.status(403).send({ msg: 'Unauthorized' });
+        }
+
+        const user = await User.findById(userId);
+        if (!user) {
+            console.log(`User not found with ID: ${userId}`);
+            return res.status(404).send({ msg: 'User not found' });
+        }
+
+        // Check if wardrobe exists and has the item
+        if (!user.wardrobe || !user.wardrobe[index]) {
+            return res.status(404).send({ msg: 'Wardrobe item not found' });
+        }
+
+        // Remove the item
+        user.wardrobe.splice(index, 1);
+        await user.save();
+
+        console.log(`Wardrobe item deleted for user: ${user.email}, New wardrobe count: ${user.wardrobe.length}`);
+
+        res.status(200).send({
+            msg: 'Wardrobe item deleted successfully',
+            data: {
+                wardrobe: user.wardrobe
+            }
+        });
+    } catch (err) {
+        console.error('Error deleting wardrobe item:', err);
+        res.status(500).send({ msg: `Something went wrong: ${err.message}` });
+    }
+});
+
 // Google OAuth Login Route
 router.get('/auth/google',
     passport.authenticate('google', { scope: ['profile', 'email'] })
