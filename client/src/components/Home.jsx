@@ -11,7 +11,7 @@ import About from './About';
 import Register from './Register';
 
 const Home = () => {
-  const [scrolled, setScrolled] = useState(false);
+  const [scrolled, setScrolled] = useState(true);
 
   const handleScroll = (event) => {
     const scrollTop = event.target.scrollTop;

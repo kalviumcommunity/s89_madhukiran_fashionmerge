@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './music.css';
 import Navbar from '../components/NavBar';
+import { MusicContext } from '../context/MusicContext';
 
-const MusicPage = ({ currentMusic, setCurrentMusic }) => {
+const MusicPage = () => {
+  const { currentMusic, setCurrentMusic, isPlaying, setIsPlaying } = useContext(MusicContext);
   const [scrolled, setScrolled] = useState(true);
-  const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -76,16 +77,10 @@ const MusicPage = ({ currentMusic, setCurrentMusic }) => {
 
   const handlePlayPause = (playlistSrc) => {
     if (currentMusic === playlistSrc) {
-      if (isPlaying) {
-        setIsPlaying(false);
-        setCurrentMusic(null);
-      } else {
-        setIsPlaying(true);
-        setCurrentMusic(playlistSrc);
-      }
+      setIsPlaying(!isPlaying);
     } else {
-      setIsPlaying(true);
       setCurrentMusic(playlistSrc);
+      setIsPlaying(true);
     }
   };
 

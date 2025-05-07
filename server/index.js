@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const session = require('express-session');
 const passport = require('passport');
+const jwt = require('jsonwebtoken');
 const app = express();
 require('dotenv').config();
 require('./passport-config');
@@ -22,11 +23,15 @@ const STRING = process.env.MONGO_URI;
 
 const router = require('./routers/router');
 const forgotPassRouter = require('./routers/forgotpass');
-const collectionsRouter = require('./routers/collections'); // Import collections router
+const uploadRoutes = require('./routers/uploadRoutes');
+const purchasesRoutes = require('./routes/purchases');
+const stripeRoutes = require('./routes/stripe');
 
 app.use(router);
 app.use(forgotPassRouter);
-app.use(collectionsRouter); // Register collections router
+app.use('/api/upload', uploadRoutes);
+app.use('/api/purchases', purchasesRoutes);
+app.use('/api/stripe', stripeRoutes);
 
 // Google OAuth Routes
 app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));

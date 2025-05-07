@@ -32,7 +32,7 @@ const Login = () => {
     e.preventDefault();
     setError('');
     setSuccess('');
-    
+
     try {
       // Updated endpoint URL - removed '/route'
       const res = await axios.post('http://localhost:5000/login', formData);
@@ -40,6 +40,13 @@ const Login = () => {
 
       if (res.status === 200) {
         localStorage.setItem('token', res.data.token);
+        localStorage.setItem('userId', res.data.userId);
+
+        // Trigger storage event for other components to detect the change
+        window.dispatchEvent(new Event('storage'));
+
+        console.log('Login successful! User ID:', res.data.userId);
+
         setTimeout(() => {
           navigate('/home');
         }, 1000);
@@ -58,7 +65,7 @@ const Login = () => {
     e.preventDefault();
     setError('');
     setSuccess('');
-    
+
     try {
       // Updated endpoint URL - removed '/route'
       const res = await axios.post('http://localhost:5000/forgot-password', { email: forgotPasswordEmail });
@@ -94,16 +101,16 @@ const Login = () => {
           </button>
         </div>
       </div>
-      
+
       <div className="right-panel">
         <div className="form-container">
           <div className="form-header">
             <h2>{showForgotPassword ? 'Reset Password' : 'Sign In'}</h2>
           </div>
-          
+
           {error && <div className="error-message">{error}</div>}
-         
-          
+
+
           {!showForgotPassword ? (
             <form onSubmit={handleSubmit} className="signup-form">
               <input
@@ -115,7 +122,7 @@ const Login = () => {
                 required
                 className="form-input"
               />
-              
+
               <input
                 type="password"
                 name="password"
@@ -125,13 +132,13 @@ const Login = () => {
                 required
                 className="form-input"
               />
-              
+
               <div className="form-footer">
                 <div className="terms-container">
                   <input type="checkbox" id="remember" className="terms-checkbox" />
                   <label htmlFor="remember" className="terms-text">Remember me</label>
-                  <a 
-                    href="#" 
+                  <a
+                    href="#"
                     onClick={(e) => {
                       e.preventDefault();
                       setShowForgotPassword(true);
@@ -145,10 +152,10 @@ const Login = () => {
                 <div className="social-icons">
                   <p className="or-text">or</p>
                   <a href="http://localhost:5000/auth/google" className="google-icon-link">
-                    <img 
-                      src="https://cdn-icons-png.flaticon.com/128/281/281764.png" 
-                      alt="Google logo" 
-                      className="google-icon-only" 
+                    <img
+                      src="https://cdn-icons-png.flaticon.com/128/281/281764.png"
+                      alt="Google logo"
+                      className="google-icon-only"
                     />
                   </a>
                 </div>
@@ -165,12 +172,12 @@ const Login = () => {
                 required
                 className="form-input"
               />
-              
+
               <div className="form-footer">
                 <button type="submit" className="signup-button">Send Reset Link</button>
                 <p className="back-to-login">
-                  <a 
-                    href="#" 
+                  <a
+                    href="#"
                     onClick={(e) => {
                       e.preventDefault();
                       setShowForgotPassword(false);
@@ -183,7 +190,7 @@ const Login = () => {
             </form>
           )}
         </div>
-        
+
       </div>
       {success && <div className="success-message">{success}</div>}
     </div>

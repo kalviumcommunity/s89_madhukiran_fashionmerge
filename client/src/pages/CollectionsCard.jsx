@@ -1,7 +1,7 @@
 import React from 'react';
-// ... existing code ...
+import './CollectionsCard.css';
 
-const CollectionCard = ({ item, onClick }) => {
+const CollectionsCard = ({ item, onClick, children }) => {
   return (
     <div className="collection-card" onClick={onClick}>
       <div className="collection-image-container">
@@ -10,10 +10,14 @@ const CollectionCard = ({ item, onClick }) => {
       <div className="collection-info">
         <h3 className="collection-name">{item.name}</h3>
         <p className="collection-description">{item.description}</p>
-        <p className="collection-price">${item.price.toFixed(2)}</p>
+        <div className='price-addtocart-button'>
+        <p className="collection-price">${item.price}</p>
+        
+        {children} {/* Render children elements, such as the button */}
+      </div>
       </div>
     </div>
   );
 };
 
-export default CollectionCard;
+export default CollectionsCard;
