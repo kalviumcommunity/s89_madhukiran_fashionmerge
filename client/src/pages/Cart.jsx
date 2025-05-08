@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { Minus, Plus, X, CreditCard, CheckCircle } from 'lucide-react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { Minus, Plus, X, CreditCard, CheckCircle, Check, Clock, CreditCard as CardIcon, ShoppingBag } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useCartStore } from './cartStore';
 import './Cart.css';
+import './PaymentAnimations.css';
 
 function Cart() {
   const navigate = useNavigate();
@@ -30,6 +31,21 @@ function Cart() {
     expiryDate: '',
     cvv: ''
   });
+
+  // Payment processing animation states
+  const [processingSteps, setProcessingSteps] = useState([
+    { id: 1, text: 'Verifying payment information', status: 'pending' },
+    { id: 2, text: 'Processing payment', status: 'pending' },
+    { id: 3, text: 'Creating order', status: 'pending' },
+    { id: 4, text: 'Finalizing purchase', status: 'pending' }
+  ]);
+  const [currentStep, setCurrentStep] = useState(0);
+  const confettiRef = useRef(null);
+
+  // Success popup states
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+  const [popupClosing, setPopupClosing] = useState(false);
+  const [orderNumber, setOrderNumber] = useState('');
 
   // Check login status on component mount and when localStorage changes
   useEffect(() => {
@@ -125,6 +141,45 @@ function Cart() {
     }
   };
 
+  // Function to create confetti elements
+  const createConfetti = () => {
+    if (!confettiRef.current) return;
+
+    const container = confettiRef.current;
+    container.innerHTML = '';
+
+    // Create 50 confetti elements
+    for (let i = 0; i < 50; i++) {
+      const confetti = document.createElement('div');
+      confetti.className = 'confetti';
+      confetti.style.left = `${Math.random() * 100}%`;
+      confetti.style.top = `${Math.random() * 20}%`;
+      confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+      confetti.style.width = `${Math.random() * 10 + 5}px`;
+      confetti.style.height = `${Math.random() * 10 + 5}px`;
+      confetti.style.animationDelay = `${Math.random() * 2}s`;
+      confetti.style.animationDuration = `${Math.random() * 3 + 2}s`;
+
+      // Random shapes
+      if (Math.random() > 0.6) {
+        confetti.style.borderRadius = '50%';
+      } else if (Math.random() > 0.5) {
+        confetti.style.borderRadius = '2px';
+      }
+
+      container.appendChild(confetti);
+    }
+  };
+
+  // Update processing steps
+  const updateProcessingStep = (stepIndex, status) => {
+    setProcessingSteps(prevSteps =>
+      prevSteps.map((step, index) =>
+        index === stepIndex ? { ...step, status } : step
+      )
+    );
+  };
+
   const processPayment = async () => {
     if (!isLoggedIn) {
       alert('Please log in to complete your purchase');
@@ -141,8 +196,24 @@ function Cart() {
     try {
       setIsProcessing(true);
       setPaymentError('');
+      setCurrentStep(0);
 
-      // Step 1: Create a payment intent
+      // Reset processing steps
+      setProcessingSteps([
+        { id: 1, text: 'Verifying payment information', status: 'pending' },
+        { id: 2, text: 'Processing payment', status: 'pending' },
+        { id: 3, text: 'Creating order', status: 'pending' },
+        { id: 4, text: 'Finalizing purchase', status: 'pending' }
+      ]);
+
+      // Step 1: Verify payment information
+      updateProcessingStep(0, 'active');
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      updateProcessingStep(0, 'completed');
+      setCurrentStep(1);
+
+      // Step 2: Create a payment intent
+      updateProcessingStep(1, 'active');
       const paymentIntentResponse = await fetch('http://localhost:5000/api/stripe/create-payment-intent', {
         method: 'POST',
         headers: {
@@ -161,9 +232,14 @@ function Cart() {
         throw new Error('Failed to create payment intent');
       }
 
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      updateProcessingStep(1, 'completed');
+      setCurrentStep(2);
+
       const paymentIntentData = await paymentIntentResponse.json();
 
-      // Step 2: Process the payment and create the order
+      // Step 3: Process the payment and create the order
+      updateProcessingStep(2, 'active');
       const processPaymentResponse = await fetch('http://localhost:5000/api/stripe/process-payment', {
         method: 'POST',
         headers: {
@@ -190,10 +266,34 @@ function Cart() {
         throw new Error('Failed to process payment');
       }
 
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      updateProcessingStep(2, 'completed');
+      setCurrentStep(3);
+
       await processPaymentResponse.json();
 
+      // Step 4: Finalizing purchase
+      updateProcessingStep(3, 'active');
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      updateProcessingStep(3, 'completed');
+
       // Payment successful
+      await new Promise(resolve => setTimeout(resolve, 500));
       setPaymentStep('confirmation');
+
+      // Generate a random order number
+      const randomOrderNum = Math.floor(100000000 + Math.random() * 900000000).toString();
+      setOrderNumber(randomOrderNum);
+
+      // Create confetti effect
+      setTimeout(() => {
+        createConfetti();
+      }, 300);
+
+      // Show success popup after a short delay
+      setTimeout(() => {
+        setShowSuccessPopup(true);
+      }, 1000);
 
       // Clear cart
       setItems([]);
@@ -204,6 +304,15 @@ function Cart() {
     } finally {
       setIsProcessing(false);
     }
+  };
+
+  // Handle closing the success popup
+  const handleClosePopup = () => {
+    setPopupClosing(true);
+    setTimeout(() => {
+      setShowSuccessPopup(false);
+      setPopupClosing(false);
+    }, 300);
   };
 
   const saveCartItems = useCallback(async (items) => {
@@ -261,6 +370,28 @@ function Cart() {
 
   return (
     <div className="cart-container">
+      {/* Success Popup */}
+      <div className={`success-popup-overlay ${showSuccessPopup ? 'visible' : ''}`}>
+        <div className={`success-popup ${popupClosing ? 'closing' : ''}`}>
+          <button className="success-popup-close" onClick={handleClosePopup}>×</button>
+          <div className="success-popup-icon">
+            <CheckCircle size={32} />
+          </div>
+          <h2 className="success-popup-title">Order Confirmed!</h2>
+          <p className="success-popup-message">
+            Thank you for your purchase! Your order #{orderNumber} has been confirmed and is being processed.
+            <br /><br />
+            A confirmation email has been sent to {email}.
+          </p>
+          <button className="success-popup-button" onClick={() => {
+            handleClosePopup();
+            navigate('/purchases');
+          }}>
+            View My Orders
+          </button>
+        </div>
+      </div>
+
       <br />
       <br />
       <h1 className="cart-title">Shopping Cart</h1>
@@ -457,50 +588,75 @@ function Cart() {
                       </div>
                     )}
 
-                    <button
-                      type="submit"
-                      className="checkout-btn payment-btn"
-                      disabled={isProcessing}
-                    >
-                      {isProcessing ? 'Processing...' : (
-                        <>
+                    {isProcessing ? (
+                      <div className="payment-processing-container">
+                        <div className="processing-spinner"></div>
+                        <div className="processing-text">Processing Your Payment</div>
+                        <div className="processing-steps">
+                          {processingSteps.map((step, index) => (
+                            <div
+                              key={step.id}
+                              className={`processing-step ${step.status === 'active' ? 'active' : ''} ${step.status === 'completed' ? 'completed' : ''}`}
+                            >
+                              <div className="step-icon">
+                                {step.status === 'completed' ? <Check size={12} /> : index + 1}
+                              </div>
+                              <div className="step-text">{step.text}</div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ) : (
+                      <>
+                        <button
+                          type="submit"
+                          className="checkout-btn payment-btn"
+                          disabled={isProcessing}
+                        >
                           <CreditCard size={18} />
                           Pay ${total.toFixed(2)}
-                        </>
-                      )}
-                    </button>
+                        </button>
 
-                    <button
-                      type="button"
-                      className="back-btn"
-                      onClick={() => setPaymentStep('shipping')}
-                      disabled={isProcessing}
-                    >
-                      Back to Shipping
-                    </button>
+                        <button
+                          type="button"
+                          className="back-btn"
+                          onClick={() => setPaymentStep('shipping')}
+                          disabled={isProcessing}
+                        >
+                          Back to Shipping
+                        </button>
+                      </>
+                    )}
                   </div>
                 ) : (
                   <div className="confirmation-section">
-                    <div className="confirmation-message">
-                      <CheckCircle size={48} color="#4CAF50" />
-                      <h2>Payment Successful!</h2>
-                      <p>Your order has been placed successfully.</p>
-                      <p>You will receive a confirmation email shortly.</p>
+                    <div className="confetti-container" ref={confettiRef}></div>
+                    <div className="success-animation-container">
+                      <div className="checkmark-circle">
+                        <div className="checkmark-circle-bg"></div>
+                        <svg className="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                          <path className="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                        </svg>
+                      </div>
+                      <h2 className="success-title">Payment Successful!</h2>
+                      <p className="success-message">Your order has been placed successfully.</p>
+                      <p className="success-details">You will receive a confirmation email shortly.</p>
+
+                      <button
+                        type="button"
+                        className="continue-shopping-btn success-button"
+                        onClick={() => navigate('/collections')}
+                      >
+                        Continue Shopping
+                      </button>
+                      <button
+                        type="button"
+                        className="view-purchases-btn success-button-secondary"
+                        onClick={() => navigate('/purchases')}
+                      >
+                        View My Purchases
+                      </button>
                     </div>
-                    <button
-                      type="button"
-                      className="continue-shopping-btn"
-                      onClick={() => navigate('/collections')}
-                    >
-                      Continue Shopping
-                    </button>
-                    <button
-                      type="button"
-                      className="view-purchases-btn"
-                      onClick={() => navigate('/purchases')}
-                    >
-                      View My Purchases
-                    </button>
                   </div>
                 )}
               </div>

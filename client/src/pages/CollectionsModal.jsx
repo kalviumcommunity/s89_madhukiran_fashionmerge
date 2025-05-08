@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import { X, Heart, ShoppingCart } from 'lucide-react';
 import { useCartStore } from './cartStore';
 import { useWishlistStore } from './wishlistStore';
+import AddToCartNotification from '../components/AddToCartNotification';
+import WishlistNotification from '../components/WishlistNotification';
 import './CollectionsModal.css';
+import './AddToCartNotification.css';
+import './WishlistNotification.css';
 
 // Removed TypeScript interfaces and type annotations
 
@@ -10,8 +14,10 @@ function CollectionModal({ item, onClose }) {
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState(item.details.size[0]);
   const [selectedColor, setSelectedColor] = useState(item.details.color[0]);
-  const [showConfirmation, setShowConfirmation] = useState(null);
   const [imageEnlarged, setImageEnlarged] = useState(false);
+  const [cartNotification, setCartNotification] = useState(null);
+  const [wishlistNotification, setWishlistNotification] = useState(null);
+  const [isWishlistRemoval, setIsWishlistRemoval] = useState(false);
 
   const { addItem: addToCart } = useCartStore();
   const { items: wishlistItems, addItem: addToWishlist, removeItem: removeFromWishlist } = useWishlistStore();
@@ -28,29 +34,47 @@ function CollectionModal({ item, onClose }) {
   const handleWishlistToggle = (e) => {
     e.stopPropagation();
     if (isWishlisted) {
+      // Remove from wishlist
       removeFromWishlist(item.id);
-      showConfirmationMessage('Removed from wishlist!');
+      setIsWishlistRemoval(true);
+      setWishlistNotification(item);
     } else {
+      // Add to wishlist
       addToWishlist(item);
-      showConfirmationMessage('Added to wishlist!');
+      setIsWishlistRemoval(false);
+      setWishlistNotification(item);
     }
+  };
+
+  // Close the wishlist notification
+  const closeWishlistNotification = () => {
+    setWishlistNotification(null);
   };
 
   const handleAddToCart = (e) => {
     e.stopPropagation();
-    addToCart({
+
+    // Create the item with selected options
+    const itemToAdd = {
       ...item,
       quantity,
       size: selectedSize,
       color: selectedColor,
-    });
-    showConfirmationMessage('Added to cart!');
+    };
+
+    // Add to cart
+    addToCart(itemToAdd);
+
+    // Show the enhanced notification
+    setCartNotification(itemToAdd);
   };
 
-  const showConfirmationMessage = (message) => {
-    setShowConfirmation(message);
-    setTimeout(() => setShowConfirmation(null), 2000);
+  // Close the cart notification
+  const closeCartNotification = () => {
+    setCartNotification(null);
   };
+
+  // No longer needed as we're using the notification components
 
   const handleBackdropClick = (e) => {
     if (e.target === e.currentTarget) {
@@ -62,6 +86,30 @@ function CollectionModal({ item, onClose }) {
 
   return (
     <div className="modal-backdrop" onClick={handleBackdropClick}>
+      {/* Notifications Container */}
+      <div style={{ position: 'fixed', marginTop: '120px', right: '20px', zIndex: 9999 }}>
+        {/* Cart Notification */}
+        <div className="cart-notification-container">
+          {cartNotification && (
+            <AddToCartNotification
+              item={cartNotification}
+              onClose={closeCartNotification}
+            />
+          )}
+        </div>
+
+        {/* Wishlist Notification */}
+        <div className="wishlist-notification-container">
+          {wishlistNotification && (
+            <WishlistNotification
+              item={wishlistNotification}
+              onClose={closeWishlistNotification}
+              isRemoved={isWishlistRemoval}
+            />
+          )}
+        </div>
+      </div>
+
       <div className="square-modal">
         <button className="close-modal" onClick={onClose}>
           <X size={22} />
@@ -181,11 +229,7 @@ function CollectionModal({ item, onClose }) {
           </button>
         </div>
 
-        {showConfirmation && (
-          <div className="confirmation-message">
-            {showConfirmation}
-          </div>
-        )}
+        {/* No longer using the old confirmation message */}
       </div>
     </div>
   );
