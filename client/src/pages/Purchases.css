@@ -3,6 +3,8 @@
   margin: 0 auto;
   padding: 2rem 1rem;
   font-family: 'Inter', sans-serif;
+  overflow-y: auto;
+  height: 92vh;
 }
 
 .purchases-title {

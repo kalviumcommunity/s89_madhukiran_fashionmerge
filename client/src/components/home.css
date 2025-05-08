@@ -1,6 +1,6 @@
 .home {
-    overflow-y: auto; /* Allow vertical scrolling */
-    height: 100vh; /* Ensure the home container takes full viewport height */
+    overflow-y: auto;
+    height: 100vh;
   }
   body{
     scrollbar-width: none;
