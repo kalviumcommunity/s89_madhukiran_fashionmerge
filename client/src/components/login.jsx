@@ -17,8 +17,20 @@ const Login = () => {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const token = params.get('token');
+    const userId = params.get('userId');
+
     if (token) {
       localStorage.setItem('token', token);
+
+      // If userId is provided in URL, store it
+      if (userId) {
+        localStorage.setItem('userId', userId);
+      }
+
+      // Trigger storage event for other components to detect the change
+      window.dispatchEvent(new Event('storage'));
+
+      console.log('Login successful via OAuth! Token and userId stored.');
       navigate('/home');
     }
   }, [navigate]);

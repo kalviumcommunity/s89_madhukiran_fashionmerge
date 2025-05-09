@@ -40,8 +40,15 @@ app.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/login' }),
   (req, res) => {
     // Generate JWT Token for Google OAuth
-    const token = jwt.sign({ id: req.user._id, email: req.user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
-    res.redirect(`http://localhost:5173/home?token=${token}`);
+    // Make sure the id field in the token payload matches what the authenticateJWT middleware expects
+    const userId = req.user._id.toString(); // Convert ObjectId to string
+    const token = jwt.sign({ id: userId, email: req.user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+    console.log('Google auth successful, redirecting with token and userId:', userId);
+    console.log('User object:', req.user);
+
+    // Include both token and userId in the redirect URL
+    res.redirect(`http://localhost:5173/home?token=${token}&userId=${userId}`);
   }
 );
 

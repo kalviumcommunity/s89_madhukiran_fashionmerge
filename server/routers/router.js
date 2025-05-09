@@ -121,7 +121,8 @@ router.put('/user-activity/:id', authenticateJWT, async (req, res) => {
     }
 
     // Verify that the authenticated user is updating their own data
-    if (req.user.id !== id) {
+    // Convert both IDs to strings for comparison to avoid type mismatches
+    if (req.user.id.toString() !== id.toString()) {
       console.log(`Auth mismatch: Token user ID ${req.user.id} vs. requested ID ${id}`);
     }
 
@@ -182,7 +183,8 @@ router.get('/user-activity/:id', authenticateJWT, async (req, res) => {
         }
 
         // Verify that the authenticated user is requesting their own data
-        if (req.user.id !== id) {
+        // Convert both IDs to strings for comparison to avoid type mismatches
+        if (req.user.id.toString() !== id.toString()) {
             console.log(`Auth mismatch: Token user ID ${req.user.id} vs. requested ID ${id}`);
         }
 
@@ -238,7 +240,8 @@ router.post('/wardrobe/:id', authenticateJWT, async (req, res) => {
         }
 
         // Verify that the authenticated user is updating their own data
-        if (req.user.id !== id) {
+        // Convert both IDs to strings for comparison to avoid type mismatches
+        if (req.user.id.toString() !== id.toString()) {
             console.log(`Auth mismatch: Token user ID ${req.user.id} vs. requested ID ${id}`);
             return res.status(403).send({ msg: 'Unauthorized' });
         }
@@ -292,7 +295,8 @@ router.delete('/wardrobe/:userId/:itemIndex', authenticateJWT, async (req, res) 
         }
 
         // Verify that the authenticated user is updating their own data
-        if (req.user.id !== userId) {
+        // Convert both IDs to strings for comparison to avoid type mismatches
+        if (req.user.id.toString() !== userId.toString()) {
             console.log(`Auth mismatch: Token user ID ${req.user.id} vs. requested ID ${userId}`);
             return res.status(403).send({ msg: 'Unauthorized' });
         }
@@ -336,8 +340,15 @@ router.get('/auth/google/callback',
     passport.authenticate('google', { failureRedirect: '/login' }),
     (req, res) => {
         // Generate JWT Token for Google OAuth
-        const token = jwt.sign({ id: req.user._id, email: req.user.email }, JWT_SECRET, { expiresIn: '1h' });
-        res.redirect(`http://localhost:5173/home?token=${token}`); // Pass token to frontend
+        // Make sure the id field in the token payload matches what the authenticateJWT middleware expects
+        const userId = req.user._id.toString(); // Convert ObjectId to string
+        const token = jwt.sign({ id: userId, email: req.user.email }, JWT_SECRET, { expiresIn: '1h' });
+
+        console.log('Google auth successful, redirecting with token and userId:', userId);
+        console.log('User object:', req.user);
+
+        // Include both token and userId in the redirect URL
+        res.redirect(`http://localhost:5173/home?token=${token}&userId=${userId}`); // Pass token and userId to frontend
     }
 );
 
