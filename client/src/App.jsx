@@ -15,7 +15,8 @@ import Cart from './pages/Cart';
 import Wishlist from './pages/WishList';
 import Wardrobe from './pages/wardrobe';
 import Purchases from './pages/Purchases';
-import { MusicProvider } from './context/MusicContext';
+import MusicPlayer from './components/MusicPlayer';
+
 function App() {
   const [scrolled, setScrolled] = useState(true);
 
@@ -35,7 +36,7 @@ function App() {
 
   return (
     <>
-     <MusicProvider>
+
       <Navbar scrolled={scrolled} /> {/* Pass scrolled state to Navbar */}
       <Routes>
         <Route path="/" element={<Home />} />
@@ -53,7 +54,10 @@ function App() {
         <Route path="/wardrobe" element={<Wardrobe />} />
         <Route path="/purchases" element={<Purchases />} />
       </Routes>
-      </MusicProvider>
+
+      {/* Persistent Music Player */}
+      <MusicPlayer />
+
     </>
   );
 }

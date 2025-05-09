@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './music.css';
 import Navbar from '../components/NavBar';
-import { MusicContext } from '../context/MusicContext';
+import { useMusicStore } from './musicStore';
 
 const MusicPage = () => {
-  const { currentMusic, setCurrentMusic, isPlaying, setIsPlaying } = useContext(MusicContext);
+  const { currentMusic, isPlaying, playPlaylist } = useMusicStore();
   const [scrolled, setScrolled] = useState(true);
 
   useEffect(() => {
@@ -76,12 +76,7 @@ const MusicPage = () => {
   ];
 
   const handlePlayPause = (playlistSrc) => {
-    if (currentMusic === playlistSrc) {
-      setIsPlaying(!isPlaying);
-    } else {
-      setCurrentMusic(playlistSrc);
-      setIsPlaying(true);
-    }
+    playPlaylist(playlistSrc);
   };
 
   return (
@@ -90,17 +85,23 @@ const MusicPage = () => {
       <h1>Explore Our Playlists</h1>
       <div className="playlists-container">
         {playlists.map((playlist, index) => (
-          <div key={index} className="playlist-card">
+          <div
+            key={index}
+            className={`playlist-card ${currentMusic === playlist.src && isPlaying ? 'playing' : ''}`}
+          >
             <iframe
               src={playlist.src}
               width="300"
               height="380"
-              frameBorder="0"
+              style={{ border: 'none' }}
               allow="encrypted-media"
               title={playlist.name}
             ></iframe>
-            <button onClick={() => handlePlayPause(playlist.src)}>
-              {currentMusic === playlist.src && isPlaying ? 'Pause' : 'Play'}
+            <button
+              onClick={() => handlePlayPause(playlist.src)}
+              aria-label={currentMusic === playlist.src && isPlaying ? 'Pause' : 'Play'}
+            >
+              {currentMusic === playlist.src && isPlaying ? '❚❚' : '▶'}
             </button>
           </div>
         ))}
