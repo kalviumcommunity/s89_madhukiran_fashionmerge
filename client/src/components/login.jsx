@@ -15,22 +15,20 @@ const Login = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Check for error parameter in URL
     const params = new URLSearchParams(window.location.search);
-    const token = params.get('token');
-    const userId = params.get('userId');
+    const errorParam = params.get('error');
 
-    if (token) {
-      localStorage.setItem('token', token);
+    if (errorParam) {
+      setError('Authentication error. Please try again.');
+    }
 
-      // If userId is provided in URL, store it
-      if (userId) {
-        localStorage.setItem('userId', userId);
-      }
+    // Check if user is already logged in
+    const token = localStorage.getItem('token');
+    const userId = localStorage.getItem('userId');
 
-      // Trigger storage event for other components to detect the change
-      window.dispatchEvent(new Event('storage'));
-
-      console.log('Login successful via OAuth! Token and userId stored.');
+    if (token && userId) {
+      console.log('User is already logged in, redirecting to home');
       navigate('/home');
     }
   }, [navigate]);
