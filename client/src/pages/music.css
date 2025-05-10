@@ -6,14 +6,14 @@
   height: 93vh; /* Ensure the page takes full viewport height */
 }
 
-h1 {
+.music-page h1 {
   text-align: center;
   font-size: 36px;
   margin-bottom: 30px;
   position: relative;
 }
 
-h1::after {
+.music-page h1::after {
   content: '';
   position: absolute;
   bottom: -10px;
@@ -37,7 +37,7 @@ h1::after {
   transition: all 0.3s ease;
   border-radius: 12px;
   overflow: hidden;
- 
+
 }
 
 .playlist-card:hover {
@@ -47,7 +47,7 @@ h1::after {
 
 .playlist-card iframe {
   display: block;
- 
+
 }
 
 .playlist-card button {

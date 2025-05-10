@@ -134,7 +134,7 @@ const Wardrobe = () => {
         try {
           errorData = JSON.parse(errorText);
         } catch (e) {
-          errorData = { msg: 'Unknown server error' };
+          errorData = { msg: 'Unknown server error' ,e};
         }
 
         throw new Error(errorData.msg || 'Failed to upload image');
