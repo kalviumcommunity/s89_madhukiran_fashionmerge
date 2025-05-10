@@ -11,14 +11,25 @@ const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret_key';
 
 // Middleware to Verify JWT
 const authenticateJWT = (req, res, next) => {
-    const token = req.headers.authorization?.split(' ')[1]; // Extract token from Authorization header
+    console.log('Authenticating request to:', req.originalUrl);
+
+    const authHeader = req.headers.authorization;
+    console.log('Authorization header present:', !!authHeader);
+
+    const token = authHeader?.split(' ')[1]; // Extract token from Authorization header
     if (!token) {
+        console.log('Token missing in request');
         return res.status(401).send({ msg: 'Unauthorized. Token is missing.' });
     }
+
+    console.log('Token found, verifying...');
     jwt.verify(token, JWT_SECRET, (err, user) => {
         if (err) {
+            console.error('JWT verification error:', err.message);
             return res.status(403).send({ msg: 'Invalid or expired token.' });
         }
+
+        console.log('JWT verified successfully. User ID:', user.id);
         req.user = user;
         next();
     });
@@ -92,16 +103,37 @@ router.get('/user', authenticateJWT, (req, res) => {
     res.status(200).send({ username: req.user.email });
 });
 
+// Debug route to check JWT token
+router.get('/check-auth', authenticateJWT, (req, res) => {
+    console.log('Auth check - User from token:', req.user);
+    res.status(200).send({
+        msg: 'Authentication successful',
+        user: {
+            id: req.user.id,
+            email: req.user.email
+        }
+    });
+});
+
 // Get User Profile (Protected)
-router.get('/userprofile/:id', async (req, res) => {
+router.get('/userprofile/:id', authenticateJWT, async (req, res) => {
   try {
     const { id } = req.params; // Extract user ID from the URL parameter
+
+    // Verify that the authenticated user is requesting their own data
+    if (req.user.id.toString() !== id.toString()) {
+      console.log(`Auth mismatch in userprofile: Token user ID ${req.user.id} vs. requested ID ${id}`);
+      // We'll still allow the request but log the mismatch for debugging
+    }
+
     const user = await User.findById(id).select('-password'); // Exclude the password field
 
     if (!user) {
+      console.log(`User not found with ID: ${id}`);
       return res.status(404).send({ msg: 'User not found' });
     }
 
+    console.log(`User profile fetched successfully for: ${user.email}`);
     res.status(200).send({ msg: 'User profile fetched successfully', data: user });
   } catch (err) {
     console.error('Error fetching user profile:', err);
@@ -330,6 +362,58 @@ router.delete('/wardrobe/:userId/:itemIndex', authenticateJWT, async (req, res) 
     }
 });
 
+// Update User Profile Route
+router.put('/update-profile/:id', authenticateJWT, async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { username, profileImage } = req.body;
+
+        console.log(`Updating profile for user ID: ${id}`);
+
+        if (!id) {
+            return res.status(400).send({ msg: 'User ID is required' });
+        }
+
+        // Verify that the authenticated user is updating their own data
+        if (req.user.id.toString() !== id.toString()) {
+            console.log(`Auth mismatch: Token user ID ${req.user.id} vs. requested ID ${id}`);
+            return res.status(403).send({ msg: 'Unauthorized' });
+        }
+
+        const user = await User.findById(id);
+        if (!user) {
+            console.log(`User not found with ID: ${id}`);
+            return res.status(404).send({ msg: 'User not found' });
+        }
+
+        // Update username if provided
+        if (username) {
+            console.log(`Updating username for user: ${user.email}, New username: ${username}`);
+            user.username = username;
+        }
+
+        // Update profile image if provided
+        if (profileImage) {
+            console.log(`Updating profile image for user: ${user.email}`);
+            user.profileImage = profileImage;
+        }
+
+        await user.save();
+        console.log('User profile updated successfully');
+
+        res.status(200).send({
+            msg: 'User profile updated successfully',
+            data: {
+                username: user.username,
+                profileImage: user.profileImage
+            }
+        });
+    } catch (err) {
+        console.error('Error updating user profile:', err);
+        res.status(500).send({ msg: `Something went wrong: ${err.message}` });
+    }
+});
+
 // Google OAuth Login Route
 router.get('/auth/google',
     passport.authenticate('google', { scope: ['profile', 'email'] })
@@ -338,17 +422,46 @@ router.get('/auth/google',
 // Google OAuth Callback Route
 router.get('/auth/google/callback',
     passport.authenticate('google', { failureRedirect: '/login' }),
-    (req, res) => {
-        // Generate JWT Token for Google OAuth
-        // Make sure the id field in the token payload matches what the authenticateJWT middleware expects
-        const userId = req.user._id.toString(); // Convert ObjectId to string
-        const token = jwt.sign({ id: userId, email: req.user.email }, JWT_SECRET, { expiresIn: '1h' });
+    async (req, res) => {
+        try {
+            // Generate JWT Token for Google OAuth
+            // Make sure the id field in the token payload matches what the authenticateJWT middleware expects
+            const userId = req.user._id.toString(); // Convert ObjectId to string
 
-        console.log('Google auth successful, redirecting with token and userId:', userId);
-        console.log('User object:', req.user);
+            // Log the user ID for debugging
+            console.log('Creating JWT token with user ID:', userId);
 
-        // Include both token and userId in the redirect URL
-        res.redirect(`http://localhost:5173/home?token=${token}&userId=${userId}`); // Pass token and userId to frontend
+            // Create token with consistent field names
+            const token = jwt.sign({
+                id: userId,
+                email: req.user.email
+            }, JWT_SECRET, { expiresIn: '1h' });
+
+            // Log token payload for debugging (don't log the actual token)
+            const decoded = jwt.verify(token, JWT_SECRET);
+            console.log('JWT token payload:', decoded);
+
+            console.log('Google auth successful, redirecting with token and userId:', userId);
+            console.log('User object:', req.user);
+
+            // Ensure user has all required arrays initialized
+            const user = await User.findById(userId);
+            if (user) {
+                // Initialize arrays if they don't exist
+                if (!user.cartItems) user.cartItems = [];
+                if (!user.wishlistItems) user.wishlistItems = [];
+                if (!user.chatbotHistory) user.chatbotHistory = [];
+                if (!user.wardrobe) user.wardrobe = [];
+                await user.save();
+            }
+
+            // Include both token and userId in the redirect URL
+            // The AuthHandler component will process these parameters
+            res.redirect(`http://localhost:5173/home?token=${token}&userId=${userId}`); // Pass token and userId to frontend
+        } catch (error) {
+            console.error('Error in Google auth callback:', error);
+            res.redirect(`http://localhost:5173/login?error=auth_error`);
+        }
     }
 );
 

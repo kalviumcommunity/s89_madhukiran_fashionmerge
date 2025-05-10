@@ -15,7 +15,10 @@ import Cart from './pages/Cart';
 import Wishlist from './pages/WishList';
 import Wardrobe from './pages/wardrobe';
 import Purchases from './pages/Purchases';
+import Profile from './pages/Profile';
 import MusicPlayer from './components/MusicPlayer';
+import AuthDebug from './components/AuthDebug';
+import AuthHandler from './components/AuthHandler';
 
 function App() {
   const [scrolled, setScrolled] = useState(true);
@@ -36,6 +39,8 @@ function App() {
 
   return (
     <>
+      {/* AuthHandler processes auth tokens from URL params on any route */}
+      <AuthHandler />
 
       <Navbar scrolled={scrolled} /> {/* Pass scrolled state to Navbar */}
       <Routes>
@@ -53,6 +58,8 @@ function App() {
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/wardrobe" element={<Wardrobe />} />
         <Route path="/purchases" element={<Purchases />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/auth-debug" element={<AuthDebug />} />
       </Routes>
 
       {/* Persistent Music Player */}

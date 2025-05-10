@@ -19,11 +19,15 @@ passport.use(
         if (!user) {
           console.log('Creating new user for Google account:', profile.emails[0].value); // Debugging
 
-          // Create a new user if not found
+          // Create a new user if not found with properly initialized arrays
           user = new User({
             username: profile.displayName,
             email: profile.emails[0].value,
             password: null, // No password for Google-authenticated users
+            cartItems: [],
+            wishlistItems: [],
+            chatbotHistory: [],
+            wardrobe: []
           });
           await user.save();
         } else {
