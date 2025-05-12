@@ -1,0 +1,26 @@
+# Headers for all pages
+/*
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: no-referrer-when-downgrade
+
+# Headers for JavaScript files
+/*.js
+  Content-Type: application/javascript
+
+# Headers for JSX files
+/*.jsx
+  Content-Type: application/javascript
+
+# Headers for module JavaScript files
+/*.mjs
+  Content-Type: application/javascript
+
+# Headers for CSS files
+/*.css
+  Content-Type: text/css
+
+# Headers for SVG files
+/*.svg
+  Content-Type: image/svg+xml

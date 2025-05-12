@@ -1,0 +1,42 @@
+# Root netlify.toml file
+
+[build]
+  base = "client/"
+  publish = "dist/"
+  command = "npm run build:netlify"
+
+# Environment variables
+[build.environment]
+  NODE_VERSION = "18"
+
+# Redirects and headers for SPA
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Headers to solve MIME type issues
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Content-Type = "application/javascript"
+
+[[headers]]
+  for = "/*.jsx"
+  [headers.values]
+    Content-Type = "application/javascript"
+
+[[headers]]
+  for = "/*.mjs"
+  [headers.values]
+    Content-Type = "application/javascript"
+
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Content-Type = "text/css"
+
+[[headers]]
+  for = "/assets/*.js"
+  [headers.values]
+    Content-Type = "application/javascript"

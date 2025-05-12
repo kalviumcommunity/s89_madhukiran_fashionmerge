@@ -1,0 +1,45 @@
+# Netlify configuration file
+
+# Build settings
+[build]
+  # Directory to publish (output from the build process)
+  publish = "dist"
+  # Build command
+  command = "npm run build:netlify"
+
+# Redirects and headers
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Headers to solve MIME type issues
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Content-Type = "application/javascript"
+
+[[headers]]
+  for = "/assets/*.js"
+  [headers.values]
+    Content-Type = "application/javascript"
+
+[[headers]]
+  for = "/*.jsx"
+  [headers.values]
+    Content-Type = "application/javascript"
+
+[[headers]]
+  for = "/*.mjs"
+  [headers.values]
+    Content-Type = "application/javascript"
+
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Content-Type = "text/css"
+
+[[headers]]
+  for = "/*.svg"
+  [headers.values]
+    Content-Type = "image/svg+xml"
