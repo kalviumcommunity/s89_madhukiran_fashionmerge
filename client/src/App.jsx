@@ -12,7 +12,7 @@ import Contact from './pages/Contact';
 import Chatbot from './pages/chatbot';
 import CollectionsPage from './pages/CollectionsPage';
 import Cart from './pages/Cart';
-import Wishlist from './pages/WishList';
+import Wishlist from './pages/Wishlist';
 import Wardrobe from './pages/wardrobe';
 import Purchases from './pages/Purchases';
 import Profile from './pages/Profile';
