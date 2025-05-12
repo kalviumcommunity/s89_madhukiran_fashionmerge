@@ -6,7 +6,7 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Redirect to signup page
+    
     window.location.href = '/signup';
   };
 

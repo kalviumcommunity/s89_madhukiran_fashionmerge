@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { User, ShoppingBag, Heart, Upload, Edit, Check, X, LogOut } from 'lucide-react';
+import { User, ShoppingBag, Heart, Upload, Edit, LogOut } from 'lucide-react';
 import './Profile.css';
 
 function Profile() {
@@ -425,10 +425,10 @@ function Profile() {
                     />
                     <div className="edit-actions">
                       <button className="save-button" onClick={updateUsername}>
-                        <Check size={16} />
+                        Save
                       </button>
                       <button className="cancel-button" onClick={cancelEdit}>
-                        <X size={16} />
+                        Cancel
                       </button>
                     </div>
                   </div>

@@ -16,16 +16,19 @@ const MusicPlayer = () => {
   return (
     <div className="music-player">
       <div className="music-player-header">
+         <button className="close-button" onClick={stopPlayback}>
+            ✕
+          </button>
         <div style={{ width: '24px' }}></div> {/* Empty div for spacing */}
         <span style={{ fontSize: '12px', fontWeight: 'bold', color: '#333' }}>SPOTIFY PLAYER</span>
         <div style={{ width: '24px' }}></div> {/* Empty div for spacing */}
+        
       </div>
-
+      
       <div className="music-player-content">
+        
         <div className="iframe-container">
-          <button className="close-button" onClick={stopPlayback}>
-            ✕
-          </button>
+         
           <iframe
             ref={iframeRef}
             style={{ borderRadius: '12px' }}
