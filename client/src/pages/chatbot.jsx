@@ -39,7 +39,7 @@ const Chatbot = () => {
   const [userId, setUserId] = useState(localStorage.getItem('userId'));
   const [token, setToken] = useState(localStorage.getItem('token'));
   const [isLoggedIn, setIsLoggedIn] = useState(!!userId && !!token);
-  // Use a consistent ID for non-logged in users
+
   const [guestId] = useState(() => {
     const savedGuestId = localStorage.getItem('guestId');
     if (savedGuestId) {
