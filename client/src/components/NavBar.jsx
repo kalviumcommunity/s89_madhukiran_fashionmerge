@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Heart, User, ShoppingCart, LogOut, ShoppingBag, Menu, X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import './Navbar.css';
+import './NavBar.css';
 
 const Navbar = ({ scrolled }) => {
   const navigate = useNavigate();
