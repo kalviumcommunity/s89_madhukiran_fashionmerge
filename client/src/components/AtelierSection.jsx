@@ -11,10 +11,12 @@ const AtelierSection = () => {
       <div className="atelier-grid">
         <div className="atelier-text">
           <h2>THE ALITA</h2>
-          <p>ALITA is your personal fashion design assistant in FashionMerge.
-          She analyzes outfit images uploaded by users and offers smart styling tips.
-          From improving your look to matching it with trends or wardrobe items, ALITA’s got you.
-          Whether you're dressing up or designing, feel free to upload photos and let Alita give feedback and enhance your style to next level. ALITA helps you refine your fashion game.</p>
+          <div className="atelier-paragraph">
+            <p>ALITA is your personal fashion design assistant in FashionMerge.
+            She analyzes outfit images uploaded by users and offers smart styling tips.
+            From improving your look to matching it with trends or wardrobe items, ALITA's got you.
+            Whether you're dressing up or designing, feel free to upload photos and let Alita give feedback and enhance your style to next level. ALITA helps you refine your fashion game.</p>
+          </div>
           <a href="#craftsmanship" className="craft-btn" onClick={handleExploreAlitaClick}>EXPLORE ALITA</a>
         </div>
         <div className="atelier-image">

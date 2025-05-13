@@ -21,8 +21,8 @@ html, body {
   width: 100%;
   position: relative;
   z-index: 1;
-  background-image: 
-    linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
     url('https://images.unsplash.com/photo-1585914924626-15adac1e6402?q=80&w=2942&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
   background-size: cover;
   background-position: center;
@@ -375,6 +375,129 @@ body::before {
   to {
     right: 20px;
     opacity: 1;
+  }
+}
+
+/* Media queries for phone screens */
+@media (max-width: 480px) {
+  html, body {
+    overflow: auto;
+  }
+
+  .signup-container {
+    flex-direction: column-reverse; /* Reverse the order to show form first */
+    height: auto;
+    min-height: 100vh;
+    overflow-y: auto;
+    background-position: top center;
+    margin-top: 50px;
+  }
+
+  .left-panel {
+    flex: none;
+    padding: 1rem 1rem 2rem;
+    min-height: 30vh;
+    justify-content: flex-start;
+    background-color: rgba(0, 0, 0, 0.3);
+    margin-top: 1rem;
+    border-radius: 0;
+  }
+
+  .welcome-content {
+    max-width: 100%;
+    padding-top: 0.5rem;
+  }
+
+  .welcome-content h1 {
+    font-size: 2.2rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .welcome-content p {
+    font-size: 0.85rem !important;
+    margin-bottom: 1.2rem;
+    line-height: 1.5;
+  }
+
+  .signin-button {
+    padding: 0.7rem 1rem;
+    font-size: 0.9rem;
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+
+  .right-panel {
+    flex: none;
+    padding: 2rem 1rem 1.5rem;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 0 0 12px 12px;
+  }
+
+  .form-container {
+    width: 100%;
+    max-width: 100%;
+    padding: 1.5rem;
+    margin-top: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  .form-header h2 {
+    font-size: 1.8rem;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .form-input {
+    padding: 0.7rem 0;
+    font-size: 0.85rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .terms-container {
+    margin: 0.8rem 0;
+  }
+
+  .terms-text {
+    font-size: 0.75rem;
+  }
+
+  .signup-button {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.9rem;
+    margin-top: 0.8rem;
+  }
+
+  .or-text::before,
+  .or-text::after {
+    width: 30px;
+  }
+
+  .or-text::before {
+    left: -40px;
+  }
+
+  .or-text::after {
+    right: -40px;
+  }
+
+  .google-icon-only {
+    width: 25px;
+    height: 25px;
+    margin: 6px auto;
+  }
+
+  .error-message {
+    font-size: 0.8rem;
+  }
+
+  .success-message {
+    top: 10px;
+    right: 10px;
+    padding: 10px 15px;
+    font-size: 0.85rem;
   }
 }
 

@@ -68,4 +68,110 @@
   border-radius: 12px;
 }
 
+/* Enhanced media queries for music player on phones */
 
+/* Regular phones */
+@media (max-width: 480px) {
+  .music-player {
+    width: 280px;
+    bottom: 15px;
+    right: 15px;
+    border-radius: 10px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    z-index: 1050; /* Ensure it appears above other elements */
+  }
+
+  .music-player-header {
+    padding: 8px 12px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+  }
+
+  .music-player-header span {
+    font-size: 11px !important;
+    letter-spacing: 0.5px;
+  }
+
+  .close-button {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 22px;
+    height: 22px;
+    font-size: 12px;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+    margin: 0;
+  }
+
+  .close-button:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+}
+
+/* Small phones (iPhone SE, etc.) */
+@media (max-width: 375px) {
+  .music-player {
+    width: 270px;
+    bottom: 12px;
+    right: 12px;
+  }
+
+  .music-player-header span {
+    font-size: 10px !important;
+  }
+
+  .close-button {
+    width: 20px;
+    height: 20px;
+    font-size: 10px;
+  }
+}
+
+/* Extra small phones */
+@media (max-width: 320px) {
+  .music-player {
+    width: 240px;
+    bottom: 10px;
+    right: 10px;
+  }
+
+  .music-player-header {
+    padding: 6px 10px;
+  }
+
+  .close-button {
+    width: 18px;
+    height: 18px;
+    font-size: 9px;
+  }
+}
+
+/* Portrait orientation on phones */
+@media (max-width: 480px) and (orientation: portrait) {
+  .music-player {
+    bottom: 60px; /* Give more space at bottom for navigation bars */
+  }
+}
+
+/* Landscape orientation on phones */
+@media (max-height: 480px) and (orientation: landscape) {
+  .music-player {
+    width: 260px;
+    height: auto;
+    bottom: 10px;
+    right: 10px;
+  }
+
+  .music-player-header {
+    padding: 6px 10px;
+  }
+}

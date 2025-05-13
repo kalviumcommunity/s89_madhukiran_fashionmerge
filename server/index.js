@@ -58,7 +58,7 @@ app.get('/auth/google/callback',
       const token = jwt.sign({
           id: userId,
           email: req.user.email
-      }, process.env.JWT_SECRET, { expiresIn: '1h' });
+      }, process.env.JWT_SECRET, { expiresIn: '7d' });
 
       // Log token payload for debugging (don't log the actual token)
       const decoded = jwt.verify(token, process.env.JWT_SECRET);

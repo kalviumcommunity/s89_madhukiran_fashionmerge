@@ -1,6 +1,8 @@
 .collection-section {
   padding: 100px 40px;
   text-align: center;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .collection-section h2 {
@@ -16,16 +18,19 @@
   gap: 40px;
   max-width: 1400px;
   margin: 0 auto;
+  width: 100%;
 }
 
 .collection-item {
   position: relative;
   overflow: hidden;
+  width: 100%;
+  max-height: 400%;
 }
 
 .collection-item img {
   width: 100%;
-  height: 500px;
+  height: 400px;
   object-fit: cover;
   transition: transform 0.8s ease;
 }
@@ -51,26 +56,148 @@
   color: #666;
 }
 
-.collection-section {
-    padding: 100px 40px;
-    text-align: center;
+.view-all-btn {
+  border: 1px solid black;
+  padding: 12px 32px;
+  font-size: 14px;
+  letter-spacing: 2px;
+  background-color: transparent;
+  color: black;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 40px;
+}
+
+.view-all-btn:hover {
+  background-color: black;
+  color: white;
+}
+
+/* Media Queries */
+
+/* Large Desktops */
+@media screen and (min-width: 1400px) {
+  .collection-grid {
+    max-width: 1400px;
   }
-  
-  
-  
+
+  .collection-item img {
+    height: 550px;
+  }
+}
+
+/* Desktops and Laptops */
+@media screen and (max-width: 1200px) {
+  .collection-section {
+    padding: 80px 30px;
+  }
+
+  .collection-grid {
+    gap: 30px;
+  }
+
+  .collection-item img {
+    height: 350px;
+  }
+}
+
+/* Tablets and Small Laptops */
+@media screen and (max-width: 992px) {
+  .collection-section {
+    padding: 70px 25px;
+  }
+
+  .collection-section h2 {
+    font-size: 24px;
+    margin-bottom: 40px;
+  }
+
+  .collection-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+  }
+
+  .collection-item img {
+    height: 300px;
+  }
+}
+
+/* Tablets and Large Phones */
+@media screen and (max-width: 768px) {
+  .collection-section {
+    padding: 60px 20px;
+  }
+
+  .collection-section h2 {
+    font-size: 22px;
+    margin-bottom: 35px;
+  }
+
+  .collection-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .collection-item img {
+    height: 350px;
+  }
+
+  .item-info h3 {
+    font-size: 15px;
+  }
+
+  .item-info p {
+    font-size: 13px;
+  }
+
   .view-all-btn {
-    border: 1px solid black;
-    padding: 12px 32px;
+    padding: 10px 28px;
+    font-size: 13px;
+  }
+}
+
+/* Mobile Phones */
+@media screen and (max-width: 576px) {
+  .collection-section {
+    padding: 50px 15px;
+  }
+
+  .collection-section h2 {
+    font-size: 20px;
+    margin-bottom: 30px;
+  }
+
+  .collection-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .collection-item img {
+    height: 280px;
+  }
+
+  .view-all-btn {
+    padding: 10px 25px;
+    font-size: 12px;
+    margin-top: 30px;
+  }
+}
+
+/* Small Mobile Phones */
+@media screen and (max-width: 375px) {
+  .collection-section {
+    padding: 40px 10px;
+  }
+
+  .collection-item img {
+    height: 220px;
+  }
+
+  .item-info h3 {
     font-size: 14px;
-    letter-spacing: 2px;
-    background-color: transparent;
-    color: black;
-    cursor: pointer;
-    transition: all 0.3s ease;
   }
-  
-  .view-all-btn:hover {
-    background-color: black;
-    color: white;
+
+  .item-info p {
+    font-size: 12px;
   }
-  
+}

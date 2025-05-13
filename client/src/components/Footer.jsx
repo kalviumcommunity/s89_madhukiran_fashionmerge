@@ -25,12 +25,6 @@ const Footer = () => {
             <a href="#about" onClick={handleAboutClick}>Sustainability</a>
             <a href="#about" onClick={handleAboutClick}>Careers</a>
           </div>
-          <div className="footer-column">
-            <h3>LEGAL</h3>
-            <a href="#terms">Terms of Service</a>
-            <a href="#privacy">Privacy Policy</a>
-            <a href="#cookie">Cookie Policy</a>
-          </div>
         </div>
       </div>
       <div className="footer-bottom">

@@ -30,23 +30,24 @@
 .wardrobe-form {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-  padding: 2.2rem 2.5rem 2.5rem;
+  gap: 2.2rem;
+  padding: 2.5rem 2.8rem;
   background-color: #fff;
-  max-width: 500px;
+  max-width: 520px;
   margin: 0 auto;
+  border-radius: 0 0 20px 20px;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 0.7rem;
+  gap: 0.8rem;
   position: relative;
 }
 
 .form-row {
   display: flex;
-  gap: 1.8rem;
+  gap: 2rem;
   flex-wrap: wrap;
   margin-bottom: 0.5rem;
 }
@@ -60,10 +61,11 @@
   font-weight: 600;
   color: #444;
   font-size: 0.95rem;
-  letter-spacing: 0.3px;
+  letter-spacing: 0.4px;
   display: flex;
   align-items: center;
   gap: 0.3rem;
+  margin-left: 0.2rem;
 }
 
 .wardrobe-form label::after {
@@ -75,14 +77,21 @@
 .wardrobe-form input,
 .wardrobe-form textarea,
 .wardrobe-form select {
-  padding: 0.95rem 1.1rem;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
+  padding: 1rem 1.2rem;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 10px;
   font-size: 1rem;
-  transition: all 0.2s;
+  transition: all 0.25s ease;
   background-color: #f9f9f9;
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
   width: 100%;
+}
+
+.wardrobe-form input:hover,
+.wardrobe-form textarea:hover,
+.wardrobe-form select:hover {
+  border-color: #d0d0d0;
+  background-color: #f5f5f5;
 }
 
 .wardrobe-form input:focus,
@@ -108,49 +117,142 @@
   cursor: pointer;
 }
 
-.file-input::file-selector-button {
-  font-weight: 600;
-  color: #4a90e2;
-  padding: 0.6em 1.2em;
-  border: 1px solid #4a90e2;
-  border-radius: 6px;
-  background-color: white;
-  margin-right: 1em;
-  transition: all 0.2s;
+.file-input.hidden {
+  display: none;
+}
+
+.image-upload-container {
+  margin-bottom: 1.5rem;
+}
+
+.upload-button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  border: 2px dashed #d0d0d0;
+  border-radius: 12px;
+  background-color: #f9f9f9;
+  transition: all 0.2s ease;
   cursor: pointer;
 }
 
-.file-input::file-selector-button:hover {
+.upload-button-container:hover {
+  border-color: #4a90e2;
   background-color: #f0f7ff;
 }
 
+.upload-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.9rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(74, 144, 226, 0.3);
+}
+
+.upload-button:hover {
+  background-color: #3a7bc8;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(74, 144, 226, 0.4);
+}
+
+.upload-hint {
+  margin-top: 1rem;
+  color: #888;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+.image-preview-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
 .image-preview {
-  margin-top: 1.2rem;
+  width: 100%;
   max-width: 300px;
-  border-radius: 10px;
+  border-radius: 12px;
   overflow: hidden;
   border: 1px solid #e0e0e0;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+.image-preview:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
 }
 
 .image-preview img {
   width: 100%;
   height: auto;
   display: block;
+  object-fit: cover;
 }
 
-.submit-button {
-  background-color: #4a90e2;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 0.9rem 2rem;
-  font-size: 1rem;
+.image-actions {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  max-width: 300px;
+  justify-content: center;
+}
+
+.upload-new-button, .remove-image-button {
+  padding: 0.7rem 1.2rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s;
-  box-shadow: 0 2px 5px rgba(74, 144, 226, 0.3);
-  letter-spacing: 0.3px;
+  flex: 1;
+  text-align: center;
+}
+
+.upload-new-button {
+  background-color: white;
+  color: #4a90e2;
+  border: 1px solid #4a90e2;
+}
+
+.upload-new-button:hover {
+  background-color: #f0f7ff;
+  box-shadow: 0 2px 8px rgba(74, 144, 226, 0.2);
+}
+
+.remove-image-button {
+  background-color: white;
+  color: #e74c3c;
+  border: 1px solid #e74c3c;
+}
+
+.remove-image-button:hover {
+  background-color: #fef2f2;
+  box-shadow: 0 2px 8px rgba(231, 76, 60, 0.2);
+}
+
+.submit-button {
+  background: linear-gradient(135deg, #4a90e2 0%, #5c6bc0 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 1rem 2.2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+  letter-spacing: 0.5px;
   position: relative;
   overflow: hidden;
 }
@@ -168,9 +270,8 @@
 }
 
 .submit-button:hover {
-  background-color: #3a7bc8;
-  transform: translateY(-2px);
-  box-shadow: 0 5px 12px rgba(74, 144, 226, 0.4);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(74, 144, 226, 0.4);
 }
 
 .submit-button:hover::before {
@@ -178,15 +279,15 @@
 }
 
 .submit-button:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 4px rgba(74, 144, 226, 0.2);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(74, 144, 226, 0.3);
 }
 
 .submit-button:disabled {
-  background-color: #a0a0a0;
+  background: linear-gradient(135deg, #a0a0a0 0%, #b0b0b0 100%);
   cursor: not-allowed;
   transform: none;
-  box-shadow: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .error-message {
@@ -564,133 +665,169 @@
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(3px);
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   z-index: 1000;
-  padding: 1.5rem;
-  overflow-y: auto;
-  animation: fadeIn 0.2s ease;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
+/* Modal Content */
 .modal-content {
   background-color: white;
-  border-radius: 16px;
-  width: 100%;
-  max-width: 550px;
-  max-height: 90vh;
-  overflow-y: auto;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-  animation: modalFadeIn 0.3s ease;
-  border: none;
-  position: relative;
+  border-radius: 8px;
+  width: 30%;
+  max-width: 500px;
+  height: 80%;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.3s ease-in-out;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; /* Updated font */
 }
 
-@keyframes modalFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
+/* Modal Header */
 .modal-header {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end; /* Align items to the right */
   align-items: center;
-  padding: 1.8rem 2.2rem;
-  border-bottom: 1px solid #eaeaea;
-  background-color: #fff;
-  border-top-left-radius: 16px;
-  border-top-right-radius: 16px;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-.modal-header h2 {
-  margin: 0;
-  color: #333;
-  font-size: 1.4rem;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  text-align: center;
+  margin-right: -70px;
+  margin-bottom: 20px;
+  position: relative; /* Position relative to allow absolute positioning of the close button */
 }
 
 .close-button {
+  position: absolute; /* Position the button absolutely within the header */
+  top: 10px; /* Adjust top position as needed */
+  right: 10px; /* Adjust right position as needed */
+  margin-right: 20px;
   background: none;
   border: none;
   cursor: pointer;
-  color: #888;
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s;
-  border-radius: 50%;
-  position: absolute;
-  top: 1.5rem;
-  right: 1.5rem;
+  color: #333;
+  transition: color 0.2s;
 }
 
 .close-button:hover {
-  color: #333;
-  background-color: rgba(0, 0, 0, 0.05);
+  color: #e74c3c;
 }
 
+/* Form Styles */
+.wardrobe-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1em;
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #4a90e2;
+}
+
+/* Image Upload Container */
+.image-upload-container {
+  margin-bottom: 15px;
+}
+
+.image-preview-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.image-preview img {
+  max-width: 100px;
+  max-height: 100px;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+.image-actions button {
+  background-color: #4a90e2;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 5px;
+  transition: background-color 0.2s;
+}
+
+.image-actions button:hover {
+  background-color: #357ab8;
+}
+
+/* Modal Actions */
 .modal-actions {
   display: flex;
   justify-content: flex-end;
-  gap: 1.2rem;
-  margin-top: 2.5rem;
-  padding-bottom: 0.5rem;
-  border-top: 1px solid #f0f0f0;
-  padding-top: 2rem;
+  margin-top: 20px;
 }
 
-.cancel-button {
-  background-color: white;
-  color: #555;
-  border: 1px solid #d0d0d0;
-  border-radius: 8px;
-  padding: 0.9rem 1.8rem;
-  font-size: 1rem;
-  font-weight: 600;
+.cancel-button,
+.submit-button {
+  background-color: #4a90e2;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
   cursor: pointer;
-  transition: all 0.2s;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  letter-spacing: 0.3px;
+  margin-right: 25px;
+  transition: background-color 0.2s;
+  margin-bottom: 10px;
 }
 
-.cancel-button:hover {
-  background-color: #f5f5f5;
-  transform: translateY(-1px);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+.cancel-button:hover,
+.submit-button:hover {
+  background-color: #357ab8;
 }
 
-.cancel-button:active {
-  transform: translateY(0);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 /* Responsive Adjustments */
 @media (max-width: 768px) {
   .wardrobe-container {
     padding: 1rem;
+    
+     overflow-y: auto;
+    height: 100vh;
+  }
+
+  .wardrobe-container h1 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
   }
 
   .form-row {
@@ -706,15 +843,160 @@
   .wardrobe-filters {
     flex-direction: column;
     align-items: flex-start;
+    padding: 1rem;
+  }
+
+  .filter-group {
+    width: 100%;
+    margin-bottom: 0.8rem;
+  }
+
+  .filter-group select {
+    width: 100%;
   }
 
   .clear-filters-button {
     margin-left: 0;
     margin-top: 1rem;
+    width: 100%;
   }
 
   .modal-content {
-    max-width: 95%;
-    max-height: 95vh;
+    width: 90%;
+    max-width: none;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 15px;
+  }
+}
+
+/* Phone-specific Adjustments */
+@media (max-width: 480px) {
+  .wardrobe-container {
+    padding: 0.8rem;
+     overflow-y: auto;
+    height: 89vh;
+  }
+
+  .wardrobe-container h1 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .wardrobe-grid {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
+
+  .wardrobe-item {
+    height: auto;
+    min-height: 350px;
+  }
+
+  .wardrobe-item-image {
+    height: 180px;
+  }
+
+  .wardrobe-item-details {
+    padding: 1rem;
+  }
+
+  .wardrobe-item-details h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .wardrobe-item-details p {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .wardrobe-item-meta {
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .wardrobe-item-meta span {
+    font-size: 0.7rem;
+    padding: 0.3rem 0.6rem;
+  }
+
+  .delete-button {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.8rem;
+  }
+
+  /* Form adjustments for phone */
+  .wardrobe-form {
+    padding: 1.5rem 1.2rem;
+    gap: 1.5rem;
+  }
+
+  .wardrobe-form label {
+    font-size: 0.85rem;
+  }
+
+  .wardrobe-form input,
+  .wardrobe-form textarea,
+  .wardrobe-form select {
+    padding: 0.8rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .image-preview-container {
+    height: 180px;
+  }
+
+  .image-upload-buttons {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .upload-new-button,
+  .remove-image-button {
+    width: 100%;
+    padding: 0.6rem 1rem;
+    font-size: 0.8rem;
+  }
+
+  .submit-button {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  /* Modal adjustments for phone */
+  .modal-content {
+    width: 95%;
+    height: 85%;
+    padding: 12px;
+  }
+
+  .modal-header {
+    margin-right: -10px;
+    margin-bottom: 10px;
+  }
+
+  .close-button {
+    top: 5px;
+    right: 5px;
+    margin-right: 10px;
+  }
+
+  /* Success and error messages */
+  .success-message,
+  .error-message {
+    padding: 0.8rem 1rem;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+  }
+
+  /* Add item button */
+  .add-item-content svg {
+    width: 30px;
+    height: 30px;
+  }
+
+  .add-item-content p {
+    font-size: 0.9rem;
   }
 }
