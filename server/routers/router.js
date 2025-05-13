@@ -73,7 +73,7 @@ router.post('/login', async (req, res) => {
         }
 
         // Generate JWT Token
-        const token = jwt.sign({ id: user._id, email: user.email }, JWT_SECRET, { expiresIn: '1h' });
+        const token = jwt.sign({ id: user._id, email: user.email }, JWT_SECRET, { expiresIn: '7d' });
         res.status(200).send({ msg: 'Login successful', token, userId: user._id });
     } catch (err) {
         console.error('Error during login:', err);
@@ -435,7 +435,7 @@ router.get('/auth/google/callback',
             const token = jwt.sign({
                 id: userId,
                 email: req.user.email
-            }, JWT_SECRET, { expiresIn: '1h' });
+            }, JWT_SECRET, { expiresIn: '7d' });
 
             // Log token payload for debugging (don't log the actual token)
             const decoded = jwt.verify(token, JWT_SECRET);

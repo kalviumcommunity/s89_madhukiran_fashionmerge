@@ -7,8 +7,8 @@ const CollectionSection = () => {
   };
 
   return (
-    <section 
-      id="collections-section" 
+    <section
+      id="collections-section"
       className="collection-section">
       <h2>NEW COLLECTION</h2>
       <div className="collection-grid">
@@ -34,10 +34,7 @@ const CollectionSection = () => {
           </div>
         </div>
       </div>
-      <br />
-      <br />
-      <br />
-      <button className="view-all-btn" style={{fontSize:'15px'}} onClick={handleViewAllClick}>VIEW ALL</button>
+      <button className="view-all-btn" onClick={handleViewAllClick}>VIEW ALL</button>
     </section>
   );
 };

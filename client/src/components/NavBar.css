@@ -198,6 +198,7 @@
     width: 100%;
     text-align: center;
     margin-bottom: 10px;
+    font-size: 20px;
   }
 
   .logo::before, .logo::after {
@@ -229,8 +230,8 @@
   /* Show only the logo in mobile view */
   .mobile-logo {
     display: block;
-    font-size: 26px;
-    font-weight: 500;
+    font-size: 50px;
+    font-weight: 900;
     letter-spacing: 2px;
     font-family: 'Playfair Display', serif;
     margin-right: auto;

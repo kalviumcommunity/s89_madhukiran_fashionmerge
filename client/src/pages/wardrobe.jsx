@@ -372,9 +372,8 @@ const Wardrobe = () => {
         <div className="modal-overlay">
           <div className="modal-content">
             <div className="modal-header">
-              <h2>Add New Item</h2>
               <button className="close-button" onClick={closeModal}>
-                <X size={24} />
+                <X size={40} />
               </button>
             </div>
 
@@ -440,21 +439,54 @@ const Wardrobe = () => {
                 </div>
               </div>
 
-              <div className="form-group">
+              <div className="form-group image-upload-container">
                 <label htmlFor="image" data-required="*">Image</label>
+                {previewUrl ? (
+                  <div className="image-preview-container">
+                    <div className="image-preview">
+                      <img src={previewUrl} alt="Preview" />
+                    </div>
+                    <div className="image-actions">
+                      <button
+                        type="button"
+                        className="upload-new-button"
+                        onClick={() => document.getElementById('image').click()}
+                      >
+                        Change Image
+                      </button>
+                      <button
+                        type="button"
+                        className="remove-image-button"
+                        onClick={() => {
+                          setSelectedFile(null);
+                          setPreviewUrl('');
+                        }}
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="upload-button-container">
+                    <button
+                      type="button"
+                      className="upload-button"
+                      onClick={() => document.getElementById('image').click()}
+                    >
+                      <Plus size={20} />
+                      Upload Image
+                    </button>
+                    <p className="upload-hint">Supported formats: JPG, PNG, GIF (max 5MB)</p>
+                  </div>
+                )}
                 <input
                   type="file"
                   id="image"
                   accept="image/*"
                   onChange={handleFileChange}
-                  className="file-input"
+                  className="file-input hidden"
                   required={!previewUrl}
                 />
-                {previewUrl && (
-                  <div className="image-preview">
-                    <img src={previewUrl} alt="Preview" />
-                  </div>
-                )}
               </div>
 
               {error && <div className="error-message">{error}</div>}

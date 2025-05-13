@@ -38,7 +38,7 @@ passport.use(
         const token = jwt.sign(
           { id: user._id, email: user.email },
           process.env.JWT_SECRET,
-          { expiresIn: '1h' } // Token expires in 1 hour
+          { expiresIn: '7d' } // Token expires in 7 days
         );
 
         // Attach the token to the user object
