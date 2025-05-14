@@ -455,12 +455,23 @@ router.get('/auth/google/callback',
                 await user.save();
             }
 
+            // Determine the frontend URL based on environment
+            const frontendURL = process.env.NODE_ENV === 'production'
+                ? (process.env.FRONTEND_URL || 'https://tangerine-scone-7cf83d.netlify.app')
+                : 'http://localhost:5173';
+
             // Include both token and userId in the redirect URL
             // The AuthHandler component will process these parameters
-            res.redirect(`http://localhost:5173/home?token=${token}&userId=${userId}`); // Pass token and userId to frontend
+            res.redirect(`${frontendURL}/home?token=${token}&userId=${userId}`); // Pass token and userId to frontend
         } catch (error) {
             console.error('Error in Google auth callback:', error);
-            res.redirect(`http://localhost:5173/login?error=auth_error`);
+
+            // Determine the frontend URL based on environment
+            const frontendURL = process.env.NODE_ENV === 'production'
+                ? (process.env.FRONTEND_URL || 'https://tangerine-scone-7cf83d.netlify.app')
+                : 'http://localhost:5173';
+
+            res.redirect(`${frontendURL}/login?error=auth_error`);
         }
     }
 );

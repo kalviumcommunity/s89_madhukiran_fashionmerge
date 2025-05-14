@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { BASE_URL } from '../config/api';
 
 export const useWardrobeStore = create((set, get) => ({
   wardrobe: [],
@@ -51,7 +52,7 @@ export const useWardrobeStore = create((set, get) => ({
       const wardrobe = get().wardrobe;
       console.log('Saving wardrobe to server for user:', userId, 'Items count:', wardrobe.length);
 
-      const response = await fetch(`http://localhost:5000/user-activity/${userId}`, {
+      const response = await fetch(`${BASE_URL}/user-activity/${userId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -87,7 +88,7 @@ export const useWardrobeStore = create((set, get) => ({
     try {
       set({ isLoading: true, error: null });
       console.log('Fetching wardrobe for user:', userId);
-      const response = await fetch(`http://localhost:5000/user-activity/${userId}`, {
+      const response = await fetch(`${BASE_URL}/user-activity/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -122,15 +123,15 @@ export const useWardrobeStore = create((set, get) => ({
   addItemAndSave: async (item, userId, token) => {
     try {
       set({ isLoading: true, error: null });
-      
+
       // Add to local state
       get().addItem(item);
-      
+
       // Save to server if logged in
       if (userId && token) {
         await get().saveWardrobeToServer(userId, token);
       }
-      
+
       set({ isLoading: false });
       return true;
     } catch (error) {
@@ -144,15 +145,15 @@ export const useWardrobeStore = create((set, get) => ({
   removeItemAndSave: async (index, userId, token) => {
     try {
       set({ isLoading: true, error: null });
-      
+
       // Remove from local state
       get().removeItem(index);
-      
+
       // Save to server if logged in
       if (userId && token) {
         await get().saveWardrobeToServer(userId, token);
       }
-      
+
       set({ isLoading: false });
       return true;
     } catch (error) {

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Minus, Plus, X, CreditCard, CheckCircle, Check, Clock, CreditCard as CardIcon, ShoppingBag } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useCartStore } from './cartStore';
+import { BASE_URL } from '../config/api';
 import './Cart.css';
 import './PaymentAnimations.css';
 
@@ -85,7 +86,7 @@ function Cart() {
         }
 
         console.log('Fetching cart items for user:', userId);
-        const response = await fetch(`http://localhost:5000/user-activity/${userId}`, {
+        const response = await fetch(`${BASE_URL}/user-activity/${userId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -214,7 +215,7 @@ function Cart() {
 
       // Step 2: Create a payment intent
       updateProcessingStep(1, 'active');
-      const paymentIntentResponse = await fetch('http://localhost:5000/api/stripe/create-payment-intent', {
+      const paymentIntentResponse = await fetch(`${BASE_URL}/api/stripe/create-payment-intent`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -240,7 +241,7 @@ function Cart() {
 
       // Step 3: Process the payment and create the order
       updateProcessingStep(2, 'active');
-      const processPaymentResponse = await fetch('http://localhost:5000/api/stripe/process-payment', {
+      const processPaymentResponse = await fetch(`${BASE_URL}/api/stripe/process-payment`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -324,7 +325,7 @@ function Cart() {
       }
 
       console.log('Saving cart items to server for user:', userId);
-      const response = await fetch(`http://localhost:5000/user-activity/${userId}`, {
+      const response = await fetch(`${BASE_URL}/user-activity/${userId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
