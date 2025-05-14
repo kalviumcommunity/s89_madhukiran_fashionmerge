@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { Minus, Plus, X, CreditCard, CheckCircle, Check, Clock, CreditCard as CardIcon, ShoppingBag } from 'lucide-react';
+import { Minus, Plus, X, CreditCard, CheckCircle, Check, Clock, CreditCard as CardIcon, ShoppingBag, Loader } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useCartStore } from './cartStore';
 import { BASE_URL } from '../config/api';
@@ -8,7 +8,14 @@ import './PaymentAnimations.css';
 
 function Cart() {
   const navigate = useNavigate();
-  const { items, removeItem: removeItemFromStore, updateQuantity, setItems } = useCartStore();
+  const {
+    items,
+    removeItem: removeItemFromStore,
+    updateQuantity,
+    fetchItems,
+    isLoading,
+    error
+  } = useCartStore();
   const [userId, setUserId] = useState(localStorage.getItem('userId'));
   const [token, setToken] = useState(localStorage.getItem('token'));
   const [isLoggedIn, setIsLoggedIn] = useState(!!userId && !!token);
@@ -76,48 +83,11 @@ function Cart() {
     };
   }, []);
 
+  // Fetch cart items from MongoDB when component mounts or login status changes
   useEffect(() => {
-    const fetchUserActivity = async () => {
-      try {
-        if (!isLoggedIn) {
-          console.log('User not logged in, cart will be empty');
-          setItems([]);
-          return;
-        }
-
-        console.log('Fetching cart items for user:', userId);
-        const response = await fetch(`${BASE_URL}/user-activity/${userId}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        if (!response.ok) {
-          const errorText = await response.text();
-          console.error('Server response:', response.status, errorText);
-          throw new Error(`Failed to fetch user activity: ${response.status} ${response.statusText}`);
-        }
-
-        const result = await response.json();
-        console.log('Server response for cart items:', result);
-
-        // Update cart items with fetched data if available
-        if (result.data && result.data.cartItems && result.data.cartItems.length > 0) {
-          console.log('Fetched cart items from server:', result.data.cartItems);
-          setItems(result.data.cartItems);
-        } else {
-          console.log('No cart items found on server');
-          setItems([]);
-        }
-      } catch (error) {
-        console.error('Error fetching user activity:', error);
-        setItems([]);
-      }
-    };
-
-    // Fetch cart items when component mounts or login status changes
-    fetchUserActivity();
-  }, [isLoggedIn, userId, token, setItems]);
+    // Use the fetchItems function from the store
+    fetchItems();
+  }, [isLoggedIn, userId, token, fetchItems]);
 
   const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const shipping = subtotal > 50 ? 0 : 5.99;
@@ -316,70 +286,10 @@ function Cart() {
     }, 300);
   };
 
-  const saveCartItems = useCallback(async (items) => {
-    try {
-      // Skip if user is not logged in
-      if (!isLoggedIn) {
-        console.log('User not logged in, cart not saved');
-        return;
-      }
-
-      console.log('Saving cart items to server for user:', userId);
-      const response = await fetch(`${BASE_URL}/user-activity/${userId}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ cartItems: items }),
-      });
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error('Server response:', response.status, errorText);
-        throw new Error(`Failed to save cart items: ${response.status} ${response.statusText}`);
-      }
-
-      const result = await response.json();
-      console.log('Cart items saved successfully:', result);
-    } catch (error) {
-      console.error('Error saving cart items:', error);
-    }
-  }, [isLoggedIn, userId, token]);
-
-  // Remove item and update MongoDB
-  const removeItem = useCallback(async (itemId, size, color) => {
-    // First remove from local store
+  // Remove item using the store's method which handles MongoDB sync
+  const removeItem = useCallback((itemId, size, color) => {
     removeItemFromStore(itemId, size, color);
-
-    // Then update MongoDB with the updated items list
-    if (isLoggedIn) {
-      try {
-        // Filter out the specific item with matching id, size, and color
-        const updatedItems = items.filter(item =>
-          !(item.id === itemId && item.size === size && item.color === color)
-        );
-        await saveCartItems(updatedItems);
-      } catch (error) {
-        console.error('Error updating MongoDB after removing item:', error);
-      }
-    }
-  }, [isLoggedIn, items, removeItemFromStore, saveCartItems]);
-
-  // Save cart items to server when they change, but with debounce to avoid too many requests
-  useEffect(() => {
-    // Only save if user is logged in and there are items
-    if (isLoggedIn && items.length > 0) {
-      // Use a timeout to debounce the save operation
-      const saveTimeout = setTimeout(() => {
-        console.log('Saving cart items to server (debounced):', items.length);
-        saveCartItems(items);
-      }, 500); // 500ms debounce
-
-      // Clear the timeout if the component unmounts or items change again
-      return () => clearTimeout(saveTimeout);
-    }
-  }, [items, isLoggedIn, saveCartItems]);
+  }, [removeItemFromStore]);
 
   return (
     <div className="cart-container">
@@ -408,7 +318,17 @@ function Cart() {
       <br />
       <br />
       <h1 className="cart-title">Shopping Cart</h1>
-      {items.length === 0 ? (
+      {isLoading ? (
+        <div className="loading-cart">
+          <Loader className="spinner" size={24} />
+          <p>Loading your cart...</p>
+        </div>
+      ) : error ? (
+        <div className="error-cart">
+          <p>Error loading your cart: {error}</p>
+          <button onClick={fetchItems} className="retry-btn">Retry</button>
+        </div>
+      ) : items.length === 0 ? (
         <div className="empty-cart">
           <p>Your shopping cart is empty</p>
         </div>
