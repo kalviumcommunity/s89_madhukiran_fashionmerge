@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { BASE_URL } from '../config/api';
 
 const AuthDebug = () => {
   const [userId, setUserId] = useState(localStorage.getItem('userId'));
@@ -39,7 +40,7 @@ const AuthDebug = () => {
       setLoading(true);
       setError(null);
 
-      const response = await fetch('http://localhost:5000/check-auth', {
+      const response = await fetch(`${BASE_URL}/check-auth`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -69,7 +70,7 @@ const AuthDebug = () => {
       setLoading(true);
       setError(null);
 
-      const response = await fetch(`http://localhost:5000/userprofile/${userId}`, {
+      const response = await fetch(`${BASE_URL}/userprofile/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -99,7 +100,7 @@ const AuthDebug = () => {
       setLoading(true);
       setError(null);
 
-      const response = await fetch(`http://localhost:5000/user-activity/${userId}`, {
+      const response = await fetch(`${BASE_URL}/user-activity/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

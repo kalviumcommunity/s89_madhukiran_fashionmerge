@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import './signup.css';
+import { BASE_URL } from '../config/api';
 
 const ResetPassword = () => {
   const [password, setPassword] = useState('');
@@ -15,21 +16,21 @@ const ResetPassword = () => {
     e.preventDefault();
     setError('');
     setSuccess('');
-  
+
     if (password !== confirmPassword) {
       setError('Passwords do not match');
       return;
     }
-  
+
     try {
       const token = searchParams.get('token');
       console.log('Token being sent:', token);
-      const res = await axios.put('http://localhost:5000/reset-password', {
+      const res = await axios.put(`${BASE_URL}/reset-password`, {
         token,
         password,
       });
       setSuccess(res.data.msg);
-      
+
       setTimeout(() => {
         navigate('/login');
       }, 2000);
@@ -61,7 +62,7 @@ const ResetPassword = () => {
           </button>
         </div>
       </div>
-      
+
       <div className="right-panel">
         <div className="form-container">
           <div className="form-header">
@@ -70,7 +71,7 @@ const ResetPassword = () => {
 
           {error && <div className="error-message">{error}</div>}
           {success && <div className="success-message">{success}</div>}
-          
+
           <form onSubmit={handleSubmit} className="signup-form">
             <input
               type="password"
@@ -80,7 +81,7 @@ const ResetPassword = () => {
               required
               className="form-input"
             />
-            
+
             <input
               type="password"
               value={confirmPassword}
@@ -89,7 +90,7 @@ const ResetPassword = () => {
               required
               className="form-input"
             />
-            
+
             <div className="form-footer">
               <button type="submit" className="signup-button">Reset Password</button>
             </div>

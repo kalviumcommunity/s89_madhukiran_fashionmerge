@@ -54,7 +54,7 @@ const mailOptions = {
   headers: {
     'List-Unsubscribe': '<mailto:fashionmergeforyou@gmail.com>'
   },
-  text: `Hello,\n\nWe received a password reset request for your FashionMerge account.\n\nClick the link below to reset your password:\nhttp://localhost:5173/reset-password?token=${resetToken}\n\nThis link will expire in 1 hour.\n\nIf you didn't request this, please ignore this email.\n\nBest regards,\nFashionMerge Team`,
+  text: `Hello,\n\nWe received a password reset request for your FashionMerge account.\n\nClick the link below to reset your password:\n${process.env.NODE_ENV === 'production' ? (process.env.FRONTEND_URL || 'https://tangerine-scone-7cf83d.netlify.app') : 'http://localhost:5173'}/reset-password?token=${resetToken}\n\nThis link will expire in 1 hour.\n\nIf you didn't request this, please ignore this email.\n\nBest regards,\nFashionMerge Team`,
   html: `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
       <div style="text-align: center; margin-bottom: 20px;">
@@ -64,8 +64,8 @@ const mailOptions = {
         <p>Hello,</p>
         <p>We received a password reset request for your FashionMerge account.</p>
         <div style="text-align: center; margin: 30px 0;">
-          <a href="http://localhost:5173/reset-password?token=${resetToken}"
-             style="background-color: #4CAF50; color: white; padding: 12px 25px; 
+          <a href="${process.env.NODE_ENV === 'production' ? (process.env.FRONTEND_URL || 'https://tangerine-scone-7cf83d.netlify.app') : 'http://localhost:5173'}/reset-password?token=${resetToken}"
+             style="background-color: #4CAF50; color: white; padding: 12px 25px;
                     text-decoration: none; border-radius: 4px; display: inline-block;">
             Reset Password
           </a>

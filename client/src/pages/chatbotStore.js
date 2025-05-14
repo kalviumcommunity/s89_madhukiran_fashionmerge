@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { BASE_URL } from '../config/api';
 
 export const useChatbotStore = create((set, get) => ({
   messages: [],
@@ -96,7 +97,7 @@ export const useChatbotStore = create((set, get) => ({
 
       console.log('Converted chat history for server:', chatbotHistory);
 
-      const response = await fetch(`http://localhost:5000/user-activity/${userId}`, {
+      const response = await fetch(`${BASE_URL}/user-activity/${userId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -129,7 +130,7 @@ export const useChatbotStore = create((set, get) => ({
 
     try {
       console.log('Fetching chat history for user:', userId);
-      const response = await fetch(`http://localhost:5000/user-activity/${userId}`, {
+      const response = await fetch(`${BASE_URL}/user-activity/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
