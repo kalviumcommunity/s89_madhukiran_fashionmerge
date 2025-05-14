@@ -3,7 +3,6 @@ import { create } from 'zustand';
 export const useWishlistStore = create((set, get) => ({
   items: [], // Initialize with empty array
 
-  // Set items directly (used when loading from server)
   setItems: (items) => {
     set({ items });
   },
