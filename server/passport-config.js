@@ -3,10 +3,8 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const jwt = require('jsonwebtoken'); // Import JWT for token generation
 const User = require('./models/schema'); // Import your User schema
 
-// Determine the callback URL based on environment
-const callbackURL = process.env.NODE_ENV === 'production'
-  ? `${process.env.BACKEND_URL || 'https://your-deployed-backend-url.com'}/auth/google/callback`
-  : 'http://localhost:5000/auth/google/callback';
+// Using the deployed backend URL for the callback
+const callbackURL = 'https://s89-madhukiran-fashionmerge.onrender.com/auth/google/callback';
 
 passport.use(
   new GoogleStrategy(

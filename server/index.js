@@ -10,7 +10,12 @@ require('dotenv').config();
 require('./passport-config');
 
 app.use(express.json());
-app.use(cors());
+
+// Configure CORS to allow requests from your Netlify domain
+app.use(cors({
+  origin: ['https://tangerine-scone-7cf83d.netlify.app', 'http://localhost:5173'],
+  credentials: true
+}));
 app.use(session({
   secret: 'your-secret-key',
   resave: false,
@@ -78,10 +83,8 @@ app.get('/auth/google/callback',
         await user.save();
       }
 
-      // Determine the frontend URL based on environment
-      const frontendURL = process.env.NODE_ENV === 'production'
-        ? (process.env.FRONTEND_URL || 'https://your-deployed-frontend-url.com')
-        : 'http://localhost:5173';
+      // Using the deployed frontend URL
+      const frontendURL = 'https://tangerine-scone-7cf83d.netlify.app';
 
       // Include both token and userId in the redirect URL
       // The AuthHandler component will process these parameters
@@ -89,9 +92,8 @@ app.get('/auth/google/callback',
     } catch (error) {
       console.error('Error in Google auth callback:', error);
 
-      const frontendURL = process.env.NODE_ENV === 'production'
-        ? (process.env.FRONTEND_URL || 'https://your-deployed-frontend-url.com')
-        : 'http://localhost:5173';
+      // Using the deployed frontend URL
+      const frontendURL = 'https://tangerine-scone-7cf83d.netlify.app';
 
       res.redirect(`${frontendURL}/login?error=auth_error`);
     }
