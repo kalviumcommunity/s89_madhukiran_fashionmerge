@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Package, ChevronDown, ChevronUp } from 'lucide-react';
+import { PURCHASES_ENDPOINTS } from '../config/api';
 import './Purchases.css';
 
 function Purchases() {
@@ -9,7 +10,7 @@ function Purchases() {
   const [error, setError] = useState(null);
   const [expandedOrders, setExpandedOrders] = useState({});
   const navigate = useNavigate();
-  
+
   const [userId, setUserId] = useState(localStorage.getItem('userId'));
   const [token, setToken] = useState(localStorage.getItem('token'));
   const [isLoggedIn, setIsLoggedIn] = useState(!!userId && !!token);
@@ -46,7 +47,7 @@ function Purchases() {
 
       try {
         setLoading(true);
-        const response = await fetch(`http://localhost:5000/api/purchases/user/${userId}`, {
+        const response = await fetch(`${PURCHASES_ENDPOINTS.GET_PURCHASES}/user/${userId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -113,7 +114,7 @@ function Purchases() {
   return (
     <div className="purchases-container">
       <h1 className="purchases-title">My Purchases</h1>
-      
+
       {loading ? (
         <div className="loading">Loading your purchase history...</div>
       ) : error ? (
@@ -131,8 +132,8 @@ function Purchases() {
         <div className="purchases-list">
           {purchases.map((purchase) => (
             <div key={purchase._id} className="purchase-card">
-              <div 
-                className="purchase-header" 
+              <div
+                className="purchase-header"
                 onClick={() => toggleOrderExpansion(purchase._id)}
               >
                 <div className="purchase-info">
@@ -155,17 +156,17 @@ function Purchases() {
                   </div>
                 </div>
               </div>
-              
+
               {expandedOrders[purchase._id] && (
                 <div className="purchase-details">
                   <div className="purchase-products">
                     <h3>Products</h3>
                     {purchase.products.map((product, index) => (
                       <div key={index} className="purchase-product">
-                        <img 
-                          src={product.image} 
-                          alt={product.name} 
-                          className="product-image" 
+                        <img
+                          src={product.image}
+                          alt={product.name}
+                          className="product-image"
                         />
                         <div className="product-info">
                           <div className="product-name">{product.name}</div>
@@ -181,7 +182,7 @@ function Purchases() {
                       </div>
                     ))}
                   </div>
-                  
+
                   <div className="purchase-shipping">
                     <h3>Shipping Address</h3>
                     <div className="address-details">
@@ -191,7 +192,7 @@ function Purchases() {
                       <p>{purchase.shippingAddress.country}</p>
                     </div>
                   </div>
-                  
+
                   <div className="purchase-payment">
                     <h3>Payment Information</h3>
                     <div className="payment-details">

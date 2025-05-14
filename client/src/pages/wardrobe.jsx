@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useWardrobeStore } from './wardrobeStore';
 import { Plus, X, Filter, RefreshCw } from 'lucide-react';
+import { UPLOAD_ENDPOINTS } from '../config/api';
 import './wardrobe.css';
 
 const CATEGORIES = ['tops', 'bottoms', 'dresses', 'outerwear', 'shoes', 'accessories', 'other'];
@@ -116,7 +117,7 @@ const Wardrobe = () => {
 
     try {
       console.log('Sending upload request to server...');
-      const response = await fetch('http://localhost:5000/api/upload/upload', {
+      const response = await fetch(UPLOAD_ENDPOINTS.UPLOAD_IMAGE, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`

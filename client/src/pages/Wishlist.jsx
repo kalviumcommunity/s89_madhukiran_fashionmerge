@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { X, ShoppingCart } from 'lucide-react';
 import { useWishlistStore } from './wishlistStore';
 import { useCartStore } from './cartStore';
+import { BASE_URL } from '../config/api';
 import './Wishlist.css';
 
 function Wishlist() {
@@ -50,7 +51,7 @@ function Wishlist() {
         }
 
         console.log('Fetching wishlist items for user:', userId);
-        const response = await fetch(`http://localhost:5000/user-activity/${userId}`, {
+        const response = await fetch(`${BASE_URL}/user-activity/${userId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -92,7 +93,7 @@ function Wishlist() {
       }
 
       console.log('Saving wishlist items to server for user:', userId);
-      const response = await fetch(`http://localhost:5000/user-activity/${userId}`, {
+      const response = await fetch(`${BASE_URL}/user-activity/${userId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
