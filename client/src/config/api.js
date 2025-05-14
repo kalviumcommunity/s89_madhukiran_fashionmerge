@@ -24,6 +24,7 @@ export const AUTH_ENDPOINTS = {
 // User endpoints
 export const USER_ENDPOINTS = {
   PROFILE: (userId) => `${BASE_URL}/userprofile/${userId}`,
+  UPDATE_PROFILE: (userId) => `${BASE_URL}/update-profile/${userId}`,
   USER_ACTIVITY: (userId) => `${BASE_URL}/user-activity/${userId}`,
   DELETE_ACCOUNT: (userId) => `${BASE_URL}/delete-account/${userId}`,
 };
