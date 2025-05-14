@@ -5,7 +5,7 @@ const User = require('./models/schema'); // Import your User schema
 
 // Determine the callback URL based on environment
 const callbackURL = process.env.NODE_ENV === 'production'
-  ? `${process.env.BACKEND_URL || 'https://your-deployed-backend-url.com'}/auth/google/callback`
+  ? `${process.env.BACKEND_URL || 'https://s89-madhukiran-fashionmerge.onrender.com'}/auth/google/callback`
   : 'http://localhost:5000/auth/google/callback';
 
 passport.use(
