@@ -15,15 +15,11 @@
   height: 100%;
   object-fit: cover; /* Ensure video covers the section */
   z-index: 1; /* Ensure video is behind content */
-  will-change: transform; /* Optimize for GPU acceleration */
-  transform: translateZ(0); /* Force GPU acceleration */
-  backface-visibility: hidden; /* Reduce composite layers */
 }
 
 .maison-video.loading {
   opacity: 0;
   transition: opacity 0.5s ease-in;
-  will-change: opacity; /* Hint to browser to optimize for animation */
 }
 
 .maison-video.loaded {
@@ -38,8 +34,6 @@
   height: 100%;
   background-color: #1a1a1a;
   z-index: 1;
-  /* Add a subtle gradient to make it look nicer */
-  background: linear-gradient(to bottom, #1a1a1a, #2a2a2a);
 }
 
 .maison-section::after {

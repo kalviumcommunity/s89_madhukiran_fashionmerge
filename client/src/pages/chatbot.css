@@ -253,17 +253,10 @@
     border-radius: 9999px;
     font-size: 0.95rem;
     outline: none;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    transition: all 0.3s ease;
     font-family: 'Inter', sans-serif;
     letter-spacing: 0.2px;
     background-color: #fcfcfd;
-    resize: none; /* Prevent textarea resizing */
-    overflow-y: hidden; /* Hide scrollbar for auto-resize */
-    max-height: 150px; /* Limit height growth */
-    min-height: 42px; /* Match the original input height */
-    line-height: 1.5; /* Improve readability for multiline text */
-    box-sizing: border-box; /* Include padding in height calculation */
-    display: block; /* Ensure proper sizing */
   }
 
   .chatbot-input:focus {
@@ -484,9 +477,6 @@
     .chatbot-input {
       padding: 0.6rem 1rem;
       font-size: 0.9rem;
-      min-height: 36px; /* Smaller min-height for mobile */
-      max-height: 120px; /* Smaller max-height for mobile */
-      line-height: 1.4; /* Slightly tighter line height for mobile */
     }
 
     .chatbot-send-button,
