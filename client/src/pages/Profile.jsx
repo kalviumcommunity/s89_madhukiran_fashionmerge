@@ -246,7 +246,7 @@ function Profile() {
       const data = await response.json();
 
       // Update user profile with new image URL
-      const updateResponse = await fetch(`${USER_ENDPOINTS.PROFILE(userId)}/update`, {
+      const updateResponse = await fetch(USER_ENDPOINTS.UPDATE_PROFILE(userId), {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -289,7 +289,7 @@ function Profile() {
     }
 
     try {
-      const response = await fetch(`${USER_ENDPOINTS.PROFILE(userId)}/update`, {
+      const response = await fetch(USER_ENDPOINTS.UPDATE_PROFILE(userId), {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
