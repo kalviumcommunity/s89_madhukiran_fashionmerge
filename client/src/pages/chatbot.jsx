@@ -180,62 +180,8 @@ const Chatbot = () => {
     }
   }, [isLoggedIn, messages.length, historyLoaded, setStoreMessages]);
 
-  // Effect to adjust textarea height when input value changes or component mounts
-  useEffect(() => {
-    if (inputRef.current) {
-      adjustTextareaHeight(inputRef.current);
-    }
-  }, [inputValue]);
-
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
-
-    // Auto-resize the textarea
-    adjustTextareaHeight(e.target);
-  };
-
-  // Function to adjust textarea height based on content
-  const adjustTextareaHeight = (textarea) => {
-    if (!textarea) return;
-
-    // Reset height to auto to get the correct scrollHeight
-    textarea.style.height = 'auto';
-
-    // Set the height to match content (scrollHeight)
-    // Add a small buffer (2px) to prevent scrollbar flashing
-    textarea.style.height = `${textarea.scrollHeight + 2}px`;
-  };
-
-  // Handle key press events in the input field
-  const handleKeyDown = (e) => {
-    // Check for Shift+Enter to add a new line
-    if (e.key === 'Enter' && e.shiftKey) {
-      // Don't submit the form
-      e.preventDefault();
-
-      // Insert a newline character at the cursor position
-      const cursorPosition = e.target.selectionStart;
-      const textBeforeCursor = inputValue.substring(0, cursorPosition);
-      const textAfterCursor = inputValue.substring(cursorPosition);
-
-      // Update the input value with a new line
-      setInputValue(textBeforeCursor + '\n' + textAfterCursor);
-
-      // Set cursor position after the inserted newline and adjust height (needs to be done after render)
-      setTimeout(() => {
-        if (inputRef.current) {
-          inputRef.current.selectionStart = cursorPosition + 1;
-          inputRef.current.selectionEnd = cursorPosition + 1;
-          adjustTextareaHeight(inputRef.current);
-        }
-      }, 0);
-    } else if (e.key === 'Enter' && !e.shiftKey) {
-      // Regular Enter key (without Shift) submits the form
-      e.preventDefault();
-      if (inputValue.trim() || selectedImage) {
-        sendMessage(e);
-      }
-    }
   };
 
   // Handle file selection for images
@@ -362,17 +308,11 @@ const Chatbot = () => {
   const sendMessage = async (e) => {
     e.preventDefault();
 
-    // Preserve line breaks but trim whitespace at the beginning and end
     const message = inputValue.trim();
     if (!message && !selectedImage) return;
 
     // Clear input field
     setInputValue("");
-
-    // Reset textarea height
-    if (inputRef.current) {
-      inputRef.current.style.height = 'auto';
-    }
 
     // Create timestamp
     const timestamp = new Date();
@@ -714,12 +654,7 @@ const Chatbot = () => {
                 />
               ) : (
                 <>
-                  <p className="message-text">{message.text.split('\n').map((line, i) => (
-                    <React.Fragment key={i}>
-                      {line}
-                      {i < message.text.split('\n').length - 1 && <br />}
-                    </React.Fragment>
-                  ))}</p>
+                  <p className="message-text">{message.text}</p>
                   {message.hasImage && message.imagePreview && (
                     <div className="message-image-container">
                       <img
@@ -799,16 +734,15 @@ const Chatbot = () => {
             <Image size={20} />
           </button>
 
-          {/* Text input - using textarea for multiline support */}
-          <textarea
+          {/* Text input */}
+          <input
             ref={inputRef}
+            type="text"
             value={inputValue}
             onChange={handleInputChange}
-            onKeyDown={handleKeyDown}
-            placeholder="Ask about fashion trends, styling advice... (Shift+Enter for new line)"
+            placeholder="Ask about fashion trends, styling advice..."
             className="chatbot-input"
             disabled={isTyping}
-            rows={1}
           />
 
           {/* Send button */}
