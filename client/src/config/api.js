@@ -8,7 +8,7 @@
 // Set the base URL for all API calls
 // Change this to your deployed backend URL when deploying
 const BASE_URL = process.env.NODE_ENV === 'production' 
-  ? 'https://your-deployed-backend-url.com' // Replace with your actual deployed backend URL
+  ? 'https://s89-madhukiran-fashionmerge.onrender.com' // Replace with your actual deployed backend URL
   : 'http://localhost:5000';
 
 // Auth endpoints
