@@ -9,7 +9,7 @@ const MaisonSection = () => {
   return (
     <section className="maison-section">
       <video className="maison-video" autoPlay loop muted>
-        <source src="https://res.cloudinary.com/dwr6mvypn/video/upload/v1746449041/klzqqfpkl8kjfrtamg1v.mp4" type="video/mp4" /> 
+        <source src="https://res.cloudinary.com/dwr6mvypn/video/upload/v1747214721/klzqqfpkl8kjfrtamg1v.mp4" type="video/mp4" /> 
         Your browser does not support the video tag.
       </video>
       <div className="maison-content">
