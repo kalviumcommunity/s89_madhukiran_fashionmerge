@@ -7,7 +7,11 @@ import { useChatbotStore } from "./chatbotStore";
 import "./chatbot.css";
 
 // Using a server-side proxy to avoid CORS issues
-const API_URL = "https://equal-cristy-madhukiran-6b9e128e.koyeb.app/chat";
+const PRIMARY_API_URL = "https://equal-cristy-madhukiran-6b9e128e.koyeb.app/chat";
+// Fallback to a different API if the primary one fails
+const FALLBACK_API_URL = "https://equal-cristy-madhukiran-6b9e128e.koyeb.app/api/chat";
+// Start with the primary API
+let API_URL = PRIMARY_API_URL;
 // Simple time formatter (replacement for date-fns)
 const formatTime = (date) => {
   const hours = date.getHours();
@@ -154,7 +158,7 @@ const Chatbot = () => {
     };
 
     fetchChatHistory();
-  }, [isLoggedIn, userId, token, guestId]);
+  }, [isLoggedIn, userId, token, guestId, addMessage, historyLoaded, loadMessagesFromLocalStorage, loadMessagesFromServer, saveMessagesToLocalStorage, saveMessagesToServer, setStoreMessages, storeMessages]);
 
   // Initialize with welcome message if not logged in
   useEffect(() => {
@@ -172,14 +176,73 @@ const Chatbot = () => {
       setStoreMessages([welcomeMessage]);
       setHistoryLoaded(true);
     }
-  }, [isLoggedIn, messages.length, historyLoaded]);
+  }, [isLoggedIn, messages.length, historyLoaded, setStoreMessages]);
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
   };
 
   // Handle file selection for images
-  const handleImageSelect = (e) => {
+  // Resize image to reduce file size
+  const resizeImage = (file, maxWidth = 800, maxHeight = 800, quality = 0.8) => {
+    return new Promise((resolve, reject) => {
+      // Create a FileReader to read the file
+      const reader = new FileReader();
+
+      // Set up the FileReader onload callback
+      reader.onload = (readerEvent) => {
+        // Create an image object
+        const img = new Image();
+        img.onload = () => {
+          // Calculate new dimensions while maintaining aspect ratio
+          let width = img.width;
+          let height = img.height;
+
+          if (width > height) {
+            if (width > maxWidth) {
+              height = Math.round(height * maxWidth / width);
+              width = maxWidth;
+            }
+          } else {
+            if (height > maxHeight) {
+              width = Math.round(width * maxHeight / height);
+              height = maxHeight;
+            }
+          }
+
+          // Create a canvas and draw the resized image
+          const canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+
+          // Convert the canvas to a Blob
+          canvas.toBlob((blob) => {
+            // Create a new File from the blob
+            const resizedFile = new File([blob], file.name, {
+              type: file.type,
+              lastModified: Date.now()
+            });
+
+            resolve(resizedFile);
+          }, file.type, quality);
+        };
+
+        // Set the source of the image to the FileReader result
+        img.src = readerEvent.target.result;
+      };
+
+      // Handle errors
+      reader.onerror = (error) => reject(error);
+
+      // Read the file as a data URL
+      reader.readAsDataURL(file);
+    });
+  };
+
+  const handleImageSelect = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
@@ -191,8 +254,31 @@ const Chatbot = () => {
 
     // Limit file size to 5MB
     if (file.size > 5 * 1024 * 1024) {
-      setError('Image size should be less than 5MB');
-      return;
+      setError('Image size is too large. Attempting to resize...');
+
+      try {
+        // Resize the image
+        const resizedFile = await resizeImage(file);
+        console.log('Original size:', file.size, 'Resized size:', resizedFile.size);
+
+        if (resizedFile.size > 5 * 1024 * 1024) {
+          setError('Image is still too large after resizing. Please select a smaller image.');
+          return;
+        }
+
+        setSelectedImage(resizedFile);
+
+        // Create preview for the resized image
+        const reader = new FileReader();
+        reader.onload = (e) => setImagePreview(e.target.result);
+        reader.readAsDataURL(resizedFile);
+
+        return;
+      } catch (error) {
+        console.error('Error resizing image:', error);
+        setError('Error resizing image. Please select a smaller image.');
+        return;
+      }
     }
 
     setSelectedImage(file);
@@ -258,20 +344,68 @@ const Chatbot = () => {
       console.log('Using ID for chat API:', chatApiId);
 
       if (selectedImage) {
-        const formData = new FormData();
-        if (message) {
-          formData.append('message', message);
+        try {
+          // Try to resize the image if it's larger than 1MB to improve reliability
+          let imageToUpload = selectedImage;
+          if (selectedImage.size > 1 * 1024 * 1024) {
+            try {
+              console.log('Image is large, attempting to resize before sending to API');
+              // Use a higher compression ratio for API uploads
+              imageToUpload = await resizeImage(selectedImage, 600, 600, 0.7);
+              console.log('Successfully resized image for API upload:',
+                'Original:', selectedImage.size, 'bytes,',
+                'Resized:', imageToUpload.size, 'bytes,',
+                'Reduction:', Math.round((1 - imageToUpload.size / selectedImage.size) * 100) + '%'
+              );
+            } catch (resizeError) {
+              console.error('Failed to resize image before API upload:', resizeError);
+              // Continue with original image if resize fails
+              imageToUpload = selectedImage;
+            }
+          }
+
+          const formData = new FormData();
+          if (message) {
+            formData.append('message', message);
+          }
+          formData.append('image', imageToUpload);
+          formData.append('userId', chatApiId); // Use the user ID or guest ID for the API
+
+          console.log('Sending image to chatbot API:', {
+            imageSize: imageToUpload.size,
+            imageType: imageToUpload.type,
+            message: message || '(no message)',
+            userId: chatApiId
+          });
+
+          // Set a longer timeout for image uploads
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
+
+          try {
+            response = await fetch(API_URL, {
+              method: "POST",
+              body: formData,
+              signal: controller.signal
+            });
+
+            clearTimeout(timeoutId);
+          } catch (fetchError) {
+            if (fetchError.name === 'AbortError') {
+              throw new Error('Request timed out. The server took too long to process the image.');
+            }
+            throw fetchError;
+          }
+
+          // Log response status for debugging
+          console.log('Image upload response status:', response.status);
+
+          // Clear the selected image after sending
+          handleClearImage();
+        } catch (uploadError) {
+          console.error('Error uploading image to chatbot:', uploadError);
+          throw new Error(`Error uploading image: ${uploadError.message}`);
         }
-        formData.append('image', selectedImage);
-        formData.append('userId', chatApiId); // Use the user ID or guest ID for the API
-
-        response = await fetch(API_URL, {
-          method: "POST",
-          body: formData
-        });
-
-        // Clear the selected image after sending
-        handleClearImage();
       } else {
         // Regular text message without an image
         response = await fetch(API_URL, {
@@ -284,10 +418,72 @@ const Chatbot = () => {
       }
 
       if (!response.ok) {
-        throw new Error(`Server responded with status: ${response.status}`);
+        // Try to get more detailed error information
+        let errorMessage = `Server responded with status: ${response.status}`;
+        try {
+          const errorData = await response.text();
+          console.error('Error response from chatbot API:', errorData);
+          if (errorData) {
+            errorMessage += ` - ${errorData}`;
+          }
+        } catch (e) {
+          console.error('Could not parse error response:', e);
+        }
+
+        // If we get a 500 error and we're using the primary API, try the fallback API
+        if (response.status === 500 && API_URL === PRIMARY_API_URL) {
+          console.log('Primary API failed with 500 error, trying fallback API...');
+          API_URL = FALLBACK_API_URL;
+
+          // Try again with the fallback API
+          try {
+            if (selectedImage) {
+              const formData = new FormData();
+              if (message) {
+                formData.append('message', message);
+              }
+              formData.append('image', selectedImage);
+              formData.append('userId', chatApiId);
+
+              response = await fetch(API_URL, {
+                method: "POST",
+                body: formData
+              });
+            } else {
+              response = await fetch(API_URL, {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ message, userId: chatApiId })
+              });
+            }
+
+            // If the fallback also fails, throw the original error
+            if (!response.ok) {
+              console.error('Fallback API also failed with status:', response.status);
+              throw new Error(errorMessage);
+            }
+
+            console.log('Fallback API succeeded!');
+          } catch (fallbackError) {
+            console.error('Error using fallback API:', fallbackError);
+            throw new Error(errorMessage);
+          }
+        } else {
+          // If it's not a 500 error or we're already using the fallback, throw the error
+          throw new Error(errorMessage);
+        }
       }
 
-      const data = await response.json();
+      let data;
+      try {
+        data = await response.json();
+        console.log('Chatbot API response:', data);
+      } catch (jsonError) {
+        console.error('Error parsing JSON response:', jsonError);
+        throw new Error('Invalid response from server. Could not parse JSON.');
+      }
 
       // Add bot message
       const botMessage = {
@@ -312,21 +508,46 @@ const Chatbot = () => {
       }
     } catch (err) {
       console.error("Error communicating with the API:", err);
-      setError("Failed to get a response. Please try again later.");
 
-      // Add error message
-      const errorMessage = {
+      // Create a more descriptive error message for the user
+      let userErrorMessage = "Failed to get a response. Please try again later.";
+
+      // Create the error message object that will be shown in the chat
+      let chatErrorMessage = {
         sender: "bot",
         text: "Sorry, there was an error processing your request. Please try again later.",
         timestamp: formatTime(new Date()),
         isError: true
       };
 
+      // Check if it's an image-related error
+      if (selectedImage && err.message.includes('image')) {
+        userErrorMessage = "There was a problem processing your image. Please try a different image or format (JPG/PNG recommended).";
+      } else if (err.message.includes('500')) {
+        userErrorMessage = "The server encountered an internal error. This might be a temporary issue, please try again later.";
+
+        // For 500 errors with images, provide a more helpful message
+        if (selectedImage) {
+          chatErrorMessage = {
+            sender: "bot",
+            text: "I'm having trouble analyzing your image right now. This could be due to:\n\n" +
+                  "- The image format (try JPG or PNG)\n" +
+                  "- Image size (try a smaller image under 1MB)\n" +
+                  "- Temporary server issues\n\n" +
+                  "You can try describing the outfit or fashion item in text instead, and I'll do my best to help!",
+            timestamp: formatTime(new Date()),
+            isError: true
+          };
+        }
+      }
+
+      setError(userErrorMessage);
+
       // Update local state
-      setMessages(prevMessages => [...prevMessages, errorMessage]);
+      setMessages(prevMessages => [...prevMessages, chatErrorMessage]);
 
       // Update store state
-      addMessage(errorMessage);
+      addMessage(chatErrorMessage);
 
       // Save chat history
       if (isLoggedIn) {

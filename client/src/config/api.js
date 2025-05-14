@@ -7,7 +7,16 @@
 
 // Set the base URL for all API calls
 // Change this to your deployed backend URL when deploying
-export const BASE_URL = process.env.NODE_ENV === 'production'
+// In production builds, process.env.NODE_ENV might not be properly set
+// So we'll check if we're running on the deployed domain
+const isProduction = typeof window !== 'undefined' &&
+  (window.location.hostname !== 'localhost' &&
+   window.location.hostname !== '127.0.0.1');
+
+// For Vite, we can also check import.meta.env.PROD
+const isViteProduction = typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.PROD;
+
+export const BASE_URL = (isProduction || isViteProduction)
   ? 'https://s89-madhukiran-fashionmerge.onrender.com' // Replace with your actual deployed backend URL
   : 'http://localhost:5000';
 
