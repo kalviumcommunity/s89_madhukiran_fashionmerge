@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './signup.css';
+import { AUTH_ENDPOINTS } from '../config/api';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -44,8 +45,7 @@ const Login = () => {
     setSuccess('');
 
     try {
-      // Updated endpoint URL - removed '/route'
-      const res = await axios.post('http://localhost:5000/login', formData);
+      const res = await axios.post(AUTH_ENDPOINTS.LOGIN, formData);
       setSuccess(res.data.msg || 'Login successful!');
 
       if (res.status === 200) {
@@ -77,8 +77,7 @@ const Login = () => {
     setSuccess('');
 
     try {
-      // Updated endpoint URL - removed '/route'
-      const res = await axios.post('http://localhost:5000/forgot-password', { email: forgotPasswordEmail });
+      const res = await axios.post(AUTH_ENDPOINTS.FORGOT_PASSWORD, { email: forgotPasswordEmail });
       setSuccess(res.data.msg || 'Password reset link sent!');
     } catch (error) {
       if (error.response) {
@@ -161,7 +160,7 @@ const Login = () => {
                 <button type="submit" className="signup-button">Login</button>
                 <div className="social-icons">
                   <p className="or-text">or</p>
-                  <a href="http://localhost:5000/auth/google" className="google-icon-link">
+                  <a href={AUTH_ENDPOINTS.GOOGLE_AUTH} className="google-icon-link">
                     <img
                       src="https://cdn-icons-png.flaticon.com/128/281/281764.png"
                       alt="Google logo"
