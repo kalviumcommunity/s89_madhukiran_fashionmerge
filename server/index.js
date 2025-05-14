@@ -84,7 +84,6 @@ app.get('/auth/google/callback',
         : 'http://localhost:5173';
 
       // Include both token and userId in the redirect URL
-      // The AuthHandler component will process these parameters
       res.redirect(`${frontendURL}/home?token=${token}&userId=${userId}`);
     } catch (error) {
       console.error('Error in Google auth callback:', error);
