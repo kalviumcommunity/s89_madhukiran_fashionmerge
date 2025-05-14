@@ -8,8 +8,10 @@ import "./chatbot.css";
 
 // Using a server-side proxy to avoid CORS issues
 const PRIMARY_API_URL = "https://equal-cristy-madhukiran-6b9e128e.koyeb.app/chat";
-// Fallback to a different API if the primary one fails
-const FALLBACK_API_URL = "https://equal-cristy-madhukiran-6b9e128e.koyeb.app/api/chat";
+// Fallback to a different API if the primary one fails - use the correct endpoint
+const FALLBACK_API_URL = "https://equal-cristy-madhukiran-6b9e128e.koyeb.app/chat"; // Same as primary, no /api prefix
+// Third option if both fail
+const THIRD_API_URL = "https://equal-cristy-madhukiran-6b9e128e.koyeb.app/api/v1/chat";
 // Start with the primary API
 let API_URL = PRIMARY_API_URL;
 // Simple time formatter (replacement for date-fns)
@@ -430,12 +432,25 @@ const Chatbot = () => {
           console.error('Could not parse error response:', e);
         }
 
-        // If we get a 500 error and we're using the primary API, try the fallback API
-        if (response.status === 500 && API_URL === PRIMARY_API_URL) {
-          console.log('Primary API failed with 500 error, trying fallback API...');
-          API_URL = FALLBACK_API_URL;
+        // Try fallback APIs if we get an error
+        if ((response.status === 404 || response.status === 500) &&
+            (API_URL === PRIMARY_API_URL || API_URL === FALLBACK_API_URL)) {
 
-          // Try again with the fallback API
+          // Determine which API to try next
+          let nextApiUrl;
+          if (API_URL === PRIMARY_API_URL) {
+            console.log('Primary API failed with status:', response.status, 'trying fallback API...');
+            nextApiUrl = FALLBACK_API_URL;
+          } else {
+            console.log('Fallback API failed with status:', response.status, 'trying third API...');
+            nextApiUrl = THIRD_API_URL;
+          }
+
+          // Update the API URL for this request
+          API_URL = nextApiUrl;
+          console.log('Switching to API URL:', API_URL);
+
+          // Try again with the next API
           try {
             if (selectedImage) {
               const formData = new FormData();
@@ -459,19 +474,52 @@ const Chatbot = () => {
               });
             }
 
-            // If the fallback also fails, throw the original error
-            if (!response.ok) {
-              console.error('Fallback API also failed with status:', response.status);
-              throw new Error(errorMessage);
+            // If this API also fails and we have one more to try
+            if (!response.ok && API_URL === FALLBACK_API_URL) {
+              console.log('Fallback API also failed with status:', response.status, 'trying third API...');
+              API_URL = THIRD_API_URL;
+
+              // Try the third API
+              if (selectedImage) {
+                const formData = new FormData();
+                if (message) {
+                  formData.append('message', message);
+                }
+                formData.append('image', selectedImage);
+                formData.append('userId', chatApiId);
+
+                response = await fetch(API_URL, {
+                  method: "POST",
+                  body: formData
+                });
+              } else {
+                response = await fetch(API_URL, {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json"
+                  },
+                  body: JSON.stringify({ message, userId: chatApiId })
+                });
+              }
+
+              // If all APIs fail, throw the original error
+              if (!response.ok) {
+                console.error('All API endpoints failed. Last status:', response.status);
+                throw new Error('All chatbot API endpoints failed. Please try again later.');
+              }
+            } else if (!response.ok) {
+              // If we've tried all APIs and they all failed
+              console.error('All API endpoints failed. Last status:', response.status);
+              throw new Error('All chatbot API endpoints failed. Please try again later.');
             }
 
-            console.log('Fallback API succeeded!');
+            console.log('Alternative API succeeded with status:', response.status);
           } catch (fallbackError) {
-            console.error('Error using fallback API:', fallbackError);
-            throw new Error(errorMessage);
+            console.error('Error using alternative API:', fallbackError);
+            throw new Error('Failed to connect to the chatbot service. Please try again later.');
           }
         } else {
-          // If it's not a 500 error or we're already using the fallback, throw the error
+          // If it's not a 404/500 error or we've already tried all APIs, throw the error
           throw new Error(errorMessage);
         }
       }
