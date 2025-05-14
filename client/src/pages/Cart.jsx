@@ -348,14 +348,17 @@ function Cart() {
   }, [isLoggedIn, userId, token]);
 
   // Remove item and update MongoDB
-  const removeItem = useCallback(async (itemId) => {
+  const removeItem = useCallback(async (itemId, size, color) => {
     // First remove from local store
-    removeItemFromStore(itemId);
+    removeItemFromStore(itemId, size, color);
 
     // Then update MongoDB with the updated items list
     if (isLoggedIn) {
       try {
-        const updatedItems = items.filter(item => item.id !== itemId);
+        // Filter out the specific item with matching id, size, and color
+        const updatedItems = items.filter(item =>
+          !(item.id === itemId && item.size === size && item.color === color)
+        );
         await saveCartItems(updatedItems);
       } catch (error) {
         console.error('Error updating MongoDB after removing item:', error);
@@ -363,9 +366,18 @@ function Cart() {
     }
   }, [isLoggedIn, items, removeItemFromStore, saveCartItems]);
 
+  // Save cart items to server when they change, but with debounce to avoid too many requests
   useEffect(() => {
-    if (items.length > 0) {
-      saveCartItems(items);
+    // Only save if user is logged in and there are items
+    if (isLoggedIn && items.length > 0) {
+      // Use a timeout to debounce the save operation
+      const saveTimeout = setTimeout(() => {
+        console.log('Saving cart items to server (debounced):', items.length);
+        saveCartItems(items);
+      }, 500); // 500ms debounce
+
+      // Clear the timeout if the component unmounts or items change again
+      return () => clearTimeout(saveTimeout);
     }
   }, [items, isLoggedIn, saveCartItems]);
 
@@ -416,21 +428,21 @@ function Cart() {
                     <div className="cart-item-controls">
                       <div className="quantity-controls">
                         <button
-                          onClick={() => updateQuantity(item.id, Math.max(1, item.quantity - 1))}
+                          onClick={() => updateQuantity(item.id, Math.max(1, item.quantity - 1), item.size, item.color)}
                           className="quantity-btn"
                         >
                           - {/* Replace Minus icon with - symbol */}
                         </button>
                         <span className="quantity-display">{item.quantity}</span>
                         <button
-                          onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                          onClick={() => updateQuantity(item.id, item.quantity + 1, item.size, item.color)}
                           className="quantity-btn"
                         >
                           + {/* Replace Plus icon with + symbol */}
                         </button>
                       </div>
                       <button
-                        onClick={() => removeItem(item.id)}
+                        onClick={() => removeItem(item.id, item.size, item.color)}
                         className="remove-item-btn"
                       >
                         <X size={20} />

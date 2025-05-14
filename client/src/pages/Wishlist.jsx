@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { X, ShoppingCart } from 'lucide-react';
 import { useWishlistStore } from './wishlistStore';
 import { useCartStore } from './cartStore';
@@ -84,7 +84,7 @@ function Wishlist() {
   }, [isLoggedIn, userId, token, setItems]);
 
   // Save wishlist items to server when they change
-  const saveWishlistItems = async (items) => {
+  const saveWishlistItems = useCallback(async (items) => {
     try {
       // Skip if user is not logged in
       if (!isLoggedIn) {
@@ -113,17 +113,25 @@ function Wishlist() {
     } catch (error) {
       console.error('Error saving wishlist items:', error);
     }
-  };
+  }, [isLoggedIn, userId, token]);
 
-  // Save wishlist items to server when they change
+  // Save wishlist items to server when they change, with debounce
   useEffect(() => {
-    if (items.length > 0) {
-      saveWishlistItems(items);
+    // Only save if user is logged in and there are items
+    if (isLoggedIn && items.length > 0) {
+      // Use a timeout to debounce the save operation
+      const saveTimeout = setTimeout(() => {
+        console.log('Saving wishlist items to server (debounced):', items.length);
+        saveWishlistItems(items);
+      }, 500); // 500ms debounce
+
+      // Clear the timeout if the component unmounts or items change again
+      return () => clearTimeout(saveTimeout);
     }
-  }, [items, isLoggedIn]);
+  }, [items, isLoggedIn, saveWishlistItems]);
 
   // Remove item and update MongoDB
-  const removeItem = async (itemId) => {
+  const removeItem = useCallback(async (itemId) => {
     // First remove from local store
     removeItemFromStore(itemId);
 
@@ -136,9 +144,10 @@ function Wishlist() {
         console.error('Error updating MongoDB after removing wishlist item:', error);
       }
     }
-  };
+  }, [isLoggedIn, items, removeItemFromStore, saveWishlistItems]);
 
-  const moveToCart = (item) => {
+  const moveToCart = useCallback((item) => {
+    console.log('Moving item from wishlist to cart:', item.name);
     addItem({
       ...item,
       quantity: 1,
@@ -146,7 +155,7 @@ function Wishlist() {
       color: item.details?.color[0] || 'Default',
     });
     removeItem(item.id);
-  };
+  }, [addItem, removeItem]);
 
   return (
     <div className="wishlist-container">
