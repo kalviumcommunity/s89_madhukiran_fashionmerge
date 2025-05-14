@@ -81,7 +81,7 @@ app.get('/auth/google/callback',
       // Determine the frontend URL based on environment
       const frontendURL = process.env.NODE_ENV === 'production'
         ? (process.env.FRONTEND_URL || 'https://tangerine-scone-7cf83d.netlify.app/Home')
-        : 'http://localhost:5173';
+        : 'https://tangerine-scone-7cf83d.netlify.app/';
 
       // Include both token and userId in the redirect URL
       res.redirect(`${frontendURL}/home?token=${token}&userId=${userId}`);
@@ -90,7 +90,7 @@ app.get('/auth/google/callback',
 
       const frontendURL = process.env.NODE_ENV === 'production'
         ? (process.env.FRONTEND_URL || 'https://tangerine-scone-7cf83d.netlify.app/Home')
-        : 'http://localhost:5173';
+        : 'https://tangerine-scone-7cf83d.netlify.app/';
 
       res.redirect(`${frontendURL}/login?error=auth_error`);
     }
