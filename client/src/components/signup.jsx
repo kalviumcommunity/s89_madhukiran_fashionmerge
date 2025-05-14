@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './signup.css';
 import { useNavigate } from 'react-router-dom';
+import { AUTH_ENDPOINTS } from '../config/api';
 
 const SignupForm = () => {
     const navigate = useNavigate();
@@ -38,20 +39,20 @@ const SignupForm = () => {
         console.log('Form Data:', dataToSend); // Keep your existing debugging
 
         try {
-            const res = await axios.post('http://localhost:5000/signup', dataToSend);
+            const res = await axios.post(AUTH_ENDPOINTS.SIGNUP, dataToSend);
             setSuccess(res.data.msg || 'Signup successful!');
-            
+
             setFormData({
                 username: '',
                 email: '',
                 password: '',
                 confirmPassword: ''
             });
-            
+
             setTimeout(() => {
                 navigate('/login');
             }, 2000);
-            
+
         } catch (error) {
             console.error('Error Response:', error.response?.data); // Keep your existing debugging
             if (error.response) {
@@ -84,16 +85,16 @@ const SignupForm = () => {
                     </button>
                 </div>
             </div>
-            
+
             <div className="right-panel">
                 <div className="form-container">
                     <div className="form-header">
                         <h2>Sign Up</h2>
                     </div>
-                    
+
                     {error && <div className="error-message">{error}</div>}
                     {success && <div className="success-message">{success}</div>}
-                    
+
                     <form onSubmit={handleSubmit} className="signup-form">
                         <input
                             type="text"
@@ -104,7 +105,7 @@ const SignupForm = () => {
                             required
                             className="form-input"
                         />
-                        
+
                         <input
                             type="email"
                             name="email"
@@ -114,7 +115,7 @@ const SignupForm = () => {
                             required
                             className="form-input"
                         />
-                        
+
                         <input
                             type="password"
                             name="password"
@@ -124,7 +125,7 @@ const SignupForm = () => {
                             required
                             className="form-input"
                         />
-                        
+
                         <input
                             type="password"
                             name="confirmPassword"
@@ -134,8 +135,8 @@ const SignupForm = () => {
                             required
                             className="form-input"
                         />
-                        
-                        
+
+
                         <div className="form-footer">
                             <div className="terms-container">
                                 <input type="checkbox" id="terms" required className="terms-checkbox" />
@@ -144,11 +145,11 @@ const SignupForm = () => {
                             <button type="submit" className="signup-button">Register</button>
                             <div className="social-icons">
                   <p className="or-text">or</p>
-                  <a href="http://localhost:5000/auth/google" className="google-icon-link">
-                    <img 
-                      src="https://cdn-icons-png.flaticon.com/128/281/281764.png" 
-                      alt="Google logo" 
-                      className="google-icon-only" 
+                  <a href={AUTH_ENDPOINTS.GOOGLE_AUTH} className="google-icon-link">
+                    <img
+                      src="https://cdn-icons-png.flaticon.com/128/281/281764.png"
+                      alt="Google logo"
+                      className="google-icon-only"
                     />
                   </a>
                 </div>

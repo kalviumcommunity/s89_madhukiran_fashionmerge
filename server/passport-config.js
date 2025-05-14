@@ -3,12 +3,17 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const jwt = require('jsonwebtoken'); // Import JWT for token generation
 const User = require('./models/schema'); // Import your User schema
 
+// Determine the callback URL based on environment
+const callbackURL = process.env.NODE_ENV === 'production'
+  ? `${process.env.BACKEND_URL || 'https://your-deployed-backend-url.com'}/auth/google/callback`
+  : 'http://localhost:5000/auth/google/callback';
+
 passport.use(
   new GoogleStrategy(
     {
       clientID: process.env.YOUR_GOOGLE_CLIENT_ID, // Replace with your Google Client ID
       clientSecret: process.env.YOUR_GOOGLE_CLIENT_SECRET, // Replace with your Google Client Secret
-      callbackURL: 'http://localhost:5000/auth/google/callback',
+      callbackURL: callbackURL,
     },
     async (accessToken, refreshToken, profile, done) => {
       try {

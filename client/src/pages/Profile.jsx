@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { User, ShoppingBag, Heart, Upload, Edit, LogOut } from 'lucide-react';
 import './Profile.css';
+import { USER_ENDPOINTS, UPLOAD_ENDPOINTS, PURCHASES_ENDPOINTS } from '../config/api';
 
 function Profile() {
   const [userData, setUserData] = useState(null);
@@ -76,7 +77,7 @@ function Profile() {
       if (needsUpdate) {
         console.log('Initializing missing user data arrays');
 
-        const updateResponse = await fetch(`http://localhost:5000/user-activity/${userId}`, {
+        const updateResponse = await fetch(USER_ENDPOINTS.USER_ACTIVITY(userId), {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -114,7 +115,7 @@ function Profile() {
         setLoading(true);
 
         // Fetch user profile data
-        const profileResponse = await fetch(`http://localhost:5000/userprofile/${userId}`, {
+        const profileResponse = await fetch(USER_ENDPOINTS.PROFILE(userId), {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -127,7 +128,7 @@ function Profile() {
         const profileData = await profileResponse.json();
 
         // Fetch user activity data (cart, wishlist, etc.)
-        const activityResponse = await fetch(`http://localhost:5000/user-activity/${userId}`, {
+        const activityResponse = await fetch(USER_ENDPOINTS.USER_ACTIVITY(userId), {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -169,7 +170,7 @@ function Profile() {
       }
 
       try {
-        const response = await fetch(`http://localhost:5000/api/purchases/user/${userId}`, {
+        const response = await fetch(`${PURCHASES_ENDPOINTS.GET_PURCHASES}/user/${userId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -229,7 +230,7 @@ function Profile() {
     formData.append('image', selectedFile);
 
     try {
-      const response = await fetch('http://localhost:5000/api/upload/upload', {
+      const response = await fetch(UPLOAD_ENDPOINTS.UPLOAD_IMAGE, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`
@@ -245,7 +246,7 @@ function Profile() {
       const data = await response.json();
 
       // Update user profile with new image URL
-      const updateResponse = await fetch(`http://localhost:5000/update-profile/${userId}`, {
+      const updateResponse = await fetch(`${USER_ENDPOINTS.PROFILE(userId)}/update`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -288,7 +289,7 @@ function Profile() {
     }
 
     try {
-      const response = await fetch(`http://localhost:5000/update-profile/${userId}`, {
+      const response = await fetch(`${USER_ENDPOINTS.PROFILE(userId)}/update`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
