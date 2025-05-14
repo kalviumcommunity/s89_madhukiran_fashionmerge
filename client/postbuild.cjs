@@ -4,7 +4,6 @@ const path = require('path');
 
 console.log('Running post-build tasks...');
 
-// Ensure _redirects file is copied to the dist folder
 console.log('Copying _redirects file...');
 try {
   if (fs.existsSync(path.join(__dirname, 'public', '_redirects'))) {
