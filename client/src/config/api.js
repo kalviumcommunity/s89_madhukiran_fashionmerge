@@ -1,13 +1,13 @@
 /**
  * API Configuration
- * 
+ *
  * This file contains all API endpoints used in the application.
  * When deploying the backend, update the BASE_URL to your deployed backend URL.
  */
 
 // Set the base URL for all API calls
 // Change this to your deployed backend URL when deploying
-const BASE_URL = process.env.NODE_ENV === 'production' 
+export const BASE_URL = process.env.NODE_ENV === 'production'
   ? 'https://s89-madhukiran-fashionmerge.onrender.com' // Replace with your actual deployed backend URL
   : 'http://localhost:5000';
 
