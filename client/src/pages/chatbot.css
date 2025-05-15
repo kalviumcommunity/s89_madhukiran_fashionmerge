@@ -250,7 +250,7 @@
     flex: 1;
     padding: 0.75rem 1.25rem;
     border: 1px solid #e2e2e7;
-    border-radius: 9999px;
+    border-radius: 10px; /* Changed from 9999px to 0px for rectangular shape */
     font-size: 0.95rem;
     outline: none;
     transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
@@ -484,6 +484,7 @@
     .chatbot-input {
       padding: 0.6rem 1rem;
       font-size: 0.9rem;
+      border-radius: 0px; /* Ensure rectangular shape on mobile too */
       min-height: 36px; /* Smaller min-height for mobile */
       max-height: 120px; /* Smaller max-height for mobile */
       line-height: 1.4; /* Slightly tighter line height for mobile */

@@ -803,7 +803,7 @@ const Chatbot = () => {
             value={inputValue}
             onChange={handleInputChange}
             onKeyDown={handleKeyDown}
-            placeholder="Ask about fashion trends, styling advice... (Shift+Enter for new line)"
+            placeholder="Ask about fashion trends, styling advice..."
             className="chatbot-input"
             disabled={isTyping}
             rows={1}
