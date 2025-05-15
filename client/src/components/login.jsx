@@ -79,6 +79,11 @@ const Login = () => {
     try {
       const res = await axios.post(AUTH_ENDPOINTS.FORGOT_PASSWORD, { email: forgotPasswordEmail });
       setSuccess(res.data.msg || 'Password reset link sent!');
+
+      // Automatically clear the success message after 5 seconds
+      setTimeout(() => {
+        setSuccess('');
+      }, 5000);
     } catch (error) {
       if (error.response) {
         setError(error.response.data.msg || 'Failed to send reset link');
@@ -112,7 +117,8 @@ const Login = () => {
       </div>
 
       <div className="right-panel">
-        <div className="form-container">
+        <div className="form-container" style={{ position: 'relative' }}>
+          {success && <div className="success-message">{success}</div>}
           <div className="form-header">
             <h2>{showForgotPassword ? 'Reset Password' : 'Sign In'}</h2>
           </div>
@@ -201,7 +207,6 @@ const Login = () => {
         </div>
 
       </div>
-      {success && <div className="success-message">{success}</div>}
     </div>
   );
 };
