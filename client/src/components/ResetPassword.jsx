@@ -31,7 +31,14 @@ const ResetPassword = () => {
       });
       setSuccess(res.data.msg);
 
+      // Clear success message after 5 seconds (before navigation)
+      const successTimer = setTimeout(() => {
+        setSuccess('');
+      }, 5000);
+
+      // Navigate to login after 2 seconds
       setTimeout(() => {
+        clearTimeout(successTimer); // Clear the success timer when navigating
         navigate('/login');
       }, 2000);
     } catch (err) {
@@ -64,13 +71,13 @@ const ResetPassword = () => {
       </div>
 
       <div className="right-panel">
-        <div className="form-container">
+        <div className="form-container" style={{ position: 'relative' }}>
+          {success && <div className="success-message">{success}</div>}
           <div className="form-header">
             <h2>Create New Password</h2>
           </div>
 
           {error && <div className="error-message">{error}</div>}
-          {success && <div className="success-message">{success}</div>}
 
           <form onSubmit={handleSubmit} className="signup-form">
             <input
