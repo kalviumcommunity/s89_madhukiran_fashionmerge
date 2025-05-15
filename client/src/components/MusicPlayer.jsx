@@ -141,7 +141,7 @@ const MusicPlayer = () => {
         <div className="drag-handle">
           <Move size={16} />
         </div>
-        <span style={{ fontSize: '12px', fontWeight: 'bold', color: '#333' }}>SPOTIFY PLAYER</span>
+        <span style={{ fontSize: '12px', fontWeight: 'bold', color: '#333', marginRight: '100px' }}>SPOTIFY PLAYER</span>
         <button className="close-button" onClick={stopPlayback}>
           ✕
         </button>
