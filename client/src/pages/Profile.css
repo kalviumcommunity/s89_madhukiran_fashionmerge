@@ -140,7 +140,8 @@
 .upload-button {
   padding: 8px 15px;
   border-radius: 4px;
-  background-color: #f5f5f5;
+  color: #000000;
+  background-color: #ffffff;
   border: 1px solid #ddd;
   display: flex;
   justify-content: center;
@@ -155,7 +156,7 @@
 }
 
 .upload-button:hover {
-  background-color: #e0e0e0;
+  background-color: #808080;
   transform: translateY(-2px);
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
 }

@@ -1,7 +1,10 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import './About.css';
 
 const About = () => {
+  const { t } = useTranslation();
+
   const handleLearnMoreClick = () => {
     window.location.href = '/about'; // Redirect to the about us page
   };
@@ -11,31 +14,25 @@ const About = () => {
       <div className="about-container">
         <div className="about-content">
           <div className="about-image">
-            <img 
-              src="https://images.pexels.com/photos/6069552/pexels-photo-6069552.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 
-              alt="Fashion design studio" 
+            <img
+              src="https://images.pexels.com/photos/6069552/pexels-photo-6069552.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+              alt="Fashion design studio"
               className="image"
             />
           </div>
-          
+
           <div className="about-text">
-            <h2 className="title">OUR STORY</h2>
-            
+            <h2 className="title">{t('about.homeStory')}</h2>
+
             <p className="description">
               <br />
-              
-              Fashion Merge was born from a desire to blend timeless elegance with contemporary sensibilities. 
-              
-              Our journey began in 2018, with a vision to create pieces that transcend seasonal trends and become 
-              cherished staples in discerning wardrobes.
+              {t('about.homeStoryText1')}
             </p>
             <p className="description">
-              Each Fashion Merge creation embodies our commitment to exceptional craftsmanship and sustainable 
-              practices. We collaborate with artisans who share our passion for quality and detail, 
-              ensuring every piece tells a story of heritage and innovation.
+              {t('about.homeStoryText2')}
             </p>
             <button className="learn-more-btn" onClick={handleLearnMoreClick}>
-              LEARN MORE
+              {t('about.learnMoreButton')}
             </button>
           </div>
         </div>

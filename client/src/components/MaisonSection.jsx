@@ -1,7 +1,10 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import './MaisonSection.css';
 
 const MaisonSection = () => {
+  const { t } = useTranslation();
+  
   const handleDiscoverMoreClick = () => {
     window.location.href = '/collections'; // Redirect to the discover page
   };
@@ -9,14 +12,15 @@ const MaisonSection = () => {
   return (
     <section className="maison-section">
       <video className="maison-video" autoPlay loop muted>
-        <source src="https://res.cloudinary.com/dwr6mvypn/video/upload/q_70,f_auto/v1747214721/klzqqfpkl8kjfrtamg1v.mp4" type="video/mp4" /> 
-        Your browser does not support the video tag.
+        <source src="https://res.cloudinary.com/dwr6mvypn/video/upload/v1747396676/klzqqfpkl8kjfrtamg1v.mp4" />
+        {t('maison.videoAlt')}
       </video>
       <div className="maison-content">
-        <h2>THE MAISON</h2>
-        <p>Maison Decors in FashionMerge is where heritage meets innovation, offering users a curated selection of timeless fashion, blending luxury with modern trends to create unique, personalized styles. Discover the elegance of high-end fashion, reimagined for today’s style enthusiasts.
-        </p>
-        <a href="#discover" className="discover-btn" onClick={handleDiscoverMoreClick}>DISCOVER MORE</a>
+        <h2>{t('maison.title')}</h2>
+        <p>{t('maison.description')}</p>
+        <a href="#discover" className="discover-btn" onClick={handleDiscoverMoreClick}>
+          {t('maison.button')}
+        </a>
       </div>
     </section>
   );

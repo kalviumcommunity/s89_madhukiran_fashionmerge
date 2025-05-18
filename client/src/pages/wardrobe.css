@@ -445,7 +445,8 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
   background-color: white;
-  height: 400px;
+  height: auto;
+  min-height: 400px;
   display: flex;
   flex-direction: column;
   border: 1px solid #eaeaea;
@@ -556,8 +557,10 @@
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  overflow: hidden;
+  overflow: visible;
   background-color: #fff;
+  position: relative;
+  z-index: 1;
 }
 
 .wardrobe-item-details h3 {
@@ -588,7 +591,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.6rem;
-  margin-bottom: 0.75rem;
+  margin-bottom: 1rem;
   flex-grow: 1;
 }
 
@@ -639,6 +642,8 @@
   margin-top: auto;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   letter-spacing: 0.3px;
+  position: relative;
+  z-index: 2;
 }
 
 .delete-button:hover {
@@ -820,7 +825,7 @@
 @media (max-width: 768px) {
   .wardrobe-container {
     padding: 1rem;
-    
+
      overflow-y: auto;
     height: 100vh;
   }
@@ -899,6 +904,9 @@
 
   .wardrobe-item-details {
     padding: 1rem;
+    overflow: visible;
+    position: relative;
+    z-index: 1;
   }
 
   .wardrobe-item-details h3 {
@@ -914,6 +922,7 @@
   .wardrobe-item-meta {
     flex-wrap: wrap;
     gap: 0.4rem;
+    margin-bottom: 1rem;
   }
 
   .wardrobe-item-meta span {

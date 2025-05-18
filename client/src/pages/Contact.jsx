@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import './Contact.css';
 
 const Contact = () => {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -28,8 +30,8 @@ const Contact = () => {
     <div className="page-container">
       <main className="main-content">
         <div className="image-section">
-          <img 
-            src="https://res.cloudinary.com/dwr6mvypn/image/upload/v1746202820/con1_najibx.jpg" 
+          <img
+            src="https://res.cloudinary.com/dwr6mvypn/image/upload/v1746202820/con1_najibx.jpg"
             alt="Fashion"
             className="fashion-image"
           />
@@ -40,7 +42,7 @@ const Contact = () => {
             <br />
             <br />
             <br />
-          <h2>CONTACT US</h2>
+          <h2>{t('contact.title')}</h2>
           <form onSubmit={handleSubmit}>
             <div className="form-row">
               <div className="form-group">
@@ -50,7 +52,7 @@ const Contact = () => {
                   value={formData.firstName}
                   onChange={handleChange}
                   required
-                  placeholder="First name *"
+                  placeholder={t('contact.firstName')}
                 />
               </div>
               <div className="form-group">
@@ -60,7 +62,7 @@ const Contact = () => {
                   value={formData.lastName}
                   onChange={handleChange}
                   required
-                  placeholder="Last name *"
+                  placeholder={t('contact.lastName')}
                 />
               </div>
             </div>
@@ -73,7 +75,7 @@ const Contact = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  placeholder="Email *"
+                  placeholder={t('contact.email')}
                 />
               </div>
               <div className="form-group">
@@ -83,7 +85,7 @@ const Contact = () => {
                   value={formData.phone}
                   onChange={handleChange}
                   required
-                  placeholder="Phone *"
+                  placeholder={t('contact.phone')}
                 />
               </div>
             </div>
@@ -95,12 +97,12 @@ const Contact = () => {
                 value={formData.subject}
                 onChange={handleChange}
                 required
-                placeholder="Subject *"
+                placeholder={t('contact.message')}
               />
             </div>
 
             <button type="submit" className="send-button">
-              SEND
+              {t('contact.submit')}
             </button>
           </form>
         </div>

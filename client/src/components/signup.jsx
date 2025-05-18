@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './signup.css';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { AUTH_ENDPOINTS } from '../config/api';
 
 const SignupForm = () => {
     const navigate = useNavigate();
+    const { t } = useTranslation();
     const [formData, setFormData] = useState({
         username: '',
         email: '',
@@ -40,7 +42,7 @@ const SignupForm = () => {
 
         try {
             const res = await axios.post(AUTH_ENDPOINTS.SIGNUP, dataToSend);
-            setSuccess(res.data.msg || 'Signup successful!');
+            setSuccess(res.data.msg || t('auth.signupSuccessful'));
 
             setFormData({
                 username: '',
@@ -83,12 +85,12 @@ const SignupForm = () => {
                     <br />
                     <br />
                     <br />
-                    <h1>Come join us!</h1>
+                    <h1>{t('auth.welcomeTitle')}</h1>
                     <p style={{ fontFamily: '"Lucida Handwriting", cursive', fontSize: '1rem' }}>
-                    We are so excited to have you here. If you haven't already, create an account to get access to exclusive offers, rewards, and discounts
-    </p>
+                    {t('auth.welcomeMessage')}
+                    </p>
                     <button onClick={redirectToLogin} className="signin-button">
-                        Already have an account? Signin.
+                        {t('auth.signInButton')}
                     </button>
                 </div>
             </div>
@@ -97,7 +99,7 @@ const SignupForm = () => {
                 <div className="form-container" style={{ position: 'relative' }}>
                     {success && <div className="success-message">{success}</div>}
                     <div className="form-header">
-                        <h2>Sign Up</h2>
+                        <h2>{t('auth.signup')}</h2>
                     </div>
 
                     {error && <div className="error-message">{error}</div>}
@@ -108,7 +110,7 @@ const SignupForm = () => {
                             name="username"
                             value={formData.username}
                             onChange={handleChange}
-                            placeholder="Name"
+                            placeholder={t('auth.name')}
                             required
                             className="form-input"
                         />
@@ -118,7 +120,7 @@ const SignupForm = () => {
                             name="email"
                             value={formData.email}
                             onChange={handleChange}
-                            placeholder="Email"
+                            placeholder={t('auth.email')}
                             required
                             className="form-input"
                         />
@@ -128,7 +130,7 @@ const SignupForm = () => {
                             name="password"
                             value={formData.password}
                             onChange={handleChange}
-                            placeholder="Password"
+                            placeholder={t('auth.password')}
                             required
                             className="form-input"
                         />
@@ -138,7 +140,7 @@ const SignupForm = () => {
                             name="confirmPassword"
                             value={formData.confirmPassword}
                             onChange={handleChange}
-                            placeholder="Re-type Password"
+                            placeholder={t('auth.retypePassword')}
                             required
                             className="form-input"
                         />
@@ -147,11 +149,11 @@ const SignupForm = () => {
                         <div className="form-footer">
                             <div className="terms-container">
                                 <input type="checkbox" id="terms" required className="terms-checkbox" />
-                                <label htmlFor="terms" className="terms-text">I agree to the terms and conditions</label>
+                                <label htmlFor="terms" className="terms-text">{t('auth.termsConditions')}</label>
                             </div>
-                            <button type="submit" className="signup-button">Register</button>
+                            <button type="submit" className="signup-button">{t('auth.registerButton')}</button>
                             <div className="social-icons">
-                  <p className="or-text">or</p>
+                  <p className="or-text">{t('auth.orText')}</p>
                   <a href={AUTH_ENDPOINTS.GOOGLE_AUTH} className="google-icon-link">
                     <img
                       src="https://cdn-icons-png.flaticon.com/128/281/281764.png"

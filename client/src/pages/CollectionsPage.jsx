@@ -1,10 +1,11 @@
 import CollectionCard from './CollectionsCard';
 import { collections } from './collections';
-import React, { useState, useEffect,  } from 'react';
-import { Filter, ShoppingCart, Heart, Search } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { ShoppingCart, Heart, Search, ChevronDown } from 'lucide-react';
 import CollectionModal from './CollectionsModal';
 import { useCartStore } from './cartStore';
 import { useWishlistStore } from './wishlistStore';
+import { useTranslation } from 'react-i18next';
 import AddToCartNotification from '../components/AddToCartNotification';
 import WishlistNotification from '../components/WishlistNotification';
 import './CollectionsPage.css';
@@ -12,17 +13,17 @@ import './AddToCartNotification.css';
 import './WishlistNotification.css';
 
 const CollectionsPage = () => {
+  const { t } = useTranslation();
   const [selectedCategory, setSelectedCategory] = useState("All");
-  const [showFilterMenu, setShowFilterMenu] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
-  const filterContainerRef = React.useRef(null);
-  const [isMenuHovered, setIsMenuHovered] = useState(false);
+  const sortDropdownRef = useRef(null);
   const [scrolled, setScrolled] = useState(true);
   const [cartNotification, setCartNotification] = useState(null);
   const [wishlistNotification, setWishlistNotification] = useState(null);
   const [isWishlistRemoval, setIsWishlistRemoval] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearching, setIsSearching] = useState(false);
+  const [showSortDropdown, setShowSortDropdown] = useState(false);
   const { addItem } = useCartStore();
   const { items: wishlistItems, addItem: addToWishlist, removeItem: removeFromWishlist } = useWishlistStore();
 
@@ -40,37 +41,33 @@ const CollectionsPage = () => {
     };
   }, []);
 
+  // Handle clicks outside of the sort dropdown
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (sortDropdownRef.current && !sortDropdownRef.current.contains(event.target)) {
+        setShowSortDropdown(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  // Toggle sort dropdown
+  const toggleSortDropdown = () => {
+    setShowSortDropdown(prev => !prev);
+  };
+
+
+
   const categories = [...new Set(collections.map(collection => collection.category))];
 
-  // Mouse enter handler for filter container
-  const handleFilterMouseEnter = () => {
-    setShowFilterMenu(true);
-  };
-
-  // Mouse enter handler for the filter menu
-  const handleMenuMouseEnter = () => {
-    setIsMenuHovered(true);
-  };
-
-  // Mouse leave handler for the filter menu
-  const handleMenuMouseLeave = () => {
-    setIsMenuHovered(false);
-  };
-
-  // Mouse leave handler for filter container with a longer delay
-  const handleFilterMouseLeave = () => {
-    // Longer delay to give time to move to the menu and select an option
-    setTimeout(() => {
-      // Only close the menu if it's not being hovered
-      if (!isMenuHovered) {
-        setShowFilterMenu(false);
-      }
-    }, 1000); // 1 second delay
-  };
-
-  const handleCategorySelect = (category) => {
+  const handleCategorySelect = (e, category) => {
+    e.stopPropagation(); // Prevent event bubbling
     setSelectedCategory(category);
-    setShowFilterMenu(false);
+    setShowSortDropdown(false);
   };
 
   // Immediate search implementation (no debounce)
@@ -107,7 +104,7 @@ const CollectionsPage = () => {
   )?.items || collections.find(collection => collection.category === "All")?.items || [];
 
   // Apply search filter if there's a search query
-  const filteredCollections = debouncedSearchTerm.trim()
+  let filteredCollections = debouncedSearchTerm.trim()
     ? categoryItems.filter(item => {
         const query = debouncedSearchTerm.toLowerCase().trim();
 
@@ -179,6 +176,9 @@ const CollectionsPage = () => {
         return false;
       })
     : categoryItems;
+
+  // Sort by newest (assuming id is related to newness, higher id = newer)
+  filteredCollections = [...filteredCollections].sort((a, b) => b.id - a.id);
 
   const openCollectionModal = (item) => {
     setSelectedItem(item);
@@ -269,38 +269,41 @@ const CollectionsPage = () => {
 
       {/* <Navbar scrolled={scrolled} /> */}
       <div className="collections-header">
-        <h1>FashionMerge Collections</h1>
-        <div
-          className="filter-container"
-          ref={filterContainerRef}
-          onMouseEnter={handleFilterMouseEnter}
-          onMouseLeave={handleFilterMouseLeave}
-        >
-          <button
-            className="filter-button"
-            aria-label="Filter collections"
-          >
-            <Filter size={24} />
-            <span>Filter</span>
-          </button>
+        <h1>{t('collections.title')}</h1>
+        <div className="header-controls">
+          {/* Filter Dropdown */}
+          <div className="sort-container" ref={sortDropdownRef}>
+            <div className="sort-label">{t('collections.sortBy')}</div>
+            <div className="sort-dropdown-wrapper" onClick={toggleSortDropdown}>
+              <button className="sort-button">
+                {selectedCategory === "All" ? t('collections.allProducts') :
+                 selectedCategory === "Accessories" ? t('collections.accessories') :
+                 selectedCategory === "Men's Clothing" ? t('collections.menClothing') :
+                 selectedCategory === "Women's Clothing" ? t('collections.womenClothing') :
+                 selectedCategory === "Maison" ? t('collections.maison') : selectedCategory}
+                <ChevronDown size={16} />
+              </button>
 
-          {showFilterMenu && (
-            <div
-              className="filter-menu"
-              onMouseEnter={handleMenuMouseEnter}
-              onMouseLeave={handleMenuMouseLeave}
-            >
-              {categories.map(category => (
-                <button
-                  key={category}
-                  className={`filter-option ${selectedCategory === category ? 'active' : ''}`}
-                  onClick={() => handleCategorySelect(category)}
-                >
-                  {category}
-                </button>
-              ))}
+              {showSortDropdown && (
+                <div className="sort-dropdown-menu">
+                  {/* Filter Options */}
+                  {categories.map(category => (
+                    <div
+                      key={category}
+                      className={`filter-option ${selectedCategory === category ? 'selected' : ''}`}
+                      onClick={(e) => handleCategorySelect(e, category)}
+                    >
+                      {category === "All" ? t('collections.allProducts') :
+                       category === "Accessories" ? t('collections.accessories') :
+                       category === "Men's Clothing" ? t('collections.menClothing') :
+                       category === "Women's Clothing" ? t('collections.womenClothing') :
+                       category === "Maison" ? t('collections.maison') : category}
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
-          )}
+          </div>
         </div>
       </div>
 
@@ -309,7 +312,7 @@ const CollectionsPage = () => {
           {isSearching ? (
             <>
               <Search size={18} style={{ marginRight: '8px', verticalAlign: 'middle' }} />
-              Search Results
+              {t('collections.searchResults')}
             </>
           ) : (
             selectedCategory
@@ -318,28 +321,30 @@ const CollectionsPage = () => {
 
         {/* Search input */}
         <div className={`search-container ${isSearching ? 'active-search' : ''}`}>
-          <form onSubmit={handleSearch}>
-            <input
-              type="text"
-              className="search-input"
-              placeholder="Search men, women, accessories..."
-              value={searchQuery}
-              onChange={handleSearchChange}
-              autoFocus
-            />
+          <form onSubmit={handleSearch} className="search-form">
+            <div className="search-input-wrapper">
+              <Search size={20} className="search-icon" />
+              <input
+                type="text"
+                className="search-input"
+                placeholder={t('collections.searchPlaceholder')}
+                value={searchQuery}
+                onChange={handleSearchChange}
+              />
+            </div>
             <button type="submit" className="search-button" aria-label="Search">
-              <Search size={18} />
+              {t('collections.search')}
             </button>
           </form>
           {searchQuery && (
-            <button className="clear-search" onClick={clearSearch}>
+            <button className="clear-search" onClick={clearSearch} title="Clear search">
               ×
             </button>
           )}
           {isSearching && filteredCollections.length > 0 && (
             <div className="search-results-count">
-              Found {filteredCollections.length} {filteredCollections.length === 1 ? 'product' : 'products'}
-              {debouncedSearchTerm && <span className="search-term"> for "{debouncedSearchTerm}"</span>}
+              {t('collections.foundProducts', { count: filteredCollections.length })}
+              {debouncedSearchTerm && <span className="search-term"> {t('collections.forSearchTerm', { term: debouncedSearchTerm })}</span>}
             </div>
           )}
         </div>
@@ -358,17 +363,17 @@ const CollectionsPage = () => {
                 className="add-to-cart-button"
                 onClick={(e) => handleAddToCart(e, item)}
               >
-                Add to Cart
+                {t('product.addToCart')}
               </button>
             </CollectionCard>
           ))}
         </div>
       ) : (
         <div className="no-results">
-          <p>No products found matching your search criteria.</p>
+          <p>{t('collections.noResults')}</p>
           {searchQuery && (
             <button className="reset-search" onClick={clearSearch}>
-              Clear search and show all products
+              {t('collections.clearSearch')}
             </button>
           )}
         </div>

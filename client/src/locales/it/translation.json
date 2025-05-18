@@ -1,0 +1,183 @@
+{
+  "navbar": {
+    "contact": "CONTATTI",
+    "music": "MUSICA",
+    "collections": "COLLEZIONI",
+    "about": "CHI SIAMO",
+    "wardrobe": "GUARDAROBA",
+    "alita": "ALITA",
+    "cart": "CARRELLO",
+    "wishlist": "PREFERITI",
+    "login": "ACCEDI",
+    "signup": "REGISTRATI",
+    "logout": "ESCI",
+    "profile": "PROFILO",
+    "account": "ACCOUNT"
+  },
+  "footer": {
+    "customerService": "SERVIZIO CLIENTI",
+    "contactUs": "Contattaci",
+    "about": "CHI SIAMO",
+    "ourHistory": "La Nostra Storia",
+    "sustainability": "Sostenibilità",
+    "careers": "Carriere",
+    "copyright": "© 2025 Fashion Merge. Tutti i diritti riservati.",
+    "language": "Lingua"
+  },
+  "home": {
+    "heroTitle": "STILE (RI)DEFINITO",
+    "heroSubtitle": "ELEGANZA SENZA TEMPO PER L'ERA MODERNA",
+    "exploreButton": "SCOPRI ORA"
+  },
+  "collections": {
+    "title": "Collezioni",
+    "allProducts": "Tutti i Prodotti",
+    "accessories": "Accessori",
+    "menClothing": "Abbigliamento Uomo",
+    "womenClothing": "Abbigliamento Donna",
+    "maison": "Casa",
+    "sortBy": "Ordina Per",
+    "priceAsc": "Prezzo: Crescente",
+    "priceDesc": "Prezzo: Decrescente",
+    "newest": "Più Recenti",
+    "popular": "Popolari",
+    "searchResults": "Risultati della Ricerca",
+    "searchPlaceholder": "Prova \"T-shirt Uomo\"",
+    "search": "CERCA",
+    "foundProducts": "Trovati {{count}}",
+    "forSearchTerm": "per \"{{term}}\"",
+    "noResults": "Nessun prodotto trovato corrispondente ai tuoi criteri di ricerca.",
+    "clearSearch": "Cancella ricerca e mostra tutti i prodotti"
+  },
+  "product": {
+    "addToCart": "Aggiungi al Carrello",
+    "addToWishlist": "Aggiungi ai Preferiti",
+    "removeFromWishlist": "Rimuovi dai Preferiti",
+    "outOfStock": "Esaurito",
+    "inStock": "Disponibile"
+  },
+  "cart": {
+    "title": "Carrello",
+    "empty": "Il tuo carrello è vuoto",
+    "continueShopping": "Continua lo Shopping",
+    "checkout": "Procedi all'Acquisto",
+    "total": "Totale",
+    "remove": "Rimuovi"
+  },
+  "wishlist": {
+    "title": "Preferiti",
+    "empty": "La tua lista dei preferiti è vuota",
+    "continueShopping": "Continua lo Shopping",
+    "moveToCart": "Sposta nel Carrello"
+  },
+  "auth": {
+    "login": "Accedi",
+    "signup": "Registrati",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Conferma Password",
+    "forgotPassword": "Password Dimenticata?",
+    "resetPassword": "Reimposta Password",
+    "name": "Nome",
+    "loginWithGoogle": "Accedi con Google",
+    "signupWithGoogle": "Registrati con Google",
+    "alreadyHaveAccount": "Hai già un account?",
+    "dontHaveAccount": "Non hai un account?"
+  },
+  "languages": {
+    "en": "Inglese",
+    "fr": "Francese",
+    "zh": "Cinese",
+    "ru": "Russo",
+    "it": "Italiano"
+  },
+  "countries": {
+    "us": "Stati Uniti",
+    "fr": "Francia",
+    "cn": "Cina",
+    "ru": "Russia",
+    "it": "Italia"
+  },
+  "alita": {
+    "title": "L'ALITA",
+    "description": "ALITA è il tuo assistente personale di design della moda in FashionMerge. Analizza le immagini degli outfit caricate dagli utenti e offre consigli di stile intelligenti. Dal migliorare il tuo look all'abbinarlo con tendenze o articoli del guardaroba, ALITA è con te. Che tu stia vestendoti o progettando, sentiti libero di caricare foto e lascia che Alita ti dia feedback e migliori il tuo stile al livello successivo. ALITA ti aiuta a perfezionare il tuo gioco di moda.",
+    "exploreButton": "ESPLORA ALITA",
+    "chatbotTitle": "Alita",
+    "chatbotStatus": "Designer di Moda • Online",
+    "welcomeMessage": "Benvenuto in FashionMerge! Sono Alita, la tua consulente di stile personale. Che tu abbia bisogno di consigli su outfit, informazioni sulle tendenze o consigli di stile per un'occasione specifica, sono qui per guidare il tuo viaggio nella moda. Sentiti libero di caricare un'immagine di un capo d'abbigliamento per suggerimenti personalizzati.",
+    "inputPlaceholder": "Chiedi delle tendenze moda, consigli di stile..."
+  },
+  "about": {
+    "ourMission": "La Nostra Missione",
+    "missionText": "Benvenuti in FashionMerge, dove i mondi della moda all'avanguardia e della musica immersiva si incontrano. La nostra comunità è un centro creativo vibrante progettato per trendsetter, amanti della musica e chiunque prosperi sull'originalità. Qui, la tecnologia incontra l'arte: sfide di stile curate, sessioni di ascolto dal vivo, outfit personalizzati e playlist basate sull'umore creano uno spazio dinamico dove ogni membro ha l'opportunità di brillare.",
+    "ourStory": "La Nostra Storia",
+    "storyText": "In FashionMerge, ogni tendenza racconta una storia e ogni canzone imposta il tono per una nuova era di espressione personale. I membri si riuniscono per ispirarsi a vicenda, condividere intuizioni e stabilire nuove tendenze divertendosi lungo il percorso. Che tu stia cercando di scoprire gli ultimi consigli di moda o di connetterti con altri appassionati attraverso una traccia preferita, la nostra comunità è il luogo per accendere la tua passione ed elevare il tuo viaggio creativo.",
+    "whoAmI": "Quindi, chi sono io?",
+    "whoAmIText": "Sono la tua nuova amica dei social media. La mia missione è aiutare le piccole e medie imprese a far crescere il loro pubblico e il riconoscimento del marchio attraverso i social media. Il mio obiettivo è aiutarti a comprendere il potere dei social media e creare connessioni che vanno oltre internet.",
+    "contactButton": "CONTATTAMI",
+    "homeStory": "LA NOSTRA STORIA",
+    "homeStoryText1": "Fashion Merge è nato dal desiderio di fondere l'eleganza senza tempo con la sensibilità contemporanea. Il nostro viaggio è iniziato nel 2018, con la visione di creare pezzi che trascendono le tendenze stagionali e diventano elementi preziosi in guardaroba esigenti.",
+    "homeStoryText2": "Ogni creazione Fashion Merge incarna il nostro impegno per l'artigianato eccezionale e le pratiche sostenibili. Collaboriamo con artigiani che condividono la nostra passione per la qualità e il dettaglio, assicurando che ogni pezzo racconti una storia di eredità e innovazione.",
+    "learnMoreButton": "SCOPRI DI PIÙ"
+  },
+  "contact": {
+    "title": "CONTATTACI",
+    "firstName": "Nome *",
+    "lastName": "Cognome *",
+    "email": "Email *",
+    "phone": "Telefono",
+    "message": "Messaggio *",
+    "submit": "INVIA",
+    "successMessage": "Grazie per il tuo messaggio. Ti risponderemo presto!"
+  },
+  "music": {
+    "title": "MUSICA"
+  },
+  "register": {
+    "title": "UNISCITI AL NOSTRO MONDO",
+    "description": "Registrati alla nostra newsletter per ricevere aggiornamenti esclusivi, accesso anticipato alle nuove collezioni e approfondimenti di stile selezionati direttamente nella tua casella di posta.",
+    "emailPlaceholder": "Il tuo indirizzo email",
+    "button": "REGISTRATI"
+  },
+  "maison": {
+    "title": "LA MAISON",
+    "description": "Maison Decors in FashionMerge è dove la tradizione incontra l'innovazione, offrendo agli utenti una selezione curata di moda senza tempo, mescolando il lusso con le tendenze moderne per creare stili unici e personalizzati. Scopri l'eleganza della moda di alta gamma, reinventata per gli appassionati di stile di oggi.",
+    "button": "SCOPRI DI PIÙ",
+    "videoAlt": "Il tuo browser non supporta il tag video."
+  },
+  "profile": {
+    "loginPrompt": "Accedi per visualizzare il tuo profilo",
+    "loading": "Caricamento del tuo profilo...",
+    "error": "Errore",
+    "noUserData": "Nessun dato utente trovato",
+    "uploadProfilePicture": "Carica immagine profilo",
+    "uploading": "Caricamento in corso...",
+    "save": "Salva",
+    "cancel": "Annulla",
+    "uploadSuccess": "Immagine del profilo aggiornata con successo!",
+    "tabs": {
+      "profile": "Profilo",
+      "wishlist": "Preferiti",
+      "cart": "Carrello",
+      "purchases": "Acquisti",
+      "wardrobe": "Guardaroba"
+    },
+    "summary": {
+      "wishlistItems": "Articoli Preferiti",
+      "cartItems": "Articoli Carrello",
+      "purchases": "Acquisti",
+      "wardrobeItems": "Articoli Guardaroba"
+    },
+    "emptyStates": {
+      "wishlist": "La tua lista dei preferiti è vuota",
+      "cart": "Il tuo carrello è vuoto",
+      "purchases": "Nessun acquisto ancora",
+      "wardrobe": "Il tuo guardaroba è vuoto"
+    },
+    "actions": {
+      "browseCollections": "Sfoglia Collezioni",
+      "shopNow": "Acquista Ora",
+      "addItems": "Aggiungi Articoli"
+    }
+  }
+}
