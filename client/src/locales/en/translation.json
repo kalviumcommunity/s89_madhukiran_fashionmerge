@@ -1,0 +1,252 @@
+{
+  "navbar": {
+    "contact": "CONTACT",
+    "music": "MUSIC",
+    "collections": "COLLECTIONS",
+    "about": "ABOUT",
+    "wardrobe": "WARDROBE",
+    "alita": "ALITA",
+    "cart": "CART",
+    "wishlist": "WISHLIST",
+    "login": "LOGIN",
+    "signup": "SIGNUP",
+    "logout": "LOGOUT",
+    "profile": "PROFILE",
+    "account": "ACCOUNT"
+  },
+  "footer": {
+    "customerService": "CUSTOMER SERVICE",
+    "contactUs": "Contact Us",
+    "about": "ABOUT",
+    "ourHistory": "Our History",
+    "sustainability": "Sustainability",
+    "careers": "Careers",
+    "copyright": "© 2025 Fashion Merge. All rights reserved.",
+    "language": "Language"
+  },
+  "home": {
+    "heroTitle": "STYLE (RE)DEFINED",
+    "heroSubtitle": "TIMELESS ELEGANCE FOR THE MODERN ERA",
+    "exploreButton": "DISCOVER NOW"
+  },
+  "collections": {
+    "title": "Collections",
+    "allProducts": "All Products",
+    "accessories": "Accessories",
+    "menClothing": "Men's Clothing",
+    "womenClothing": "Women's Clothing",
+    "maison": "Maison",
+    "sortBy": "Sort By",
+    "priceAsc": "Price: Low to High",
+    "priceDesc": "Price: High to Low",
+    "newest": "Newest",
+    "popular": "Popular",
+    "searchResults": "Search Results",
+    "searchPlaceholder": "Try \"Men's T-shirts\"",
+    "search": "SEARCH",
+    "foundProducts": "Found {{count}}",
+    "forSearchTerm": "for \"{{term}}\"",
+    "noResults": "No products found matching your search criteria.",
+    "clearSearch": "Clear search and show all products"
+  },
+  "product": {
+    "addToCart": "Add to Cart",
+    "addToWishlist": "Add to Wishlist",
+    "removeFromWishlist": "Remove from Wishlist",
+    "outOfStock": "Out of Stock",
+    "inStock": "In Stock"
+  },
+  "cart": {
+    "title": "Shopping Cart",
+    "empty": "Your cart is empty",
+    "continueShopping": "Continue Shopping",
+    "checkout": "Checkout",
+    "total": "Total",
+    "remove": "Remove"
+  },
+  "wishlist": {
+    "title": "Wishlist",
+    "empty": "Your wishlist is empty",
+    "continueShopping": "Continue Shopping",
+    "moveToCart": "Move to Cart"
+  },
+  "auth": {
+    "login": "Login",
+    "signup": "Sign Up",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "forgotPassword": "Forgot Password?",
+    "resetPassword": "Reset Password",
+    "name": "Name",
+    "loginWithGoogle": "Login with Google",
+    "signupWithGoogle": "Sign Up with Google",
+    "alreadyHaveAccount": "Already have an account?",
+    "dontHaveAccount": "Don't have an account?",
+    "welcomeTitle": "Come join us!",
+    "welcomeMessage": "We are so excited to have you here. If you haven't already, create an account to get access to exclusive offers, rewards, and discounts",
+    "signInButton": "Already have an account? Signin.",
+    "termsConditions": "I agree to the terms and conditions",
+    "registerButton": "Register",
+    "orText": "or",
+    "retypePassword": "Re-type Password",
+    "signupSuccessful": "Signup successful!"
+  },
+  "languages": {
+    "en": "English",
+    "fr": "French",
+    "zh": "Chinese",
+    "ru": "Russian",
+    "it": "Italian"
+  },
+  "countries": {
+    "us": "United States",
+    "fr": "France",
+    "cn": "China",
+    "ru": "Russia",
+    "it": "Italy"
+  },
+  "alita": {
+    "title": "THE ALITA",
+    "description": "ALITA is your personal fashion design assistant in FashionMerge. She analyzes outfit images uploaded by users and offers smart styling tips. From improving your look to matching it with trends or wardrobe items, ALITA's got you. Whether you're dressing up or designing, feel free to upload photos and let Alita give feedback and enhance your style to next level. ALITA helps you refine your fashion game.",
+    "exploreButton": "EXPLORE ALITA",
+    "chatbotTitle": "Alita",
+    "chatbotStatus": "Fashion Designer • Online",
+    "welcomeMessage": "Welcome to FashionMerge! I'm Alita, your personal style consultant. Whether you need outfit recommendations, trend insights, or styling advice for a specific occasion, I'm here to guide your fashion journey. Feel free to upload an image of a garment for personalized suggestions.",
+    "inputPlaceholder": "Ask about fashion trends, styling advice..."
+  },
+  "about": {
+    "ourMission": "Our Mission",
+    "missionText": "Welcome to FashionMerge, where the worlds of cutting-edge fashion and immersive music collide. Our community is a vibrant, creative hub designed for trendsetters, music lovers, and anyone who thrives on originality. Here, technology meets artistry: curated style challenges, live listening sessions, personalized outfits, and mood-based playlists create a dynamic space where every member has the opportunity to shine.",
+    "ourStory": "Our Story",
+    "storyText": "At FashionMerge, every trend tells a story and every song sets the tone for a new era of self-expression. Members come together to inspire one another, share insights, and set new trends while having fun along the way. Whether you're looking to discover the latest fashion tips or connect with fellow enthusiasts over a favorite track, our community is the place to ignite your passion and elevate your creative journey.",
+    "whoAmI": "So, who am I?",
+    "whoAmIText": "I'm your new social media bestie. My mission is to help small and medium-sized businesses grow their audience and brand recognition through social media. My goal is to help you understand the power of social media and create connections that go beyond the internet.",
+    "contactButton": "CONTACT ME",
+    "homeStory": "OUR STORY",
+    "homeStoryText1": "Fashion Merge was born from a desire to blend timeless elegance with contemporary sensibilities. Our journey began in 2018, with a vision to create pieces that transcend seasonal trends and become cherished staples in discerning wardrobes.",
+    "homeStoryText2": "Each Fashion Merge creation embodies our commitment to exceptional craftsmanship and sustainable practices. We collaborate with artisans who share our passion for quality and detail, ensuring every piece tells a story of heritage and innovation.",
+    "learnMoreButton": "LEARN MORE"
+  },
+  "contact": {
+    "title": "CONTACT US",
+    "firstName": "First name *",
+    "lastName": "Last name *",
+    "email": "Email *",
+    "phone": "Phone",
+    "message": "Message *",
+    "submit": "SUBMIT",
+    "successMessage": "Thank you for your message. We'll get back to you soon!"
+  },
+  "music": {
+    "title": "MUSIC"
+  },
+  "register": {
+    "title": "JOIN OUR WORLD",
+    "description": "Register to our newsletter to receive exclusive updates, early access to new collections, and curated style insights delivered directly to your inbox.",
+    "emailPlaceholder": "Your email address",
+    "button": "REGISTER"
+  },
+  "maison": {
+    "title": "THE MAISON",
+    "description": "Maison Decors in FashionMerge is where heritage meets innovation, offering users a curated selection of timeless fashion, blending luxury with modern trends to create unique, personalized styles. Discover the elegance of high-end fashion, reimagined for today's style enthusiasts.",
+    "button": "DISCOVER MORE",
+    "videoAlt": "Your browser does not support the video tag."
+  },
+  "profile": {
+    "loginPrompt": "Please log in to view your profile",
+    "loading": "Loading your profile...",
+    "error": "Error",
+    "noUserData": "No user data found",
+    "uploadProfilePicture": "Upload profile picture",
+    "uploading": "Uploading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "uploadSuccess": "Profile picture updated successfully!",
+    "tabs": {
+      "profile": "Profile",
+      "wishlist": "Wishlist",
+      "cart": "Cart",
+      "purchases": "Purchases",
+      "wardrobe": "Wardrobe"
+    },
+    "summary": {
+      "wishlistItems": "Wishlist Items",
+      "cartItems": "Cart Items",
+      "purchases": "Purchases",
+      "wardrobeItems": "Wardrobe Items"
+    },
+    "emptyStates": {
+      "wishlist": "Your wishlist is empty",
+      "cart": "Your cart is empty",
+      "purchases": "No purchases yet",
+      "wardrobe": "Your wardrobe is empty"
+    },
+    "actions": {
+      "browseCollections": "Browse Collections",
+      "shopNow": "Shop Now",
+      "addItems": "Add Items"
+    }
+  },
+  "wardrobe": {
+    "title": "My Virtual Wardrobe",
+    "addItem": "Add Item",
+    "emptyMessage": "Your wardrobe is empty. Click the \"+\" button to add items.",
+    "loading": "Loading your wardrobe...",
+    "categories": {
+      "allCategories": "All Categories",
+      "tops": "Tops",
+      "bottoms": "Bottoms",
+      "dresses": "Dresses",
+      "outerwear": "Outerwear",
+      "shoes": "Shoes",
+      "accessories": "Accessories",
+      "other": "Other"
+    },
+    "seasons": {
+      "allSeasons": "All Seasons",
+      "spring": "Spring",
+      "summer": "Summer",
+      "fall": "Fall",
+      "winter": "Winter",
+      "all": "All"
+    },
+    "filters": {
+      "category": "Category:",
+      "season": "Season:",
+      "resetFilters": "Reset Filters"
+    },
+    "form": {
+      "addNewItem": "Add New Item",
+      "name": "Name",
+      "description": "Description",
+      "category": "Category",
+      "color": "Color",
+      "season": "Season",
+      "image": "Image",
+      "colorPlaceholder": "e.g. Blue, Red, Black",
+      "descriptionPlaceholder": "Add a description (optional)",
+      "namePlaceholder": "Enter item name",
+      "uploadImage": "Upload Image",
+      "uploadHint": "Supported formats: JPG, PNG, GIF (max 5MB)",
+      "changeImage": "Change Image",
+      "removeImage": "Remove",
+      "cancel": "Cancel",
+      "addToWardrobe": "Add to Wardrobe",
+      "adding": "Adding..."
+    },
+    "messages": {
+      "addSuccess": "Item added to your wardrobe successfully!",
+      "removeSuccess": "Item removed from your wardrobe successfully!",
+      "addError": "Failed to add item to your wardrobe. Please try again later.",
+      "removeError": "Failed to remove item from your wardrobe. Please try again later.",
+      "loadError": "Failed to load your wardrobe. Please try again later.",
+      "nameRequired": "Please enter a name for your wardrobe item",
+      "imageRequired": "Please select an image for your wardrobe item",
+      "removeConfirm": "Are you sure you want to remove this item from your wardrobe?"
+    },
+    "actions": {
+      "remove": "Remove"
+    }
+  }
+}

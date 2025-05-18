@@ -1,0 +1,141 @@
+{
+  "navbar": {
+    "contact": "联系我们",
+    "music": "音乐",
+    "collections": "系列",
+    "about": "关于",
+    "wardrobe": "衣橱",
+    "alita": "阿丽塔",
+    "cart": "购物车",
+    "wishlist": "收藏夹",
+    "login": "登录",
+    "signup": "注册",
+    "logout": "退出",
+    "profile": "个人资料",
+    "account": "账户"
+  },
+  "footer": {
+    "customerService": "客户服务",
+    "contactUs": "联系我们",
+    "about": "关于",
+    "ourHistory": "我们的历史",
+    "sustainability": "可持续发展",
+    "careers": "职业机会",
+    "copyright": "© 2025 Fashion Merge. 保留所有权利。",
+    "language": "语言"
+  },
+  "home": {
+    "heroTitle": "风格重新定义",
+    "heroSubtitle": "现代时代的永恒优雅",
+    "exploreButton": "立即探索"
+  },
+  "collections": {
+    "title": "系列",
+    "allProducts": "所有产品",
+    "accessories": "配饰",
+    "menClothing": "男装",
+    "womenClothing": "女装",
+    "maison": "家居",
+    "sortBy": "排序方式",
+    "priceAsc": "价格: 从低到高",
+    "priceDesc": "价格: 从高到低",
+    "newest": "最新",
+    "popular": "热门"
+  },
+  "product": {
+    "addToCart": "加入购物车",
+    "addToWishlist": "加入收藏",
+    "removeFromWishlist": "移出收藏",
+    "outOfStock": "缺货",
+    "inStock": "有货"
+  },
+  "cart": {
+    "title": "购物车",
+    "empty": "您的购物车是空的",
+    "continueShopping": "继续购物",
+    "checkout": "结账",
+    "total": "总计",
+    "remove": "移除"
+  },
+  "wishlist": {
+    "title": "收藏夹",
+    "empty": "您的收藏夹是空的",
+    "continueShopping": "继续购物",
+    "moveToCart": "移至购物车"
+  },
+  "auth": {
+    "login": "登录",
+    "signup": "注册",
+    "email": "电子邮件",
+    "password": "密码",
+    "confirmPassword": "确认密码",
+    "forgotPassword": "忘记密码?",
+    "resetPassword": "重置密码",
+    "name": "姓名",
+    "loginWithGoogle": "使用谷歌登录",
+    "signupWithGoogle": "使用谷歌注册",
+    "alreadyHaveAccount": "已有账户?",
+    "dontHaveAccount": "没有账户?"
+  },
+  "languages": {
+    "en": "英语",
+    "fr": "法语",
+    "zh": "中文",
+    "ru": "俄语",
+    "it": "意大利语"
+  },
+  "countries": {
+    "us": "美国",
+    "fr": "法国",
+    "cn": "中国",
+    "ru": "俄罗斯",
+    "it": "意大利"
+  },
+  "alita": {
+    "title": "阿丽塔",
+    "description": "阿丽塔是您在FashionMerge中的个人时尚设计助手。她分析用户上传的服装图片并提供智能造型建议。从改善您的外观到与潮流或衣橱物品匹配，阿丽塔都能帮到您。无论您是在穿搭还是设计，都可以随时上传照片，让阿丽塔给您反馈并将您的风格提升到新的水平。阿丽塔帮助您完善您的时尚游戏。",
+    "exploreButton": "探索阿丽塔",
+    "chatbotTitle": "阿丽塔",
+    "chatbotStatus": "时尚设计师 • 在线",
+    "welcomeMessage": "欢迎来到FashionMerge！我是阿丽塔，您的个人风格顾问。无论您需要服装推荐、潮流洞察还是特定场合的造型建议，我都会指导您的时尚之旅。请随时上传服装图片以获取个性化建议。",
+    "inputPlaceholder": "询问时尚趋势、造型建议..."
+  },
+  "about": {
+    "ourMission": "我们的使命",
+    "missionText": "欢迎来到FashionMerge，这里是前沿时尚与沉浸式音乐碰撞的世界。我们的社区是为潮流引领者、音乐爱好者和所有追求原创的人设计的充满活力的创意中心。在这里，技术与艺术相遇：精心策划的风格挑战、现场聆听会、个性化服装和基于情绪的播放列表创造了一个充满活力的空间，每个成员都有机会闪耀。",
+    "ourStory": "我们的故事",
+    "storyText": "在FashionMerge，每一种趋势都讲述一个故事，每一首歌都为自我表达的新时代定下基调。成员们聚集在一起相互启发，分享见解，并在享受过程中设定新的趋势。无论您是想发现最新的时尚技巧，还是想通过喜爱的曲目与志同道合的人联系，我们的社区都是点燃您的激情并提升您的创意旅程的地方。",
+    "whoAmI": "那么，我是谁？",
+    "whoAmIText": "我是您的新社交媒体好友。我的使命是帮助中小型企业通过社交媒体发展他们的受众和品牌认知度。我的目标是帮助您了解社交媒体的力量，并创建超越互联网的联系。",
+    "contactButton": "联系我",
+    "homeStory": "我们的故事",
+    "homeStoryText1": "Fashion Merge诞生于将永恒优雅与当代感性融合的愿望。我们的旅程始于2018年，我们的愿景是创造超越季节性潮流，成为挑剔衣橱中珍贵主食的作品。",
+    "homeStoryText2": "每一件Fashion Merge创作都体现了我们对卓越工艺和可持续实践的承诺。我们与分享我们对质量和细节热情的工匠合作，确保每件作品都讲述一个关于传承和创新的故事。",
+    "learnMoreButton": "了解更多"
+  },
+  "contact": {
+    "title": "联系我们",
+    "firstName": "名字 *",
+    "lastName": "姓氏 *",
+    "email": "电子邮件 *",
+    "phone": "电话",
+    "message": "留言 *",
+    "submit": "提交",
+    "successMessage": "感谢您的留言。我们将尽快回复您！"
+  },
+  "music": {
+    "title": "音乐"
+  },
+  "register": {
+    "title": "加入我们的世界",
+    "description": "注册我们的通讯，接收独家更新、抢先体验新系列，以及直接发送到您邮箱的精选风格见解。",
+    "emailPlaceholder": "您的电子邮件地址",
+    "button": "注册"
+  },
+  "maison": {
+    "title": "时尚之家",
+    "description": "FashionMerge中的Maison Decors是传统与创新相遇的地方，为用户提供精心挑选的永恒时尚，将奢华与现代潮流融合，创造独特、个性化的风格。探索为当今风格爱好者重新构想的高端时尚的优雅。",
+    "button": "了解更多",
+    "videoAlt": "您的浏览器不支持视频标签。"
+  }
+}

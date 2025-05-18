@@ -1,10 +1,12 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { User, ShoppingBag, Heart, Upload, Edit, LogOut } from 'lucide-react';
+import { User, ShoppingBag, Heart, Upload, Edit, LogOut, ShoppingCart } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import './Profile.css';
 import { USER_ENDPOINTS, UPLOAD_ENDPOINTS, PURCHASES_ENDPOINTS } from '../config/api';
 
 function Profile() {
+  const { t } = useTranslation();
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -335,9 +337,9 @@ function Profile() {
     return (
       <div className="profile-container">
         <div className="login-prompt">
-          <h2>Please log in to view your profile</h2>
+          <h2>{t('profile.loginPrompt')}</h2>
           <button className="login-button" onClick={() => navigate('/login')}>
-            Log In
+            {t('auth.login')}
           </button>
         </div>
       </div>
@@ -347,9 +349,9 @@ function Profile() {
   return (
     <div className="profile-container">
       {loading ? (
-        <div className="loading">Loading your profile...</div>
+        <div className="loading">{t('profile.loading')}</div>
       ) : error ? (
-        <div className="error">Error: {error}</div>
+        <div className="error">{t('profile.error')}: {error}</div>
       ) : userData ? (
         <>
           <div className="profile-header">
@@ -376,7 +378,7 @@ function Profile() {
                 <button
                   className="upload-button"
                   onClick={() => fileInputRef.current?.click()}
-                  title="Upload profile picture"
+                  title={t('profile.uploadProfilePicture')}
                 >
                   <Upload size={16} />
                 </button>
@@ -389,7 +391,7 @@ function Profile() {
                     onClick={uploadProfileImage}
                     disabled={uploadLoading}
                   >
-                    {uploadLoading ? 'Uploading...' : 'Save'}
+                    {uploadLoading ? t('profile.uploading') : t('profile.save')}
                   </button>
                   <button
                     className="cancel-upload-button"
@@ -402,12 +404,12 @@ function Profile() {
                     }}
                     disabled={uploadLoading}
                   >
-                    Cancel
+                    {t('profile.cancel')}
                   </button>
                 </div>
               )}
               {uploadSuccess && (
-                <div className="upload-success">Profile picture updated successfully!</div>
+                <div className="upload-success">{t('profile.uploadSuccess')}</div>
               )}
               {uploadError && (
                 <div className="upload-error">{uploadError}</div>
@@ -426,10 +428,10 @@ function Profile() {
                     />
                     <div className="edit-actions">
                       <button className="save-button" onClick={updateUsername}>
-                        Save
+                        {t('profile.save')}
                       </button>
                       <button className="cancel-button" onClick={cancelEdit}>
-                        Cancel
+                        {t('profile.cancel')}
                       </button>
                     </div>
                   </div>
@@ -445,7 +447,7 @@ function Profile() {
               <p className="email">{userData.email}</p>
 
               <button className="logout-button" onClick={handleLogout}>
-                <LogOut size={16} /> Logout
+                <LogOut size={16} /> {t('navbar.logout')}
               </button>
             </div>
           </div>
@@ -455,31 +457,31 @@ function Profile() {
               className={`tab-button ${activeTab === 'profile' ? 'active' : ''}`}
               onClick={() => setActiveTab('profile')}
             >
-              Profile
+              {t('profile.tabs.profile')}
             </button>
             <button
               className={`tab-button ${activeTab === 'wishlist' ? 'active' : ''}`}
               onClick={() => setActiveTab('wishlist')}
             >
-              Wishlist ({userData.wishlistItems?.length || 0})
+              {t('profile.tabs.wishlist')} ({userData.wishlistItems?.length || 0})
             </button>
             <button
               className={`tab-button ${activeTab === 'cart' ? 'active' : ''}`}
               onClick={() => setActiveTab('cart')}
             >
-              Cart ({userData.cartItems?.length || 0})
+              {t('profile.tabs.cart')} ({userData.cartItems?.length || 0})
             </button>
             <button
               className={`tab-button ${activeTab === 'purchases' ? 'active' : ''}`}
               onClick={() => setActiveTab('purchases')}
             >
-              Purchases ({purchases.length})
+              {t('profile.tabs.purchases')} ({purchases.length})
             </button>
             <button
               className={`tab-button ${activeTab === 'wardrobe' ? 'active' : ''}`}
               onClick={() => setActiveTab('wardrobe')}
             >
-              Wardrobe ({userData.wardrobe?.length || 0})
+              {t('profile.tabs.wardrobe')} ({userData.wardrobe?.length || 0})
             </button>
           </div>
 
@@ -489,15 +491,23 @@ function Profile() {
                 <div className="summary-card">
                   <Heart className="summary-icon" />
                   <div className="summary-info">
-                    <h3>Wishlist Items</h3>
+                    <h3>{t('profile.summary.wishlistItems')}</h3>
                     <p>{userData.wishlistItems?.length || 0}</p>
+                  </div>
+                </div>
+
+                <div className="summary-card">
+                  <ShoppingCart className="summary-icon" />
+                  <div className="summary-info">
+                    <h3>{t('profile.summary.cartItems')}</h3>
+                    <p>{userData.cartItems?.length || 0}</p>
                   </div>
                 </div>
 
                 <div className="summary-card">
                   <ShoppingBag className="summary-icon" />
                   <div className="summary-info">
-                    <h3>Purchases</h3>
+                    <h3>{t('profile.summary.purchases')}</h3>
                     <p>{purchases.length}</p>
                   </div>
                 </div>
@@ -505,7 +515,7 @@ function Profile() {
                 <div className="summary-card">
                   <User className="summary-icon" />
                   <div className="summary-info">
-                    <h3>Wardrobe Items</h3>
+                    <h3>{t('profile.summary.wardrobeItems')}</h3>
                     <p>{userData.wardrobe?.length || 0}</p>
                   </div>
                 </div>
@@ -529,9 +539,9 @@ function Profile() {
                 ) : (
                   <div className="empty-state">
                     <Heart size={48} />
-                    <h3>Your wishlist is empty</h3>
+                    <h3>{t('profile.emptyStates.wishlist')}</h3>
                     <button className="action-button" onClick={() => navigate('/collections')}>
-                      Browse Collections
+                      {t('profile.actions.browseCollections')}
                     </button>
                   </div>
                 )}
@@ -558,9 +568,9 @@ function Profile() {
                 ) : (
                   <div className="empty-state">
                     <ShoppingBag size={48} />
-                    <h3>Your cart is empty</h3>
+                    <h3>{t('profile.emptyStates.cart')}</h3>
                     <button className="action-button" onClick={() => navigate('/collections')}>
-                      Shop Now
+                      {t('profile.actions.shopNow')}
                     </button>
                   </div>
                 )}
@@ -603,9 +613,9 @@ function Profile() {
                 ) : (
                   <div className="empty-state">
                     <ShoppingBag size={48} />
-                    <h3>No purchases yet</h3>
+                    <h3>{t('profile.emptyStates.purchases')}</h3>
                     <button className="action-button" onClick={() => navigate('/collections')}>
-                      Shop Now
+                      {t('profile.actions.shopNow')}
                     </button>
                   </div>
                 )}
@@ -631,9 +641,9 @@ function Profile() {
                 ) : (
                   <div className="empty-state">
                     <User size={48} />
-                    <h3>Your wardrobe is empty</h3>
+                    <h3>{t('profile.emptyStates.wardrobe')}</h3>
                     <button className="action-button" onClick={() => navigate('/wardrobe')}>
-                      Add Items
+                      {t('profile.actions.addItems')}
                     </button>
                   </div>
                 )}
@@ -642,7 +652,7 @@ function Profile() {
           </div>
         </>
       ) : (
-        <div className="error">No user data found</div>
+        <div className="error">{t('profile.noUserData')}</div>
       )}
     </div>
   );

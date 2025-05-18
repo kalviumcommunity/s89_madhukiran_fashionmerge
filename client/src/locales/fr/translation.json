@@ -1,0 +1,210 @@
+{
+  "navbar": {
+    "contact": "CONTACT",
+    "music": "MUSIQUE",
+    "collections": "COLLECTIONS",
+    "about": "À PROPOS",
+    "wardrobe": "GARDE-ROBE",
+    "alita": "ALITA",
+    "cart": "PANIER",
+    "wishlist": "FAVORIS",
+    "login": "CONNEXION",
+    "signup": "INSCRIPTION",
+    "logout": "DÉCONNEXION",
+    "profile": "PROFIL",
+    "account": "COMPTE"
+  },
+  "footer": {
+    "customerService": "SERVICE CLIENT",
+    "contactUs": "Nous Contacter",
+    "about": "À PROPOS",
+    "ourHistory": "Notre Histoire",
+    "sustainability": "Durabilité",
+    "careers": "Carrières",
+    "copyright": "© 2025 Fashion Merge. Tous droits réservés.",
+    "language": "Langue"
+  },
+  "home": {
+    "heroTitle": "STYLE (RE)DÉFINI",
+    "heroSubtitle": "ÉLÉGANCE INTEMPORELLE POUR L'ÈRE MODERNE",
+    "exploreButton": "DÉCOUVRIR MAINTENANT"
+  },
+  "collections": {
+    "title": "Collections",
+    "allProducts": "Tous les Produits",
+    "accessories": "Accessoires",
+    "menClothing": "Vêtements Homme",
+    "womenClothing": "Vêtements Femme",
+    "maison": "Maison",
+    "sortBy": "Trier Par",
+    "priceAsc": "Prix: Croissant",
+    "priceDesc": "Prix: Décroissant",
+    "newest": "Plus Récent",
+    "popular": "Populaire"
+  },
+  "product": {
+    "addToCart": "Ajouter au Panier",
+    "addToWishlist": "Ajouter aux Favoris",
+    "removeFromWishlist": "Retirer des Favoris",
+    "outOfStock": "Rupture de Stock",
+    "inStock": "En Stock"
+  },
+  "cart": {
+    "title": "Panier d'Achat",
+    "empty": "Votre panier est vide",
+    "continueShopping": "Continuer les Achats",
+    "checkout": "Paiement",
+    "total": "Total",
+    "remove": "Supprimer"
+  },
+  "wishlist": {
+    "title": "Liste de Souhaits",
+    "empty": "Votre liste de souhaits est vide",
+    "continueShopping": "Continuer les Achats",
+    "moveToCart": "Déplacer vers le Panier"
+  },
+  "auth": {
+    "login": "Connexion",
+    "signup": "Inscription",
+    "email": "Email",
+    "password": "Mot de Passe",
+    "confirmPassword": "Confirmer le Mot de Passe",
+    "forgotPassword": "Mot de Passe Oublié?",
+    "resetPassword": "Réinitialiser le Mot de Passe",
+    "name": "Nom",
+    "loginWithGoogle": "Connexion avec Google",
+    "signupWithGoogle": "Inscription avec Google",
+    "alreadyHaveAccount": "Vous avez déjà un compte?",
+    "dontHaveAccount": "Vous n'avez pas de compte?",
+    "welcomeTitle": "Rejoignez-nous!",
+    "welcomeMessage": "Nous sommes ravis de vous accueillir. Si ce n'est pas déjà fait, créez un compte pour accéder à des offres exclusives, des récompenses et des remises",
+    "signInButton": "Vous avez déjà un compte? Connectez-vous.",
+    "termsConditions": "J'accepte les termes et conditions",
+    "registerButton": "S'inscrire",
+    "orText": "ou",
+    "retypePassword": "Retapez le Mot de Passe",
+    "signupSuccessful": "Inscription réussie!"
+  },
+  "languages": {
+    "en": "Anglais",
+    "fr": "Français",
+    "zh": "Chinois",
+    "ru": "Russe",
+    "it": "Italien"
+  },
+  "countries": {
+    "us": "États-Unis",
+    "fr": "France",
+    "cn": "Chine",
+    "ru": "Russie",
+    "it": "Italie"
+  },
+  "alita": {
+    "title": "L'ALITA",
+    "description": "ALITA est votre assistante personnelle de design de mode chez FashionMerge. Elle analyse les images de tenues téléchargées par les utilisateurs et offre des conseils de style intelligents. De l'amélioration de votre look à l'association avec des tendances ou des articles de garde-robe, ALITA est là pour vous. Que vous vous habilliez ou que vous conceviez, n'hésitez pas à télécharger des photos et laissez Alita vous donner des commentaires et améliorer votre style au niveau supérieur. ALITA vous aide à affiner votre jeu de mode.",
+    "exploreButton": "EXPLORER ALITA",
+    "chatbotTitle": "Alita",
+    "chatbotStatus": "Designer de Mode • En ligne",
+    "welcomeMessage": "Bienvenue chez FashionMerge ! Je suis Alita, votre consultante de style personnelle. Que vous ayez besoin de recommandations de tenues, d'aperçus des tendances ou de conseils de style pour une occasion spécifique, je suis là pour guider votre parcours de mode. N'hésitez pas à télécharger une image d'un vêtement pour des suggestions personnalisées.",
+    "inputPlaceholder": "Demandez des tendances de mode, des conseils de style..."
+  },
+  "about": {
+    "ourMission": "Notre Mission",
+    "missionText": "Bienvenue chez FashionMerge, où les mondes de la mode de pointe et de la musique immersive se rencontrent. Notre communauté est un centre créatif vibrant conçu pour les créateurs de tendances, les amateurs de musique et tous ceux qui s'épanouissent dans l'originalité. Ici, la technologie rencontre l'art : des défis de style organisés, des sessions d'écoute en direct, des tenues personnalisées et des playlists basées sur l'humeur créent un espace dynamique où chaque membre a la possibilité de briller.",
+    "ourStory": "Notre Histoire",
+    "storyText": "Chez FashionMerge, chaque tendance raconte une histoire et chaque chanson donne le ton à une nouvelle ère d'expression de soi. Les membres se réunissent pour s'inspirer mutuellement, partager des idées et établir de nouvelles tendances tout en s'amusant. Que vous cherchiez à découvrir les derniers conseils de mode ou à vous connecter avec d'autres passionnés autour d'une piste favorite, notre communauté est l'endroit idéal pour allumer votre passion et élever votre parcours créatif.",
+    "whoAmI": "Alors, qui suis-je?",
+    "whoAmIText": "Je suis votre nouvelle meilleure amie des médias sociaux. Ma mission est d'aider les petites et moyennes entreprises à développer leur audience et leur reconnaissance de marque grâce aux médias sociaux. Mon objectif est de vous aider à comprendre le pouvoir des médias sociaux et à créer des connexions qui vont au-delà d'Internet.",
+    "contactButton": "ME CONTACTER",
+    "homeStory": "NOTRE HISTOIRE",
+    "homeStoryText1": "Fashion Merge est né d'un désir de mêler l'élégance intemporelle aux sensibilités contemporaines. Notre voyage a commencé en 2018, avec une vision de créer des pièces qui transcendent les tendances saisonnières et deviennent des éléments chéris dans les garde-robes exigeantes.",
+    "homeStoryText2": "Chaque création Fashion Merge incarne notre engagement envers un artisanat exceptionnel et des pratiques durables. Nous collaborons avec des artisans qui partagent notre passion pour la qualité et le détail, garantissant que chaque pièce raconte une histoire d'héritage et d'innovation.",
+    "learnMoreButton": "EN SAVOIR PLUS"
+  },
+  "contact": {
+    "title": "CONTACTEZ-NOUS",
+    "firstName": "Prénom *",
+    "lastName": "Nom *",
+    "email": "Email *",
+    "phone": "Téléphone",
+    "message": "Message *",
+    "submit": "ENVOYER",
+    "successMessage": "Merci pour votre message. Nous vous répondrons bientôt!"
+  },
+  "music": {
+    "title": "MUSIQUE"
+  },
+  "register": {
+    "title": "REJOIGNEZ NOTRE MONDE",
+    "description": "Inscrivez-vous à notre newsletter pour recevoir des mises à jour exclusives, un accès anticipé aux nouvelles collections et des aperçus de style sélectionnés directement dans votre boîte de réception.",
+    "emailPlaceholder": "Votre adresse e-mail",
+    "button": "S'INSCRIRE"
+  },
+  "maison": {
+    "title": "LA MAISON",
+    "description": "Maison Decors chez FashionMerge est l'endroit où le patrimoine rencontre l'innovation, offrant aux utilisateurs une sélection soignée de mode intemporelle, mélangeant le luxe avec les tendances modernes pour créer des styles uniques et personnalisés. Découvrez l'élégance de la haute couture, réimaginée pour les passionnés de style d'aujourd'hui.",
+    "button": "DÉCOUVRIR PLUS",
+    "videoAlt": "Votre navigateur ne prend pas en charge la balise vidéo."
+  },
+  "wardrobe": {
+    "title": "Ma Garde-Robe Virtuelle",
+    "addItem": "Ajouter un Article",
+    "emptyMessage": "Votre garde-robe est vide. Cliquez sur le bouton \"+\" pour ajouter des articles.",
+    "loading": "Chargement de votre garde-robe...",
+    "categories": {
+      "allCategories": "Toutes les Catégories",
+      "tops": "Hauts",
+      "bottoms": "Bas",
+      "dresses": "Robes",
+      "outerwear": "Vêtements d'Extérieur",
+      "shoes": "Chaussures",
+      "accessories": "Accessoires",
+      "other": "Autre"
+    },
+    "seasons": {
+      "allSeasons": "Toutes les Saisons",
+      "spring": "Printemps",
+      "summer": "Été",
+      "fall": "Automne",
+      "winter": "Hiver",
+      "all": "Toutes"
+    },
+    "filters": {
+      "category": "Catégorie:",
+      "season": "Saison:",
+      "resetFilters": "Réinitialiser les Filtres"
+    },
+    "form": {
+      "addNewItem": "Ajouter un Nouvel Article",
+      "name": "Nom",
+      "description": "Description",
+      "category": "Catégorie",
+      "color": "Couleur",
+      "season": "Saison",
+      "image": "Image",
+      "colorPlaceholder": "ex. Bleu, Rouge, Noir",
+      "descriptionPlaceholder": "Ajouter une description (optionnel)",
+      "namePlaceholder": "Entrez le nom de l'article",
+      "uploadImage": "Télécharger une Image",
+      "uploadHint": "Formats supportés: JPG, PNG, GIF (max 5MB)",
+      "changeImage": "Changer l'Image",
+      "removeImage": "Supprimer",
+      "cancel": "Annuler",
+      "addToWardrobe": "Ajouter à la Garde-Robe",
+      "adding": "Ajout en cours..."
+    },
+    "messages": {
+      "addSuccess": "Article ajouté à votre garde-robe avec succès!",
+      "removeSuccess": "Article retiré de votre garde-robe avec succès!",
+      "addError": "Échec de l'ajout de l'article à votre garde-robe. Veuillez réessayer plus tard.",
+      "removeError": "Échec du retrait de l'article de votre garde-robe. Veuillez réessayer plus tard.",
+      "loadError": "Échec du chargement de votre garde-robe. Veuillez réessayer plus tard.",
+      "nameRequired": "Veuillez entrer un nom pour votre article de garde-robe",
+      "imageRequired": "Veuillez sélectionner une image pour votre article de garde-robe",
+      "removeConfirm": "Êtes-vous sûr de vouloir retirer cet article de votre garde-robe?"
+    },
+    "actions": {
+      "remove": "Supprimer"
+    }
+  }
+}

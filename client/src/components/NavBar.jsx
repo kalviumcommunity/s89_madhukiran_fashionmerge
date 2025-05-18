@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Heart, User, ShoppingCart, LogOut, ShoppingBag, Menu, X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import './NavBar.css';
 
 const Navbar = ({ scrolled }) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -65,7 +67,7 @@ const Navbar = ({ scrolled }) => {
         </a>
 
         <div className="nav-left">
-          <a onClick={() => handleNavigation('/contact')} className="nav-title" style={{ fontSize: '11px', fontWeight: 'bold' }}>CONTACT</a>
+          <a onClick={() => handleNavigation('/contact')} className="nav-title" style={{ fontSize: '11px', fontWeight: 'bold' }}>{t('navbar.contact')}</a>
           <div className="language-selector">
           </div>
         </div>
@@ -77,16 +79,16 @@ const Navbar = ({ scrolled }) => {
           </button>
         )}
 
-        <a onClick={() => handleNavigation('/music')} className="nav-title" style={{ fontSize: '11px', fontWeight: 'bold' }}>MUSIC</a>
-        <a onClick={() => handleNavigation('/collections')} className="nav-title" style={{ fontSize: '11px', fontWeight: 'bold' }}>COLLECTIONS</a>
-        <a onClick={() => handleNavigation('/about')} className="nav-title" style={{ fontSize: '11px', fontWeight: 'bold' }}>ABOUT</a>
+        <a onClick={() => handleNavigation('/music')} className="nav-title" style={{ fontSize: '11px', fontWeight: 'bold' }}>{t('navbar.music')}</a>
+        <a onClick={() => handleNavigation('/collections')} className="nav-title" style={{ fontSize: '11px', fontWeight: 'bold' }}>{t('navbar.collections')}</a>
+        <a onClick={() => handleNavigation('/about')} className="nav-title" style={{ fontSize: '11px', fontWeight: 'bold' }}>{t('navbar.about')}</a>
         <a onClick={() => handleNavigation('/home')} className="logo" style={{ fontFamily: 'Playfair Display, serif', fontSize: '30px', fontWeight: 'semi-bold' }}>
           FashionMerge
         </a>
-        <a onClick={() => handleNavigation('/wardrobe')} className="nav-title" style={{ fontSize: '11px', fontWeight: 'bold' }}>WARDROBE</a>
-        <a onClick={() => handleNavigation('/alita')} className="nav-title" style={{ fontSize: '11px', fontWeight: 'bold' }}>ALITA</a>
+        <a onClick={() => handleNavigation('/wardrobe')} className="nav-title" style={{ fontSize: '11px', fontWeight: 'bold' }}>{t('navbar.wardrobe')}</a>
+        <a onClick={() => handleNavigation('/alita')} className="nav-title" style={{ fontSize: '11px', fontWeight: 'bold' }}>{t('navbar.alita')}</a>
         <a onClick={() => isLoggedIn ? handleNavigation('/profile') : handleNavigation('/login')} className="nav-title" style={{ fontSize: '11px', fontWeight: 'bold' }}>
-          {isLoggedIn ? 'PROFILE' : 'ACCOUNT'}
+          {isLoggedIn ? t('navbar.profile') : t('navbar.login')}
         </a>
       </div>
       <div className="nav-right">

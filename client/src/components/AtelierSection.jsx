@@ -1,7 +1,10 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import './AtelierSection.css';
 
 const AtelierSection = () => {
+  const { t } = useTranslation();
+
   const handleExploreAlitaClick = () => {
     window.location.href = '/alita'; // Redirect to the chatbot page
   };
@@ -10,14 +13,13 @@ const AtelierSection = () => {
     <section className="atelier-section">
       <div className="atelier-grid">
         <div className="atelier-text">
-          <h2>THE ALITA</h2>
+          <h2>{t('alita.title')}</h2>
           <div className="atelier-paragraph">
-            <p>ALITA is your personal fashion design assistant in FashionMerge.
-            She analyzes outfit images uploaded by users and offers smart styling tips.
-            From improving your look to matching it with trends or wardrobe items, ALITA's got you.
-            Whether you're dressing up or designing, feel free to upload photos and let Alita give feedback and enhance your style to next level. ALITA helps you refine your fashion game.</p>
+            <p>{t('alita.description')}</p>
           </div>
-          <a href="#craftsmanship" className="craft-btn" onClick={handleExploreAlitaClick}>EXPLORE ALITA</a>
+          <a href="#craftsmanship" className="craft-btn" onClick={handleExploreAlitaClick}>
+            {t('alita.exploreButton')}
+          </a>
         </div>
         <div className="atelier-image">
           <img src="https://images.pexels.com/photos/2681751/pexels-photo-2681751.jpeg" alt="Jewelry craftsmanship" />

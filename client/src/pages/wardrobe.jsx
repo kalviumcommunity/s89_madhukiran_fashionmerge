@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useWardrobeStore } from './wardrobeStore';
 import { Plus, X, Filter, RefreshCw } from 'lucide-react';
 import { UPLOAD_ENDPOINTS } from '../config/api';
@@ -8,6 +9,8 @@ const CATEGORIES = ['tops', 'bottoms', 'dresses', 'outerwear', 'shoes', 'accesso
 const SEASONS = ['spring', 'summer', 'fall', 'winter', 'all'];
 
 const Wardrobe = () => {
+  const { t } = useTranslation();
+
   // State for the form
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
@@ -69,14 +72,14 @@ const Wardrobe = () => {
         console.log('Wardrobe loaded successfully');
       } catch (error) {
         console.error('Error loading wardrobe:', error);
-        setError('Failed to load your wardrobe. Please try again later.');
+        setError(t('wardrobe.messages.loadError'));
       } finally {
         setIsLoading(false);
       }
     };
 
     fetchWardrobe();
-  }, [isLoggedIn, userId, token, loadWardrobeFromServer]);
+  }, [isLoggedIn, userId, token, loadWardrobeFromServer, t]);
 
   // Handle file selection
   const handleFileChange = (e) => {
@@ -156,12 +159,12 @@ const Wardrobe = () => {
 
     // Validate form
     if (!name.trim()) {
-      setError('Please enter a name for your wardrobe item');
+      setError(t('wardrobe.messages.nameRequired'));
       return;
     }
 
     if (!selectedFile && !previewUrl) {
-      setError('Please select an image for your wardrobe item');
+      setError(t('wardrobe.messages.imageRequired'));
       return;
     }
 
@@ -213,11 +216,11 @@ const Wardrobe = () => {
       setPreviewUrl('');
 
       // Show success message
-      setSuccessMessage('Item added to your wardrobe successfully!');
+      setSuccessMessage(t('wardrobe.messages.addSuccess'));
       setTimeout(() => setSuccessMessage(''), 3000);
     } catch (error) {
       console.error('Error adding wardrobe item:', error);
-      setError('Failed to add item to your wardrobe. Please try again later.');
+      setError(t('wardrobe.messages.addError'));
     } finally {
       setIsLoading(false);
     }
@@ -225,15 +228,15 @@ const Wardrobe = () => {
 
   // Handle item deletion
   const handleDelete = async (index) => {
-    if (window.confirm('Are you sure you want to remove this item from your wardrobe?')) {
+    if (window.confirm(t('wardrobe.messages.removeConfirm'))) {
       setIsLoading(true);
       try {
         await removeItemAndSave(index, userId, token);
-        setSuccessMessage('Item removed from your wardrobe successfully!');
+        setSuccessMessage(t('wardrobe.messages.removeSuccess'));
         setTimeout(() => setSuccessMessage(''), 3000);
       } catch (error) {
         console.error('Error removing wardrobe item:', error);
-        setError('Failed to remove item from your wardrobe. Please try again later.');
+        setError(t('wardrobe.messages.removeError'));
       } finally {
         setIsLoading(false);
       }
@@ -277,7 +280,7 @@ const Wardrobe = () => {
 
   return (
     <div className="wardrobe-container">
-      <h1>My Virtual Wardrobe</h1>
+      <h1>{t('wardrobe.title')}</h1>
 
       {/* Wardrobe Items */}
       <div className="wardrobe-items-container">
@@ -286,29 +289,33 @@ const Wardrobe = () => {
           <Filter size={18} color="#4a90e2" />
 
           <div className="filter-group">
-            <label htmlFor="category-filter">Category:</label>
+            <label htmlFor="category-filter">{t('wardrobe.filters.category')}</label>
             <select
               id="category-filter"
               value={filter.category}
               onChange={(e) => setFilter({...filter, category: e.target.value})}
             >
-              <option value="">All Categories</option>
+              <option value="">{t('wardrobe.categories.allCategories')}</option>
               {CATEGORIES.map(cat => (
-                <option key={cat} value={cat}>{cat.charAt(0).toUpperCase() + cat.slice(1)}</option>
+                <option key={cat} value={cat}>
+                  {t(`wardrobe.categories.${cat}`)}
+                </option>
               ))}
             </select>
           </div>
 
           <div className="filter-group">
-            <label htmlFor="season-filter">Season:</label>
+            <label htmlFor="season-filter">{t('wardrobe.filters.season')}</label>
             <select
               id="season-filter"
               value={filter.season}
               onChange={(e) => setFilter({...filter, season: e.target.value})}
             >
-              <option value="">All Seasons</option>
+              <option value="">{t('wardrobe.seasons.allSeasons')}</option>
               {SEASONS.map(s => (
-                <option key={s} value={s}>{s.charAt(0).toUpperCase() + s.slice(1)}</option>
+                <option key={s} value={s}>
+                  {t(`wardrobe.seasons.${s}`)}
+                </option>
               ))}
             </select>
           </div>
@@ -318,20 +325,20 @@ const Wardrobe = () => {
             onClick={() => setFilter({ category: '', season: '' })}
           >
             <RefreshCw size={16} />
-            Reset Filters
+            {t('wardrobe.filters.resetFilters')}
           </button>
         </div>
 
         {successMessage && <div className="success-message">{successMessage}</div>}
 
-        {isLoading && !isModalOpen && <div className="loading">Loading your wardrobe...</div>}
+        {isLoading && !isModalOpen && <div className="loading">{t('wardrobe.loading')}</div>}
 
         <div className="wardrobe-grid">
           {/* Add Item Button */}
           <div className="wardrobe-item add-item-button" onClick={openModal}>
             <div className="add-item-content">
               <Plus size={40} />
-              <p>Add Item</p>
+              <p>{t('wardrobe.addItem')}</p>
             </div>
           </div>
 
@@ -345,16 +352,28 @@ const Wardrobe = () => {
                 <h3>{item.name}</h3>
                 {item.description && <p>{item.description}</p>}
                 <div className="wardrobe-item-meta">
-                  {item.category && <span className="category">{item.category}</span>}
-                  {item.color && <span className="color">{item.color}</span>}
-                  {item.season && <span className="season">{item.season}</span>}
+                  {item.category && (
+                    <span className="category">
+                      {t(`wardrobe.categories.${item.category}`)}
+                    </span>
+                  )}
+                  {item.color && (
+                    <span className="color">
+                      {item.color.charAt(0).toUpperCase() + item.color.slice(1)}
+                    </span>
+                  )}
+                  {item.season && (
+                    <span className="season">
+                      {t(`wardrobe.seasons.${item.season}`)}
+                    </span>
+                  )}
                 </div>
                 <button
                   className="delete-button"
                   onClick={() => handleDelete(index)}
                   disabled={isLoading}
                 >
-                  Remove
+                  {t('wardrobe.actions.remove')}
                 </button>
               </div>
             </div>
@@ -362,7 +381,7 @@ const Wardrobe = () => {
 
           {!isLoading && filteredWardrobe.length === 0 && !isModalOpen && (
             <div className="empty-wardrobe-message">
-              <p>Your wardrobe is empty. Click the "+" button to add items.</p>
+              <p>{t('wardrobe.emptyMessage')}</p>
             </div>
           )}
         </div>
@@ -380,68 +399,72 @@ const Wardrobe = () => {
 
             <form onSubmit={handleModalSubmit} className="wardrobe-form">
               <div className="form-group">
-                <label htmlFor="name" data-required="*">Name</label>
+                <label htmlFor="name" data-required="*">{t('wardrobe.form.name')}</label>
                 <input
                   type="text"
                   id="name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="Enter item name"
+                  placeholder={t('wardrobe.form.namePlaceholder')}
                   required
                 />
               </div>
 
               <div className="form-group">
-                <label htmlFor="description">Description</label>
+                <label htmlFor="description">{t('wardrobe.form.description')}</label>
                 <textarea
                   id="description"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
-                  placeholder="Add a description (optional)"
+                  placeholder={t('wardrobe.form.descriptionPlaceholder')}
                 />
               </div>
 
               <div className="form-row">
                 <div className="form-group">
-                  <label htmlFor="category">Category</label>
+                  <label htmlFor="category">{t('wardrobe.form.category')}</label>
                   <select
                     id="category"
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
                   >
                     {CATEGORIES.map(cat => (
-                      <option key={cat} value={cat}>{cat.charAt(0).toUpperCase() + cat.slice(1)}</option>
+                      <option key={cat} value={cat}>
+                        {t(`wardrobe.categories.${cat}`)}
+                      </option>
                     ))}
                   </select>
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="color">Color</label>
+                  <label htmlFor="color">{t('wardrobe.form.color')}</label>
                   <input
                     type="text"
                     id="color"
                     value={color}
                     onChange={(e) => setColor(e.target.value)}
-                    placeholder="e.g. Blue, Red, Black"
+                    placeholder={t('wardrobe.form.colorPlaceholder')}
                   />
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="season">Season</label>
+                  <label htmlFor="season">{t('wardrobe.form.season')}</label>
                   <select
                     id="season"
                     value={season}
                     onChange={(e) => setSeason(e.target.value)}
                   >
                     {SEASONS.map(s => (
-                      <option key={s} value={s}>{s.charAt(0).toUpperCase() + s.slice(1)}</option>
+                      <option key={s} value={s}>
+                        {t(`wardrobe.seasons.${s}`)}
+                      </option>
                     ))}
                   </select>
                 </div>
               </div>
 
               <div className="form-group image-upload-container">
-                <label htmlFor="image" data-required="*">Image</label>
+                <label htmlFor="image" data-required="*">{t('wardrobe.form.image')}</label>
                 {previewUrl ? (
                   <div className="image-preview-container">
                     <div className="image-preview">
@@ -453,7 +476,7 @@ const Wardrobe = () => {
                         className="upload-new-button"
                         onClick={() => document.getElementById('image').click()}
                       >
-                        Change Image
+                        {t('wardrobe.form.changeImage')}
                       </button>
                       <button
                         type="button"
@@ -463,7 +486,7 @@ const Wardrobe = () => {
                           setPreviewUrl('');
                         }}
                       >
-                        Remove
+                        {t('wardrobe.form.removeImage')}
                       </button>
                     </div>
                   </div>
@@ -475,9 +498,9 @@ const Wardrobe = () => {
                       onClick={() => document.getElementById('image').click()}
                     >
                       <Plus size={20} />
-                      Upload Image
+                      {t('wardrobe.form.uploadImage')}
                     </button>
-                    <p className="upload-hint">Supported formats: JPG, PNG, GIF (max 5MB)</p>
+                    <p className="upload-hint">{t('wardrobe.form.uploadHint')}</p>
                   </div>
                 )}
                 <input
@@ -498,14 +521,14 @@ const Wardrobe = () => {
                   className="cancel-button"
                   onClick={closeModal}
                 >
-                  Cancel
+                  {t('wardrobe.form.cancel')}
                 </button>
                 <button
                   type="submit"
                   className="submit-button"
                   disabled={isLoading}
                 >
-                  {isLoading ? 'Adding...' : 'Add to Wardrobe'}
+                  {isLoading ? t('wardrobe.form.adding') : t('wardrobe.form.addToWardrobe')}
                 </button>
               </div>
             </form>

@@ -3,6 +3,7 @@ import { marked } from "marked";
 import DOMPurify from "dompurify";
 import { Send, Image, X } from "lucide-react";
 import { v4 as uuidv4 } from 'uuid'; // Import uuid for generating unique user IDs
+import { useTranslation } from 'react-i18next';
 import { useChatbotStore } from "./chatbotStore";
 import "./chatbot.css";
 
@@ -25,6 +26,9 @@ const formatTime = (date) => {
 };
 
 const Chatbot = () => {
+  // Get translation function
+  const { t } = useTranslation();
+
   // Get chatbot store functions
   const {
     messages: storeMessages,
@@ -129,7 +133,7 @@ const Chatbot = () => {
           // Add initial welcome message if no history exists
           const welcomeMessage = {
             sender: "bot",
-            text: "Welcome to FashionMerge! I'm Alita, your personal style consultant. Whether you need outfit recommendations, trend insights, or styling advice for a specific occasion, I'm here to guide your fashion journey. Feel free to upload an image of a garment for personalized suggestions.",
+            text: t('alita.welcomeMessage'),
             timestamp: formatTime(new Date())
           };
           setMessages([welcomeMessage]);
@@ -150,7 +154,7 @@ const Chatbot = () => {
         // Add initial welcome message if there's an error
         const welcomeMessage = {
           sender: "bot",
-          text: "Welcome to FashionMerge! I'm Alita, your personal style consultant. Whether you need outfit recommendations, trend insights, or styling advice for a specific occasion, I'm here to guide your fashion journey. Feel free to upload an image of a garment for personalized suggestions.",
+          text: t('alita.welcomeMessage'),
           timestamp: formatTime(new Date())
         };
         setMessages([welcomeMessage]);
@@ -160,7 +164,7 @@ const Chatbot = () => {
     };
 
     fetchChatHistory();
-  }, [isLoggedIn, userId, token, guestId, addMessage, historyLoaded, loadMessagesFromLocalStorage, loadMessagesFromServer, saveMessagesToLocalStorage, saveMessagesToServer, setStoreMessages, storeMessages]);
+  }, [isLoggedIn, userId, token, guestId, addMessage, historyLoaded, loadMessagesFromLocalStorage, loadMessagesFromServer, saveMessagesToLocalStorage, saveMessagesToServer, setStoreMessages, storeMessages, t]);
 
   // Initialize with welcome message if not logged in
   useEffect(() => {
@@ -171,14 +175,14 @@ const Chatbot = () => {
     if (!isLoggedIn && messages.length === 0 && !historyLoaded) {
       const welcomeMessage = {
         sender: "bot",
-        text: "Welcome to FashionMerge! I'm Alita, your personal style consultant. Whether you need outfit recommendations, trend insights, or styling advice for a specific occasion, I'm here to guide your fashion journey. Feel free to upload an image of a garment for personalized suggestions.",
+        text: t('alita.welcomeMessage'),
         timestamp: formatTime(new Date())
       };
       setMessages([welcomeMessage]);
       setStoreMessages([welcomeMessage]);
       setHistoryLoaded(true);
     }
-  }, [isLoggedIn, messages.length, historyLoaded, setStoreMessages]);
+  }, [isLoggedIn, messages.length, historyLoaded, setStoreMessages, t]);
 
   // Effect to adjust textarea height when input value changes or component mounts
   useEffect(() => {
@@ -692,8 +696,8 @@ const Chatbot = () => {
           </svg>
         </div>
         <div className="chatbot-info">
-          <h1 className="chatbot-title">Alita</h1>
-          <p className="chatbot-status">Fashion Designer • Online</p>
+          <h1 className="chatbot-title">{t('alita.chatbotTitle')}</h1>
+          <p className="chatbot-status">{t('alita.chatbotStatus')}</p>
         </div>
       </div>
 
@@ -803,7 +807,7 @@ const Chatbot = () => {
             value={inputValue}
             onChange={handleInputChange}
             onKeyDown={handleKeyDown}
-            placeholder="Ask about fashion trends, styling advice..."
+            placeholder={t('alita.inputPlaceholder', 'Ask about fashion trends, styling advice...')}
             className="chatbot-input"
             disabled={isTyping}
             rows={1}
