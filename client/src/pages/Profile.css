@@ -4,6 +4,7 @@
   padding: 0 20px;
     overflow-y: auto;
     height: 86vh;
+    margin-top: 90px;
 }
 
 .login-prompt {
@@ -17,17 +18,24 @@
 
 .login-button {
   margin-top: 20px;
-  padding: 10px 20px;
-  background-color: #000;
-  color: #fff;
-  border: none;
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  border-radius: 0;
+  padding: 0.6rem 2rem;
+  font-size: 0.85rem;
+  font-weight: 500;
   cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  min-width: 160px;
+  text-align: center;
 }
 
 .login-button:hover {
-  background-color: #333;
+  background-color: black;
+  color: white;
 }
 
 .loading {
@@ -63,7 +71,7 @@
 
 @keyframes avatarShadow {
   0% {
-    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.5);
   }
   100% {
     box-shadow: 0 0 0 15px rgba(0, 0, 0, 0);
@@ -82,12 +90,12 @@
   align-items: center;
   border: 1px solid #ddd;
   transition: all 0.3s ease;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
 }
 
 .profile-avatar:hover {
   transform: scale(1.03);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
 }
 
 .profile-avatar:after {
@@ -139,53 +147,25 @@
 
 .upload-button {
   padding: 8px 15px;
-  border-radius: 4px;
-  color: #000000;
-  background-color: #ffffff;
-  border: 1px solid #ddd;
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  border-radius: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 8px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  font-size: 14px;
+  transition: all 0.2s;
+  font-size: 0.85rem;
+  font-weight: 500;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .upload-button:hover {
-  background-color: #808080;
-  transform: translateY(-2px);
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-}
-
-.upload-button:active {
-  transform: translateY(0);
-}
-
-.upload-button:after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.2) 50%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  background-size: 200% 100%;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.upload-button:hover:after {
-  opacity: 1;
-  animation: shimmer 1.5s infinite;
+  background-color: black;
+  color: white;
 }
 
 .upload-actions {
@@ -196,21 +176,24 @@
 
 .save-upload-button,
 .cancel-upload-button {
-  padding: 5px 10px;
-  border: none;
-  border-radius: 4px;
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  border-radius: 0;
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 500;
   cursor: pointer;
-  font-size: 14px;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  text-align: center;
 }
 
-.save-upload-button {
-  background-color: #000;
-  color: #fff;
-}
-
-.cancel-upload-button {
-  background-color: #f0f0f0;
-  color: #333;
+.save-upload-button:hover,
+.cancel-upload-button:hover {
+  background-color: black;
+  color: white;
 }
 
 .upload-success {
@@ -254,27 +237,23 @@
 }
 
 .edit-button {
-  background: none;
-  border: none;
-  cursor: pointer;
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  border-radius: 0;
   margin-left: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #666;
-  transition: all 0.3s ease;
-  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s;
   width: 30px;
   height: 30px;
 }
 
 .edit-button:hover {
-  color: #333;
-  background-color: rgba(0, 0, 0, 0.05);
-}
-
-.edit-button:active {
-  animation: pulse 0.3s ease-in-out;
+  background-color: black;
+  color: white;
 }
 
 @keyframes fadeIn {
@@ -309,7 +288,7 @@
 .username-input:focus {
   outline: none;
   border-color: #adb5bd;
-  box-shadow: 0 0 0 3px rgba(173, 181, 189, 0.25);
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.25);
 }
 
 .edit-actions {
@@ -319,73 +298,31 @@
 
 .save-button,
 .cancel-button {
-  padding: 8px 16px;
-  border-radius: 4px;
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  border-radius: 0;
+  padding: 0.6rem 1.5rem;
+  font-size: 0.85rem;
+  font-weight: 500;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  background-color: #f8f9fa;
-  color: #333;
-  border: 1px solid #dee2e6;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
   position: relative;
-  overflow: hidden;
 }
 
-.save-button:before,
-.cancel-button:before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.2);
-  transition: all 0.4s ease-in-out;
-  z-index: 1;
-}
-
-.save-button:hover:before,
-.cancel-button:hover:before {
-  left: 100%;
-}
-
-.save-button {
-  background-color: #f8f9fa;
-  color: #333;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-}
-
-.save-button:hover {
-  background-color: #e9ecef;
-  transform: translateY(-2px);
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-}
-
-.save-button:active {
-  transform: translateY(0);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+.save-button:hover,
+.cancel-button:hover {
+  background-color: black;
+  color: white;
 }
 
 .cancel-button {
-  background-color: #f8f9fa;
-  color: #333;
   margin-left: 5px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-}
-
-.cancel-button:hover {
-  background-color: #e9ecef;
-  transform: translateY(-2px);
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-}
-
-.cancel-button:active {
-  transform: translateY(0);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .email {
@@ -397,19 +334,22 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 15px;
-  background-color: #f5f5f5;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  border-radius: 0;
+  padding: 0.6rem 1.5rem;
+  font-size: 0.85rem;
+  font-weight: 500;
   cursor: pointer;
-  font-size: 14px;
-  transition: all 0.3s;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
 }
 
 .logout-button:hover {
-  background-color: #ffebee;
-  color: #e53935;
-  border-color: #ffcdd2;
+  background-color: black;
+  color: white;
 }
 
 .profile-tabs {
@@ -419,23 +359,43 @@
 }
 
 .tab-button {
-  padding: 10px 20px;
-  background: none;
-  border: none;
+  padding: 0.6rem 1.5rem;
+  background-color: white;
+  color: black;
+  border: 1px solid transparent;
   border-bottom: 3px solid transparent;
   cursor: pointer;
-  font-size: 16px;
-  transition: all 0.3s;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .tab-button:hover {
-  color: #000;
+  border-color: black;
 }
 
 .tab-button.active {
-  border-bottom-color: #000;
-  color: #000;
+  border-bottom-color: black;
   font-weight: 500;
+}
+
+.notification-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ff4d4f;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+  font-weight: bold;
+  margin-left: 5px;
 }
 
 .profile-content {
@@ -454,7 +414,7 @@
   padding: 20px;
   background-color: #f9f9f9;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .summary-icon {
@@ -488,7 +448,7 @@
 
 .item-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .item-image {
@@ -536,18 +496,25 @@
 }
 
 .action-button {
-  padding: 10px 20px;
-  background-color: #000;
-  color: #fff;
-  border: none;
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  border-radius: 0;
+  padding: 0.6rem 2rem;
+  font-size: 0.85rem;
+  font-weight: 500;
   cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  min-width: 160px;
+  text-align: center;
   margin-top: 15px;
 }
 
 .action-button:hover {
-  background-color: #333;
+  background-color: black;
+  color: white;
 }
 
 .purchases-grid {
@@ -645,4 +612,79 @@
   .purchases-grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* Notifications styles */
+.notifications-list {
+  width: 100%;
+}
+
+.notifications-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.notification-item {
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  border-left: 4px solid transparent;
+}
+
+.notification-item.unread {
+  background-color: #f0f7ff;
+  border-left-color: #4a90e2;
+}
+
+.notification-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.notification-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.notification-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.notification-sender {
+  font-weight: 600;
+  color: #333;
+}
+
+.notification-time {
+  font-size: 0.85rem;
+  color: #888;
+}
+
+.notification-message {
+  margin: 0 0 8px 0;
+  color: #333;
+}
+
+.notification-poll-title {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #666;
+  font-style: italic;
+}
+
+.notification-unread-badge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background-color: #ff4d4f;
+  color: white;
+  font-size: 0.7rem;
+  padding: 2px 8px;
+  border-radius: 10px;
 }

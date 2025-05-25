@@ -1,0 +1,285 @@
+/* Music Preview Section */
+.music-preview {
+  padding: 40px 40px 100px;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #f8f9fa;
+  position: relative;
+}
+
+.music-preview::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, #00ff88 20%, #00cc66 50%, #00ff88 80%, transparent 100%);
+}
+
+.music-preview-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.music-preview-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.music-preview-header h2 {
+  font-size: 32px;
+  font-weight: 300;
+  letter-spacing: 4px;
+  margin-bottom: 20px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+.music-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background-color: #00ff88;
+  border-radius: 50%;
+  animation: musicBlink 1.5s infinite;
+}
+
+@keyframes musicBlink {
+  0% { opacity: 1; }
+  50% { opacity: 0.3; }
+  100% { opacity: 1; }
+}
+
+.music-preview-subtitle {
+  font-size: 16px;
+  color: #666;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Info Content Layout */
+.music-info-content {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  margin-bottom: 60px;
+}
+
+.music-info-image {
+  flex: 1;
+  max-width: 450px;
+}
+
+.music-image {
+  width: 85%;
+  height: 430px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  margin: 0 auto;
+  display: block;
+}
+
+.music-image:hover {
+  transform: scale(1.05);
+}
+
+.music-info-text {
+  flex: 1;
+  max-width: 500px;
+}
+
+.music-info-title {
+  font-size: 32px;
+  font-weight: 300;
+  color: #333;
+  margin-bottom: 20px;
+  letter-spacing: 2px;
+}
+
+.music-info-description {
+  font-size: 16px;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+/* Actions */
+.explore-music-btn {
+  border: 1px solid black;
+  padding: 15px 30px;
+  font-size: 14px;
+  letter-spacing: 2px;
+  background-color: transparent;
+  color: black;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  font-weight: 500;
+  border-radius: 0;
+}
+
+.explore-music-btn:hover {
+  background-color: black;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive Design */
+
+/* Large Desktops */
+@media screen and (min-width: 1400px) {
+  .music-info-content {
+    gap: 80px;
+  }
+}
+
+/* Desktops and Laptops */
+@media screen and (max-width: 1200px) {
+  .music-preview {
+    padding: 30px 30px 80px;
+  }
+
+  .music-preview-header h2 {
+    font-size: 28px;
+    margin-bottom: 15px;
+  }
+
+  .music-info-content {
+    gap: 50px;
+  }
+}
+
+/* Tablets and Small Laptops */
+@media screen and (max-width: 992px) {
+  .music-preview {
+    padding: 25px 25px 70px;
+  }
+
+  .music-preview-header h2 {
+    font-size: 26px;
+    letter-spacing: 3px;
+  }
+
+  .music-preview-subtitle {
+    font-size: 15px;
+  }
+
+  .music-info-content {
+    gap: 40px;
+  }
+
+  .music-info-title {
+    font-size: 28px;
+  }
+
+  .explore-music-btn {
+    padding: 12px 25px;
+    font-size: 13px;
+  }
+}
+
+/* Tablets and Large Phones */
+@media screen and (max-width: 768px) {
+  .music-preview {
+    padding: 20px 20px 60px;
+  }
+
+  .music-preview-header {
+    margin-bottom: 40px;
+  }
+
+  .music-preview-header h2 {
+    font-size: 24px;
+    letter-spacing: 2px;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .music-info-content {
+    flex-direction: column;
+    gap: 40px;
+    text-align: center;
+  }
+
+  .music-info-image {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .music-image {
+    width: 90%;
+    height: 480px;
+  }
+
+  .music-info-title {
+    font-size: 28px;
+  }
+}
+
+/* Mobile Phones */
+@media screen and (max-width: 576px) {
+  .music-preview {
+    padding: 15px 15px 50px;
+  }
+
+  .music-preview-header h2 {
+    font-size: 22px;
+    letter-spacing: 1px;
+  }
+
+  .music-preview-subtitle {
+    font-size: 14px;
+  }
+
+  .music-info-content {
+    gap: 30px;
+  }
+
+  .music-info-image {
+    max-width: 300px;
+  }
+
+  .music-image {
+    width: 95%;
+    height: 350px;
+  }
+
+  .music-info-title {
+    font-size: 24px;
+    letter-spacing: 1px;
+  }
+
+  .music-info-description {
+    font-size: 14px;
+  }
+
+  .explore-music-btn {
+    padding: 12px 24px;
+    font-size: 12px;
+  }
+}
+
+/* Small Mobile Phones */
+@media screen and (max-width: 375px) {
+  .music-preview {
+    padding: 10px 10px 40px;
+  }
+
+  .music-preview-header h2 {
+    font-size: 20px;
+  }
+
+  .music-info-image {
+    max-width: 280px;
+  }
+}

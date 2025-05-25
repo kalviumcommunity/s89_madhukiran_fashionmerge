@@ -3,7 +3,9 @@ import HeroSection from './HeroSection';
 import Navbar from './NavBar';
 import CollectionSection from './CollectionSection';
 import MaisonSection from './MaisonSection';
+import LivePollsPreview from './LivePollsPreview';
 import AtelierSection from './AtelierSection';
+import MusicPreview from './MusicPreview';
 import Footer from './Footer';
 import './About'
 import './home.css';
@@ -26,7 +28,9 @@ const Home = () => {
         <HeroSection />
         <CollectionSection />
         <MaisonSection />
+        <LivePollsPreview />
         <AtelierSection />
+        <MusicPreview />
         <About />
         <Register />
       </main>

@@ -22,7 +22,8 @@
     "sustainability": "可持续发展",
     "careers": "职业机会",
     "copyright": "© 2025 Fashion Merge. 保留所有权利。",
-    "language": "语言"
+    "language": "语言",
+    "backToTop": "返回顶部"
   },
   "home": {
     "heroTitle": "风格重新定义",
@@ -137,5 +138,37 @@
     "description": "FashionMerge中的Maison Decors是传统与创新相遇的地方，为用户提供精心挑选的永恒时尚，将奢华与现代潮流融合，创造独特、个性化的风格。探索为当今风格爱好者重新构想的高端时尚的优雅。",
     "button": "了解更多",
     "videoAlt": "您的浏览器不支持视频标签。"
+  },
+  "polls": {
+    "title": "实时投票",
+    "livePolls": "实时投票",
+    "discoverTrending": "发现时尚趋势观点并加入对话",
+    "joinCommunity": "加入时尚投票社区",
+    "communityDescription": "参与实时时尚投票，分享您的观点，发现社区对最新趋势和风格的看法。",
+    "explorePolls": "探索投票",
+    "filterAndSort": "投票筛选和排序",
+    "sortBy": "排序方式",
+    "sortOptions": {
+      "recent": "最新",
+      "popular": "最受欢迎"
+    },
+    "categories": {
+      "all": "所有类别",
+      "fashion": "时尚",
+      "style": "风格",
+      "trends": "趋势"
+    },
+    "types": {
+      "all": "所有类型",
+      "visual": "视觉投票",
+      "text": "文字投票"
+    }
+  },
+  "music": {
+    "title": "音乐",
+    "discoverMusic": "为您的时尚之旅发现完美的配乐",
+    "joinMusicCommunity": "加入时尚音乐社区",
+    "communityDescription": "体验精心策划的播放列表，发现新兴艺术家，找到与您的风格和心情完美契合的配乐。",
+    "exploreMusic": "探索音乐"
   }
 }

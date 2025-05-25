@@ -4,8 +4,21 @@ const cors = require('cors');
 const session = require('express-session');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
+const http = require('http');
+const { Server } = require('socket.io');
 const User = require('./models/schema'); // Import User model
 const app = express();
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: process.env.NODE_ENV === 'production'
+      ? ['https://tangerine-scone-7cf83d.netlify.app']
+      : ['http://localhost:5173'],
+    methods: ['GET', 'POST'],
+    credentials: true
+  }
+});
+
 require('dotenv').config();
 require('./passport-config');
 
@@ -33,12 +46,17 @@ const forgotPassRouter = require('./routers/forgotpass');
 const uploadRoutes = require('./routers/uploadRoutes');
 const purchasesRoutes = require('./routes/purchases');
 const stripeRoutes = require('./routes/stripe');
+const pollsRoutes = require('./routes/polls');
 
 app.use(router);
 app.use(forgotPassRouter);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/purchases', purchasesRoutes);
 app.use('/api/stripe', stripeRoutes);
+app.use('/api/polls', pollsRoutes);
+
+// Make io accessible to routes
+app.set('io', io);
 
 // Google OAuth Routes
 app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
@@ -107,12 +125,66 @@ app.get('/logout', (req, res) => {
   });
 });
 
-app.listen(PORT, async () => {
-    try {
-        await mongoose.connect(STRING, { useNewUrlParser: true, useUnifiedTopology: true });
-        console.log('Connected to database');
-    } catch (err) {
-        console.error('Database connection error:', err);
+// Set up Socket.IO event handlers
+io.on('connection', (socket) => {
+  console.log('New client connected:', socket.id);
+
+  // Join a room based on user ID for private notifications
+  socket.on('join', (userId) => {
+    if (userId) {
+      socket.join(userId);
+      console.log(`User ${userId} joined their private room`);
     }
-    console.log(`Server is running on http://localhost:${PORT}`);
+  });
+
+  // Handle poll voting
+  socket.on('vote', async (data) => {
+    try {
+      const { pollId, optionIndex, userId } = data;
+      // The actual vote is handled by the API endpoint
+      // This is just for real-time updates to other clients
+      io.emit('vote_update', {
+        pollId,
+        optionIndex,
+        userId
+      });
+    } catch (error) {
+      console.error('Error handling vote event:', error);
+    }
+  });
+
+  // Handle poll commenting
+  socket.on('comment', async (data) => {
+    try {
+      const { pollId, comment, userId, username } = data;
+      // The actual comment is handled by the API endpoint
+      // This is just for real-time updates to other clients
+      io.emit('comment_update', {
+        pollId,
+        comment,
+        userId,
+        username,
+        timestamp: new Date()
+      });
+    } catch (error) {
+      console.error('Error handling comment event:', error);
+    }
+  });
+
+  // Handle disconnection
+  socket.on('disconnect', () => {
+    console.log('Client disconnected:', socket.id);
+  });
+});
+
+// Start the server
+server.listen(PORT, async () => {
+  try {
+    await mongoose.connect(STRING, { useNewUrlParser: true, useUnifiedTopology: true });
+    console.log('Connected to database');
+  } catch (err) {
+    console.error('Database connection error:', err);
+  }
+  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log('WebSocket server is running');
 });

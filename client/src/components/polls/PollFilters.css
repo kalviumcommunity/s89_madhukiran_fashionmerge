@@ -1,0 +1,151 @@
+.poll-filters {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+
+}
+
+.poll-filters-dropdown {
+  position: relative;
+}
+
+.poll-filters-button {
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  border-radius: 0;
+  padding: 0.6rem 2rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.poll-filters-button:hover {
+  background-color: black;
+  color: white;
+}
+
+.poll-filters-arrow {
+  font-size: 0.7rem;
+  transition: transform 0.2s;
+}
+
+.poll-filters-arrow.open {
+  transform: rotate(180deg);
+}
+
+.poll-filters-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  width: 240px;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.poll-filters-section {
+  padding: 1rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.poll-filters-section:last-child {
+  border-bottom: none;
+}
+
+.poll-filters-section h4 {
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin: 0 0 0.75rem 0;
+  color: #333;
+}
+
+.poll-filters-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.poll-filters-section li {
+  padding: 0.5rem 0;
+  font-size: 0.9rem;
+  color: #666;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.poll-filters-section li:hover {
+  color: #4a90e2;
+}
+
+.poll-filters-section li.active {
+  color: #4a90e2;
+  font-weight: 500;
+}
+
+.poll-filters-active {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.poll-filter-tag {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  background-color: #f5f5f5;
+  color: black;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid black;
+  border-radius: 0;
+  font-size: 0.85rem;
+}
+
+.poll-filter-tag button {
+  background: none;
+  border: none;
+  color: black;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  transition: all 0.2s;
+}
+
+.poll-filter-tag button:hover {
+  color: #666;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .poll-filters {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .poll-filters-dropdown {
+    width: 100%;
+  }
+
+  .poll-filters-button {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .poll-filters-menu {
+    width: 100%;
+  }
+}

@@ -60,6 +60,23 @@ export const PURCHASES_ENDPOINTS = {
   ADD_PURCHASE: `${BASE_URL}/api/purchases/add`,
 };
 
+// Polls endpoints
+export const POLLS_ENDPOINTS = {
+  GET_POLLS: `${BASE_URL}/api/polls`,
+  GET_POLL: (pollId) => `${BASE_URL}/api/polls/${pollId}`,
+  CREATE_POLL: `${BASE_URL}/api/polls`,
+  DELETE_POLL: (pollId) => `${BASE_URL}/api/polls/${pollId}`,
+  VOTE_POLL: (pollId) => `${BASE_URL}/api/polls/${pollId}/vote`,
+  COMMENT_POLL: (pollId) => `${BASE_URL}/api/polls/${pollId}/comment`,
+  GET_NOTIFICATIONS: `${BASE_URL}/api/polls/notifications`,
+  MARK_NOTIFICATION_READ: (notificationId) => `${BASE_URL}/api/polls/notifications/${notificationId}/read`,
+};
+
+// WebSocket endpoint
+export const SOCKET_URL = (isProduction || isViteProduction)
+  ? 'https://s89-madhukiran-fashionmerge.onrender.com' // Same as backend URL
+  : 'http://localhost:5000';
+
 export default {
   BASE_URL,
   AUTH_ENDPOINTS,
@@ -68,4 +85,6 @@ export default {
   CHATBOT_ENDPOINT,
   STRIPE_ENDPOINTS,
   PURCHASES_ENDPOINTS,
+  POLLS_ENDPOINTS,
+  SOCKET_URL,
 };

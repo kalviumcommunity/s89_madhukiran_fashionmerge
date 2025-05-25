@@ -1,0 +1,258 @@
+.polls-container {
+  width: 95%;
+  max-width: 1800px;
+  margin: 2rem auto;
+  padding: 0 2rem;
+  overflow-y: auto;
+  height: 95vh;
+  padding-bottom: 3rem;
+}
+
+.polls-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.polls-header h1 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+}
+
+/* Live dot animation for polls page */
+.polls-live-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background-color: #ff0000;
+  border-radius: 50%;
+  margin-right: 10px;
+  animation: blink 1.5s infinite;
+  vertical-align: middle;
+}
+
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0.3; }
+  100% { opacity: 1; }
+}
+
+.polls-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  position: absolute;
+  right: 0;
+  top: 4rem;
+}
+
+.create-poll-button {
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  border-radius: 0;
+  padding: 0.6rem 2rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  min-width: 160px;
+  text-align: center;
+}
+
+.create-poll-button:hover {
+  background-color: black;
+  color: white;
+}
+
+.polls-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4rem;
+  margin-top: 1rem;
+  width: 100%;
+  padding-bottom: 2rem;
+}
+
+.polls-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.polls-error {
+  background-color: #fff1f0;
+  border: 1px solid #ffccc7;
+  border-radius: 4px;
+  padding: 1rem;
+  margin: 1rem 0;
+  color: #cf1322;
+}
+
+.polls-error button {
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  border-radius: 0;
+  padding: 0.6rem 2rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-top: 0.5rem;
+  min-width: 160px;
+  text-align: center;
+}
+
+.polls-error button:hover {
+  background-color: black;
+  color: white;
+}
+
+.polls-empty {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 2rem;
+  text-align: center;
+}
+
+.polls-empty p {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+.polls-empty button {
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  border-radius: 0;
+  padding: 0.6rem 2rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  min-width: 160px;
+  text-align: center;
+}
+
+.polls-empty button:hover {
+  background-color: black;
+  color: white;
+}
+
+.polls-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  gap: 1rem;
+}
+
+.polls-pagination button {
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  border-radius: 0;
+  padding: 0.6rem 2rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  min-width: 120px;
+  text-align: center;
+}
+
+.polls-pagination button:hover:not(:disabled) {
+  background-color: black;
+  color: white;
+}
+
+.polls-pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: white;
+  color: #999;
+  border: 1px solid #999;
+}
+
+.polls-pagination span {
+  color: #666;
+}
+
+/* Responsive styles */
+@media (max-width: 1600px) {
+  .polls-container {
+    max-width: 95%;
+  }
+
+  .polls-grid {
+    grid-template-columns: repeat(3, minmax(280px, 1fr));
+    gap: 3.5rem;
+  }
+}
+
+@media (max-width: 1200px) {
+  .polls-container {
+    max-width: 98%;
+  }
+
+  .polls-grid {
+    grid-template-columns: repeat(3, minmax(250px, 1fr));
+    gap: 3rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .polls-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3rem;
+    row-gap: 4rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .polls-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .polls-grid {
+    grid-template-columns: 1fr;
+    gap: 3.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .polls-header h1 {
+    font-size: 2rem;
+  }
+
+  .create-poll-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+}

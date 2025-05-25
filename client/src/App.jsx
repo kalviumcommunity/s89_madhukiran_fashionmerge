@@ -16,9 +16,12 @@ import Wishlist from './pages/Wishlist';
 import Wardrobe from './pages/wardrobe';
 import Purchases from './pages/Purchases';
 import Profile from './pages/Profile';
+import Polls from './pages/Polls';
 import MusicPlayer from './components/MusicPlayer';
 import AuthDebug from './components/AuthDebug';
 import AuthHandler from './components/AuthHandler';
+import { SocketProvider } from './context/SocketContext';
+import { ModalProvider } from './components/polls/GlobalModalProvider';
 
 function App() {
   const [scrolled, setScrolled] = useState(true);
@@ -59,6 +62,7 @@ function App() {
         <Route path="/wardrobe" element={<Wardrobe />} />
         <Route path="/purchases" element={<Purchases />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/polls" element={<Polls />} />
         <Route path="/auth-debug" element={<AuthDebug />} />
       </Routes>
 
@@ -72,7 +76,11 @@ function App() {
 function AppWrapper() {
   return (
     <BrowserRouter>
-        <App />
+      <SocketProvider>
+        <ModalProvider>
+          <App />
+        </ModalProvider>
+      </SocketProvider>
     </BrowserRouter>
   );
 }
