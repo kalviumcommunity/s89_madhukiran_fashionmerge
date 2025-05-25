@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { User, ShoppingBag, Heart, Upload, Edit, LogOut, ShoppingCart } from 'lucide-react';
+import { User, ShoppingBag, Heart, Upload, Edit, LogOut, ShoppingCart, Bell } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import './Profile.css';
-import { USER_ENDPOINTS, UPLOAD_ENDPOINTS, PURCHASES_ENDPOINTS } from '../config/api';
+import { USER_ENDPOINTS, UPLOAD_ENDPOINTS, PURCHASES_ENDPOINTS, POLLS_ENDPOINTS } from '../config/api';
 
 function Profile() {
   const { t } = useTranslation();
@@ -15,6 +15,9 @@ function Profile() {
   const [token, setToken] = useState(localStorage.getItem('token'));
   const [isLoggedIn, setIsLoggedIn] = useState(!!userId && !!token);
   const [purchases, setPurchases] = useState([]);
+  const [notifications, setNotifications] = useState([]);
+  const [notificationsLoading, setNotificationsLoading] = useState(false);
+  const [notificationsError, setNotificationsError] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
   const [uploadLoading, setUploadLoading] = useState(false);
@@ -192,6 +195,40 @@ function Profile() {
     fetchPurchases();
   }, [isLoggedIn, userId, token]);
 
+  // Fetch notifications
+  useEffect(() => {
+    const fetchNotifications = async () => {
+      if (!isLoggedIn) {
+        return;
+      }
+
+      try {
+        setNotificationsLoading(true);
+        setNotificationsError(null);
+
+        const response = await fetch(POLLS_ENDPOINTS.GET_NOTIFICATIONS, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(`Failed to fetch notifications: ${response.status}`);
+        }
+
+        const result = await response.json();
+        setNotifications(result.data || []);
+        setNotificationsLoading(false);
+      } catch (err) {
+        console.error('Error fetching notifications:', err);
+        setNotificationsError(err.message);
+        setNotificationsLoading(false);
+      }
+    };
+
+    fetchNotifications();
+  }, [isLoggedIn, token]);
+
   // Handle file selection for profile image
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -323,6 +360,46 @@ function Profile() {
   const cancelEdit = () => {
     setEditedUsername(userData?.username || '');
     setEditMode(false);
+  };
+
+  // Mark notification as read
+  const markNotificationAsRead = async (notificationId) => {
+    if (!token) return;
+
+    try {
+      const response = await fetch(POLLS_ENDPOINTS.MARK_NOTIFICATION_READ(notificationId), {
+        method: 'PUT',
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to mark notification as read');
+      }
+
+      // Update notification in state
+      setNotifications(prevNotifications =>
+        prevNotifications.map(notification =>
+          notification._id === notificationId
+            ? { ...notification, read: true }
+            : notification
+        )
+      );
+    } catch (error) {
+      console.error('Error marking notification as read:', error);
+    }
+  };
+
+  // Navigate to poll detail
+  const navigateToPoll = (pollId, notificationId) => {
+    // Mark notification as read
+    if (notificationId) {
+      markNotificationAsRead(notificationId);
+    }
+
+    // Navigate to the poll page
+    navigate(`/polls?pollId=${pollId}`);
   };
 
   // Handle logout
@@ -482,6 +559,17 @@ function Profile() {
               onClick={() => setActiveTab('wardrobe')}
             >
               {t('profile.tabs.wardrobe')} ({userData.wardrobe?.length || 0})
+            </button>
+            <button
+              className={`tab-button ${activeTab === 'notifications' ? 'active' : ''}`}
+              onClick={() => setActiveTab('notifications')}
+            >
+              {t('profile.tabs.notifications')}
+              {notifications.filter(n => !n.read).length > 0 && (
+                <span className="notification-badge">
+                  {notifications.filter(n => !n.read).length}
+                </span>
+              )}
             </button>
           </div>
 
@@ -644,6 +732,54 @@ function Profile() {
                     <h3>{t('profile.emptyStates.wardrobe')}</h3>
                     <button className="action-button" onClick={() => navigate('/wardrobe')}>
                       {t('profile.actions.addItems')}
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {activeTab === 'notifications' && (
+              <div className="notifications-list">
+                {notificationsLoading ? (
+                  <div className="loading">{t('profile.loading')}</div>
+                ) : notificationsError ? (
+                  <div className="error">{t('profile.error')}: {notificationsError}</div>
+                ) : notifications.length > 0 ? (
+                  <div className="notifications-container">
+                    {notifications.map((notification) => (
+                      <div
+                        key={notification._id}
+                        className={`notification-item ${notification.read ? 'read' : 'unread'}`}
+                        onClick={() => navigateToPoll(notification.pollId, notification._id)}
+                      >
+                        <div className="notification-content">
+                          <div className="notification-header">
+                            <span className="notification-sender">{notification.senderUsername}</span>
+                            <span className="notification-time">
+                              {new Date(notification.createdAt).toLocaleDateString()}
+                              {' '}
+                              {new Date(notification.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                            </span>
+                          </div>
+                          <p className="notification-message">{notification.content}</p>
+                          <p className="notification-poll-title">
+                            {t('profile.notifications.pollTitle')}: {notification.pollTitle}
+                          </p>
+                          {!notification.read && (
+                            <span className="notification-unread-badge">
+                              {t('profile.notifications.new')}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="empty-state">
+                    <Bell size={48} />
+                    <h3>{t('profile.emptyStates.notifications')}</h3>
+                    <button className="action-button" onClick={() => navigate('/polls')}>
+                      {t('profile.actions.explorePolls')}
                     </button>
                   </div>
                 )}

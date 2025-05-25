@@ -51,6 +51,27 @@ const Footer = () => {
     return lang ? lang.name : 'United States';
   };
 
+  // Scroll to hero section function
+  const scrollToTop = () => {
+    // Try to find the hero section by ID first, then by class
+    const heroSection = document.querySelector('#home-section') ||
+                       document.querySelector('.hero-section') ||
+                       document.querySelector('main');
+
+    if (heroSection) {
+      heroSection.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    } else {
+      // Fallback to top of page if hero section not found
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+  };
+
   return (
     <footer className="footer">
       <div className="footer-content">
@@ -96,6 +117,10 @@ const Footer = () => {
       </div>
       <div className="footer-bottom">
         <p>{t('footer.copyright')}</p>
+        <button className="back-to-top-btn" onClick={scrollToTop}>
+          <span className="back-to-top-icon">↑</span>
+          <span className="back-to-top-text">{t('footer.backToTop')}</span>
+        </button>
       </div>
     </footer>
   );

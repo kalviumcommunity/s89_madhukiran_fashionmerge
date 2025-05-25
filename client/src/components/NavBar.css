@@ -82,6 +82,55 @@
   color: #666;
 }
 
+/* Live dot animation */
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0.3; }
+  100% { opacity: 1; }
+}
+
+.live-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background-color: #ff0000;
+  border-radius: 50%;
+  animation: blink 1.5s infinite;
+  flex-shrink: 0;
+}
+
+.music-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background-color: #00cc00;
+  border-radius: 50%;
+  animation: blink 1.5s infinite;
+  flex-shrink: 0;
+}
+
+/* Chipset icon animation */
+.chipset-icon {
+  flex-shrink: 0;
+  animation: pulse-chipset 2s infinite;
+}
+
+@keyframes pulse-chipset {
+  0% {
+    opacity: 0.7;
+    transform: scale(1);
+    filter: drop-shadow(0 0 0 #6200EA);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+}
+
 .cart-icon {
   display: flex;
   align-items: center;

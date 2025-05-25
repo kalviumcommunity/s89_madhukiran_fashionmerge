@@ -79,14 +79,30 @@ const Navbar = ({ scrolled }) => {
           </button>
         )}
 
-        <a onClick={() => handleNavigation('/music')} className="nav-title" style={{ fontSize: '11px', fontWeight: 'bold' }}>{t('navbar.music')}</a>
+        <a onClick={() => handleNavigation('/music')} className="nav-title" style={{ fontSize: '11px', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <span className="music-dot"></span>
+          {t('navbar.music')}
+        </a>
         <a onClick={() => handleNavigation('/collections')} className="nav-title" style={{ fontSize: '11px', fontWeight: 'bold' }}>{t('navbar.collections')}</a>
-        <a onClick={() => handleNavigation('/about')} className="nav-title" style={{ fontSize: '11px', fontWeight: 'bold' }}>{t('navbar.about')}</a>
+        <a onClick={() => handleNavigation('/polls')} className="nav-title" style={{ fontSize: '11px', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <span className="live-dot"></span>
+          {t('navbar.livePolls')}
+        </a>
         <a onClick={() => handleNavigation('/home')} className="logo" style={{ fontFamily: 'Playfair Display, serif', fontSize: '30px', fontWeight: 'semi-bold' }}>
           FashionMerge
         </a>
         <a onClick={() => handleNavigation('/wardrobe')} className="nav-title" style={{ fontSize: '11px', fontWeight: 'bold' }}>{t('navbar.wardrobe')}</a>
-        <a onClick={() => handleNavigation('/alita')} className="nav-title" style={{ fontSize: '11px', fontWeight: 'bold' }}>{t('navbar.alita')}</a>
+        <a onClick={() => handleNavigation('/alita')} className="nav-title" style={{ fontSize: '11px', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '4px' }}>
+          <svg className="chipset-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="5" y="5" width="14" height="14" stroke="#6200EA" strokeWidth="2" />
+            <rect x="9" y="9" width="6" height="6" stroke="#6200EA" strokeWidth="2" />
+            <line x1="12" y1="2" x2="12" y2="5" stroke="#6200EA" strokeWidth="2" />
+            <line x1="12" y1="19" x2="12" y2="22" stroke="#6200EA" strokeWidth="2" />
+            <line x1="19" y1="12" x2="22" y2="12" stroke="#6200EA" strokeWidth="2" />
+            <line x1="2" y1="12" x2="5" y2="12" stroke="#6200EA" strokeWidth="2" />
+          </svg>
+          {t('navbar.alita')}
+        </a>
         <a onClick={() => isLoggedIn ? handleNavigation('/profile') : handleNavigation('/login')} className="nav-title" style={{ fontSize: '11px', fontWeight: 'bold' }}>
           {isLoggedIn ? t('navbar.profile') : t('navbar.login')}
         </a>

@@ -82,7 +82,10 @@ const MusicPage = () => {
   return (
     <div className="music-page">
       <Navbar scrolled={scrolled} />
-      <h1>Explore Our Playlists</h1>
+      <h1>
+        <span className="music-live-dot"></span>
+        Explore Our Playlists
+      </h1>
       <div className="playlists-container">
         {playlists.map((playlist, index) => (
           <div

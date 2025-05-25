@@ -22,7 +22,8 @@
     "sustainability": "Sostenibilità",
     "careers": "Carriere",
     "copyright": "© 2025 Fashion Merge. Tutti i diritti riservati.",
-    "language": "Lingua"
+    "language": "Lingua",
+    "backToTop": "Torna in Alto"
   },
   "home": {
     "heroTitle": "STILE (RI)DEFINITO",
@@ -179,5 +180,37 @@
       "shopNow": "Acquista Ora",
       "addItems": "Aggiungi Articoli"
     }
+  },
+  "polls": {
+    "title": "Sondaggi Live",
+    "livePolls": "Sondaggi Live",
+    "discoverTrending": "Scopri le opinioni di moda di tendenza e unisciti alla conversazione",
+    "joinCommunity": "Unisciti alla Comunità dei Sondaggi di Moda",
+    "communityDescription": "Partecipa ai sondaggi di moda in tempo reale, condividi le tue opinioni e scopri cosa pensa la comunità delle ultime tendenze e stili.",
+    "explorePolls": "ESPLORA SONDAGGI",
+    "filterAndSort": "FILTRO E ORDINAMENTO SONDAGGI",
+    "sortBy": "Ordina Per",
+    "sortOptions": {
+      "recent": "Più Recenti",
+      "popular": "Più Popolari"
+    },
+    "categories": {
+      "all": "Tutte le Categorie",
+      "fashion": "Moda",
+      "style": "Stile",
+      "trends": "Tendenze"
+    },
+    "types": {
+      "all": "Tutti i Tipi",
+      "visual": "Sondaggi Visivi",
+      "text": "Sondaggi di Testo"
+    }
+  },
+  "music": {
+    "title": "Musica",
+    "discoverMusic": "Scopri la colonna sonora perfetta per il tuo viaggio nella moda",
+    "joinMusicCommunity": "Unisciti alla Comunità Musicale della Moda",
+    "communityDescription": "Vivi playlist curate, scopri artisti emergenti e trova la colonna sonora perfetta che completa il tuo stile e il tuo umore.",
+    "exploreMusic": "ESPLORA MUSICA"
   }
 }
