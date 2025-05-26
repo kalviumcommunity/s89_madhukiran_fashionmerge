@@ -469,18 +469,21 @@
   .mobile-logo {
     display: block;
     font-size: 24px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
+    font-weight: 800;
+    letter-spacing: 1.8px;
     font-family: 'Playfair Display', serif;
     margin-right: auto;
-    padding: 3px 0;
+    padding: 4px 0;
+    color: #000;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   }
 
   .nav-right {
     display: flex;
-    gap: 10px;
+    gap: 15px;
     justify-content: flex-end;
     align-items: center;
+    padding-left: 10px;
   }
 
   .nav-right svg {
@@ -604,14 +607,17 @@
   }
 
   .mobile-logo {
-    font-size: 20px;
-    font-weight: 600;
-    letter-spacing: 1.2px;
-    padding: 2px 0;
+    font-size: 20px !important;
+    font-weight: 800 !important;
+    letter-spacing: 1.5px !important;
+    padding: 3px 0 !important;
+    color: #000 !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
   }
 
   .nav-right {
-    gap: 8px;
+    gap: 12px !important;
+    padding-left: 8px !important;
   }
 
   .nav-right svg {
@@ -676,14 +682,17 @@
   }
 
   .mobile-logo {
-    font-size: 18px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    padding: 1px 0;
+    font-size: 18px !important;
+    font-weight: 800 !important;
+    letter-spacing: 1.2px !important;
+    padding: 2px 0 !important;
+    color: #000 !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
   }
 
   .nav-right {
-    gap: 6px;
+    gap: 10px !important;
+    padding-left: 6px !important;
   }
 
   .nav-right svg {

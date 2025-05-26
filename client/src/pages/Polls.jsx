@@ -157,6 +157,13 @@ const Polls = () => {
           <span className="polls-live-dot"></span>
           {t('polls.title')}
         </h1>
+      </div>
+
+      <div className="polls-controls">
+        <PollFilters
+          filters={filters}
+          onFilterChange={handleFilterChange}
+        />
         <div className="polls-actions">
           <NotificationBadge count={unreadCount} />
           <button
@@ -167,11 +174,6 @@ const Polls = () => {
           </button>
         </div>
       </div>
-
-      <PollFilters
-        filters={filters}
-        onFilterChange={handleFilterChange}
-      />
 
       {error && (
         <div className="polls-error">

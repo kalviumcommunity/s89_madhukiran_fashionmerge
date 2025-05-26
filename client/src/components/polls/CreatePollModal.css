@@ -410,7 +410,7 @@
   .create-poll-modal {
     max-width: 100%;
     margin: 0;
-    max-height: 95vh;
+    max-height: 75vh !important;
   }
 
   .create-poll-modal-header {
@@ -510,6 +510,7 @@
 @media (max-width: 640px) {
   .create-poll-modal {
     border-radius: 8px;
+    max-height: 70vh !important;
   }
 
   .create-poll-modal-header {
@@ -573,7 +574,7 @@
 
   .create-poll-modal {
     border-radius: 6px;
-    max-height: 98vh;
+    max-height: 65vh !important;
   }
 
   .create-poll-modal-header {
@@ -659,6 +660,7 @@
 
   .create-poll-modal {
     border-radius: 4px;
+    max-height: 60vh !important;
   }
 
   .create-poll-modal-header {
