@@ -200,44 +200,171 @@
   opacity: 1;
 }
 
-/* Media Queries for Responsive Design */
+/* Compact Media Queries for Navbar */
 
-/* Large tablets and small desktops */
-@media screen and (max-width: 1200px) {
+/* Extra Large Desktops */
+@media screen and (max-width: 1600px) {
+  .navbar {
+    padding: 8px 25px;
+  }
+
   .nav-center {
-    gap: 30px;
+    gap: 45px;
+  }
+
+  .logo {
+    font-size: 26px;
+    padding: 0 35px;
+  }
+
+  .navbar a {
+    font-size: 10px;
+    letter-spacing: 1.3px;
+  }
+
+  .nav-left, .nav-right {
+    gap: 18px;
+  }
+
+  .nav-right svg {
+    width: 19px;
+    height: 19px;
+  }
+}
+
+/* Large Desktops */
+@media screen and (max-width: 1400px) {
+  .navbar {
+    padding: 8px 22px;
+  }
+
+  .nav-center {
+    gap: 40px;
+  }
+
+  .logo {
+    font-size: 25px;
+    padding: 0 32px;
+  }
+
+  .navbar a {
+    font-size: 10px;
+    letter-spacing: 1.2px;
+  }
+
+  .nav-left, .nav-right {
+    gap: 16px;
+  }
+
+  .nav-right svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .live-dot, .music-dot {
+    width: 7px;
+    height: 7px;
+  }
+
+  .chipset-icon {
+    width: 13px;
+    height: 13px;
+  }
+}
+
+/* Standard Desktops */
+@media screen and (max-width: 1200px) {
+  .navbar {
+    padding: 8px 20px;
+  }
+
+  .nav-center {
+    gap: 35px;
   }
 
   .logo {
     font-size: 24px;
-    padding: 0 30px;
-  }
-}
-
-/* Tablets and large mobile */
-@media screen and (max-width: 992px) {
-  .navbar {
-    padding: 10px 20px;
+    padding: 0 28px;
   }
 
-  .nav-center {
-    gap: 20px;
-  }
-
-  .logo {
-    font-size: 22px;
-    padding: 0 20px;
+  .navbar a {
+    font-size: 9px;
+    letter-spacing: 1.1px;
   }
 
   .nav-left, .nav-right {
     gap: 15px;
   }
+
+  .nav-right svg {
+    width: 17px;
+    height: 17px;
+  }
+
+  .live-dot, .music-dot {
+    width: 6px;
+    height: 6px;
+  }
+
+  .chipset-icon {
+    width: 12px;
+    height: 12px;
+  }
 }
 
-/* Medium-sized mobile devices */
-@media screen and (max-width: 768px) {
+/* Small Desktops and Large Tablets */
+@media screen and (max-width: 992px) {
+  .navbar {
+    padding: 7px 18px;
+  }
+
   .nav-center {
-    gap: 15px;
+    gap: 25px;
+  }
+
+  .logo {
+    font-size: 22px;
+    padding: 0 25px;
+  }
+
+  .logo::before, .logo::after {
+    height: 18px;
+  }
+
+  .navbar a {
+    font-size: 9px;
+    letter-spacing: 1px;
+  }
+
+  .nav-left, .nav-right {
+    gap: 12px;
+  }
+
+  .nav-right svg {
+    width: 16px;
+    height: 16px;
+    stroke-width: 1.5;
+  }
+
+  .live-dot, .music-dot {
+    width: 6px;
+    height: 6px;
+  }
+
+  .chipset-icon {
+    width: 11px;
+    height: 11px;
+  }
+}
+
+/* Tablets */
+@media screen and (max-width: 768px) {
+  .navbar {
+    padding: 6px 15px;
+  }
+
+  .nav-center {
+    gap: 20px;
     flex-wrap: wrap;
     justify-content: center;
   }
@@ -246,26 +373,88 @@
     order: -1;
     width: 100%;
     text-align: center;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     font-size: 20px;
+    padding: 0 20px;
   }
 
   .logo::before, .logo::after {
     display: none;
   }
 
+  .navbar a {
+    font-size: 8px;
+    letter-spacing: 0.8px;
+  }
+
   .nav-left, .nav-right {
     flex: initial;
+    gap: 10px;
+  }
+
+  .nav-right svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .live-dot, .music-dot {
+    width: 5px;
+    height: 5px;
+  }
+
+  .chipset-icon {
+    width: 10px;
+    height: 10px;
   }
 }
 
-/* Small mobile devices */
+/* Large Mobile Phones */
+@media screen and (max-width: 640px) {
+  .navbar {
+    padding: 6px 12px;
+  }
+
+  .nav-center {
+    gap: 15px;
+  }
+
+  .logo {
+    font-size: 18px;
+    margin-bottom: 6px;
+  }
+
+  .navbar a {
+    font-size: 7px;
+    letter-spacing: 0.6px;
+  }
+
+  .nav-left, .nav-right {
+    gap: 8px;
+  }
+
+  .nav-right svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .mobile-menu-button {
+    padding: 3px;
+  }
+
+  .mobile-menu-button svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* Small Mobile Phones */
 @media screen and (max-width: 576px) {
   .navbar {
-    padding: 12px 15px;
+    padding: 8px 12px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    min-height: 50px;
   }
 
   .nav-left {
@@ -276,29 +465,41 @@
     display: none;
   }
 
-  /* Show only the logo in mobile view */
+  /* Compact mobile logo */
   .mobile-logo {
     display: block;
-    font-size: 50px;
-    font-weight: 900;
-    letter-spacing: 2px;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
     font-family: 'Playfair Display', serif;
     margin-right: auto;
-    padding: 5px 0;
+    padding: 3px 0;
   }
 
   .nav-right {
     display: flex;
-    gap: 15px;
+    gap: 10px;
     justify-content: flex-end;
     align-items: center;
   }
 
-  .mobile-menu-button {
-    display: block;
+  .nav-right svg {
+    width: 18px;
+    height: 18px;
+    stroke-width: 1.8;
   }
 
-  /* Mobile menu when open */
+  .mobile-menu-button {
+    display: block;
+    padding: 4px;
+  }
+
+  .mobile-menu-button svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  /* Compact mobile menu when open */
   .navbar.mobile-open .nav-center {
     display: flex;
     flex-direction: column;
@@ -308,60 +509,228 @@
     right: 0;
     bottom: 0;
     background: white;
-    padding: 80px 20px 40px;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-    gap: 10px;
+    padding: 60px 15px 30px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+    gap: 8px;
     align-items: center;
     justify-content: center;
-    animation: fadeIn 0.3s ease-in-out;
+    animation: slideIn 0.25s ease-out;
     z-index: 1001;
     overflow-y: auto;
   }
 
-  /* Close button for mobile menu */
+  /* Compact close button */
   .mobile-close-button {
     position: absolute;
-    top: 20px;
-    right: 20px;
+    top: 15px;
+    right: 15px;
     background: none;
     border: none;
     cursor: pointer;
-    padding: 8px;
+    padding: 6px;
     z-index: 1002;
+    border-radius: 50%;
+    transition: background-color 0.2s;
   }
 
+  .mobile-close-button:hover {
+    background-color: #f5f5f5;
+  }
+
+  .mobile-close-button svg {
+    width: 20px;
+    height: 20px;
+    color: #333;
+  }
+
+  /* Compact mobile menu links */
   .navbar.mobile-open .nav-center a {
-    font-size: 18px;
-    padding: 15px 0;
+    font-size: 14px;
+    padding: 12px 0;
     width: 100%;
     text-align: center;
     border-bottom: 1px solid #f0f0f0;
     font-weight: 500;
-    letter-spacing: 1px;
+    letter-spacing: 0.8px;
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .navbar.mobile-open .nav-center a:hover {
+    background-color: #f8f8f8;
   }
 
   .navbar.mobile-open .nav-center a:last-child {
     border-bottom: none;
   }
 
-  /* Hide the logo in the mobile menu since we already show it in the navbar */
+  /* Hide the logo in the mobile menu */
   .navbar.mobile-open .nav-center .logo {
     display: none;
   }
 
-  /* Style for the close button */
-  .mobile-close-button svg {
-    width: 24px;
-    height: 24px;
-    color: #333;
+  /* Compact dots and icons in mobile menu */
+  .navbar.mobile-open .live-dot,
+  .navbar.mobile-open .music-dot {
+    width: 6px;
+    height: 6px;
   }
 
-  @keyframes fadeIn {
+  .navbar.mobile-open .chipset-icon {
+    width: 12px;
+    height: 12px;
+  }
+
+  @keyframes slideIn {
     from {
       opacity: 0;
+      transform: translateY(-20px);
     }
     to {
       opacity: 1;
+      transform: translateY(0);
     }
+  }
+}
+
+/* Extra Small Mobile Phones */
+@media screen and (max-width: 480px) {
+  .navbar {
+    padding: 6px 10px;
+    min-height: 45px;
+  }
+
+  .mobile-logo {
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+    padding: 2px 0;
+  }
+
+  .nav-right {
+    gap: 8px;
+  }
+
+  .nav-right svg {
+    width: 16px;
+    height: 16px;
+    stroke-width: 2;
+  }
+
+  .mobile-menu-button {
+    padding: 3px;
+  }
+
+  .mobile-menu-button svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Ultra-compact mobile menu */
+  .navbar.mobile-open .nav-center {
+    padding: 50px 12px 25px;
+    gap: 6px;
+  }
+
+  .mobile-close-button {
+    top: 12px;
+    right: 12px;
+    padding: 5px;
+  }
+
+  .mobile-close-button svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .navbar.mobile-open .nav-center a {
+    font-size: 12px;
+    padding: 10px 0;
+    letter-spacing: 0.6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .navbar.mobile-open .live-dot,
+  .navbar.mobile-open .music-dot {
+    width: 5px;
+    height: 5px;
+  }
+
+  .navbar.mobile-open .chipset-icon {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+/* Ultra Small Mobile Phones */
+@media screen and (max-width: 360px) {
+  .navbar {
+    padding: 5px 8px;
+    min-height: 40px;
+  }
+
+  .mobile-logo {
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    padding: 1px 0;
+  }
+
+  .nav-right {
+    gap: 6px;
+  }
+
+  .nav-right svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .mobile-menu-button svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  /* Minimal mobile menu */
+  .navbar.mobile-open .nav-center {
+    padding: 45px 10px 20px;
+    gap: 5px;
+  }
+
+  .mobile-close-button {
+    top: 10px;
+    right: 10px;
+    padding: 4px;
+  }
+
+  .mobile-close-button svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .navbar.mobile-open .nav-center a {
+    font-size: 11px;
+    padding: 8px 0;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+  }
+
+  .navbar.mobile-open .live-dot,
+  .navbar.mobile-open .music-dot {
+    width: 4px;
+    height: 4px;
+  }
+
+  .navbar.mobile-open .chipset-icon {
+    width: 9px;
+    height: 9px;
   }
 }
