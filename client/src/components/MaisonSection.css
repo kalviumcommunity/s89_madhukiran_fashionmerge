@@ -7,6 +7,23 @@
   overflow: hidden; /* Ensure video doesn't overflow */
 }
 
+.maison-video-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.placeholder-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
 .maison-video {
   position: absolute;
   top: 0;
@@ -14,16 +31,43 @@
   width: 100%;
   height: 100%;
   object-fit: cover; /* Ensure video covers the section */
-  z-index: 1; /* Ensure video is behind content */
-}
-
-.maison-video.loading {
+  z-index: 2; /* Video above placeholder */
   opacity: 0;
-  transition: opacity 0.5s ease-in;
+  transition: opacity 0.5s ease;
 }
 
-.maison-video.loaded {
+.maison-video.video-ready {
   opacity: 1;
+}
+
+.maison-video.video-loading {
+  opacity: 0;
+}
+
+.video-loading-indicator {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top: 3px solid #fff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .video-placeholder {

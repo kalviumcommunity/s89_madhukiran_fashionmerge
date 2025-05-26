@@ -26,6 +26,13 @@
   animation: modalFadeIn 0.3s ease-out;
 }
 
+/* Override base height for mobile devices */
+@media (max-width: 768px) {
+  .comment-modal {
+    max-height: 50vh !important;
+  }
+}
+
 @keyframes modalFadeIn {
   from {
     opacity: 0;
@@ -158,6 +165,483 @@
 .comment-form textarea:placeholder-shown {
   text-align: left;
   display: block;
+}
+
+/* Compact Responsive Styles for Comment Forms */
+
+/* Large Desktops */
+@media (max-width: 1400px) {
+  .comment-modal {
+    max-width: 520px;
+  }
+
+  .comment-form textarea {
+    padding: 7px 11px;
+    font-size: 0.9rem;
+    min-height: 34px;
+    height: 34px;
+  }
+
+  .comment-form button {
+    padding: 6px 14px;
+    font-size: 0.8rem;
+  }
+}
+
+/* Standard Desktops */
+@media (max-width: 1200px) {
+  .comment-modal {
+    max-width: 480px;
+  }
+
+  .comment-modal-header {
+    padding: 1rem 1.2rem;
+  }
+
+  .comment-modal-header h2 {
+    font-size: 1.3rem;
+  }
+
+  .comment-modal-content {
+    padding: 0 1.2rem 1.2rem;
+  }
+
+  .poll-info h3 {
+    font-size: 1rem;
+  }
+
+  .comment-form {
+    gap: 0.6rem;
+  }
+
+  .comment-form textarea {
+    padding: 6px 10px;
+    font-size: 0.85rem;
+    min-height: 32px;
+    height: 32px;
+  }
+
+  .comment-form button {
+    padding: 6px 12px;
+    font-size: 0.75rem;
+  }
+
+  .comment-item {
+    padding: 0.6rem;
+  }
+
+  .comment-author {
+    font-size: 0.8rem;
+  }
+
+  .comment-text {
+    font-size: 0.8rem;
+  }
+
+  .comment-date {
+    font-size: 0.7rem;
+  }
+}
+
+/* Small Desktops and Large Tablets */
+@media (max-width: 992px) {
+  .comment-modal {
+    max-width: 450px;
+    margin: 1.5rem;
+  }
+
+  .comment-modal-header {
+    padding: 0.9rem 1rem;
+  }
+
+  .comment-modal-header h2 {
+    font-size: 1.2rem;
+  }
+
+  .comment-modal-content {
+    padding: 0 1rem 1rem;
+  }
+
+  .poll-info {
+    margin-bottom: 0.8rem;
+  }
+
+  .poll-info h3 {
+    font-size: 0.95rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .poll-creator {
+    gap: 0.6rem;
+  }
+
+  .poll-creator span {
+    font-size: 0.75rem;
+  }
+
+  .comment-form {
+    gap: 0.5rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .comment-form textarea {
+    padding: 5px 9px;
+    font-size: 0.8rem;
+    min-height: 30px;
+    height: 30px;
+  }
+
+  .comment-form button {
+    padding: 5px 10px;
+    font-size: 0.7rem;
+  }
+
+  .comments-list {
+    gap: 0.5rem;
+  }
+
+  .comment-item {
+    padding: 0.5rem;
+  }
+}
+
+/* Tablets */
+@media (max-width: 768px) {
+  .comment-modal-overlay {
+    padding: 1rem;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .comment-modal {
+    max-width: 85%;
+    width: 85%;
+    margin: 0;
+    max-height: 50vh !important;
+    border-radius: 12px;
+  }
+
+  .comment-modal-header {
+    padding: 0.6rem 0.8rem;
+  }
+
+  .comment-modal-header h2 {
+    font-size: 1rem;
+  }
+
+  .comment-modal-content {
+    padding: 0;
+  }
+
+  .poll-info {
+    padding: 0.5rem 0.8rem;
+  }
+
+  .poll-info h3 {
+    font-size: 0.85rem;
+    line-height: 1.1;
+    margin-bottom: 0.3rem;
+  }
+
+  .poll-creator {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.1rem;
+  }
+
+  .poll-creator span {
+    font-size: 0.65rem;
+  }
+
+  .comment-form {
+    gap: 0.3rem;
+    padding: 0.3rem 0.8rem;
+  }
+
+  .comment-form textarea {
+    padding: 5px 8px;
+    font-size: 0.75rem;
+    min-height: 28px;
+    height: 28px;
+    max-height: 100px;
+  }
+
+  .comment-form button {
+    padding: 5px 8px;
+    font-size: 0.65rem;
+    min-width: 50px;
+  }
+
+  .comments-list {
+    padding: 0 0.8rem;
+    max-height: 25vh;
+    overflow-y: auto;
+  }
+
+  .comment-item {
+    padding: 0.3rem 0;
+    border-bottom: 1px solid #f5f5f5;
+  }
+
+  .comment-item:last-child {
+    border-bottom: none;
+  }
+
+  .comment-header {
+    margin-bottom: 0.2rem;
+  }
+
+  .comment-author {
+    font-size: 0.7rem;
+    font-weight: 600;
+  }
+
+  .comment-text {
+    font-size: 0.7rem;
+    line-height: 1.2;
+    margin: 0.1rem 0;
+  }
+
+  .comment-footer {
+    margin-top: 0.2rem;
+  }
+
+  .comment-date {
+    font-size: 0.6rem;
+  }
+
+  .comment-like-btn {
+    padding: 0.1rem 0.2rem;
+    font-size: 0.65rem;
+  }
+}
+
+/* Large Mobile Phones */
+@media (max-width: 640px) {
+  .comment-modal-overlay {
+    padding: 0.8rem;
+  }
+
+  .comment-modal {
+    max-width: 80%;
+    width: 80%;
+    max-height: 50vh !important;
+    border-radius: 10px;
+  }
+
+  .comment-modal-header {
+    padding: 0.7rem 0.8rem;
+  }
+
+  .comment-modal-header h2 {
+    font-size: 1rem;
+  }
+
+  .comment-modal-content {
+    padding: 0 0.8rem 0.8rem;
+  }
+
+  .poll-info h3 {
+    font-size: 0.85rem;
+  }
+
+  .comment-form textarea {
+    padding: 4px 7px;
+    font-size: 0.7rem;
+    min-height: 26px;
+    height: 26px;
+  }
+
+  .comment-form button {
+    padding: 4px 7px;
+    font-size: 0.6rem;
+  }
+
+  .comment-item {
+    padding: 0.35rem;
+  }
+
+  .comment-author {
+    font-size: 0.7rem;
+  }
+
+  .comment-text {
+    font-size: 0.7rem;
+  }
+
+  .comment-date {
+    font-size: 0.6rem;
+  }
+
+  .comment-like-btn {
+    padding: 0.15rem 0.25rem;
+    font-size: 0.65rem;
+  }
+}
+
+/* Small Mobile Phones */
+@media (max-width: 480px) {
+  .comment-modal-overlay {
+    padding: 0.6rem;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .comment-modal {
+    max-width: 85%;
+    width: 85%;
+    max-height: 50vh !important;
+    border-radius: 8px;
+  }
+
+  .comment-modal-header {
+    padding: 0.6rem 0.7rem;
+  }
+
+  .comment-modal-header h2 {
+    font-size: 0.95rem;
+    line-height: 1.2;
+  }
+
+  .comment-modal-content {
+    padding: 0 0.7rem 0.7rem;
+  }
+
+  .poll-info {
+    margin-bottom: 0.6rem;
+  }
+
+  .poll-info h3 {
+    font-size: 0.8rem;
+    line-height: 1.1;
+  }
+
+  .poll-creator span {
+    font-size: 0.65rem;
+  }
+
+  .comment-form {
+    gap: 0.3rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .comment-form textarea {
+    padding: 4px 6px;
+    font-size: 0.65rem;
+    min-height: 24px;
+    height: 24px;
+    max-height: 80px;
+  }
+
+  .comment-form button {
+    padding: 4px 6px;
+    font-size: 0.55rem;
+    min-width: 40px;
+  }
+
+  .comments-list {
+    gap: 0.3rem;
+  }
+
+  .comment-item {
+    padding: 0.3rem;
+  }
+
+  .comment-header {
+    margin-bottom: 0.25rem;
+  }
+
+  .comment-author {
+    font-size: 0.65rem;
+  }
+
+  .comment-text {
+    font-size: 0.65rem;
+    line-height: 1.2;
+  }
+
+  .comment-footer {
+    margin-top: 0.25rem;
+  }
+
+  .comment-date {
+    font-size: 0.55rem;
+  }
+
+  .comment-like-btn {
+    padding: 0.1rem 0.2rem;
+    font-size: 0.6rem;
+  }
+}
+
+/* Extra Small Mobile Phones */
+@media (max-width: 360px) {
+  .comment-modal-overlay {
+    padding: 0.5rem;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .comment-modal {
+    max-width: 90%;
+    width: 90%;
+    max-height: 50vh !important;
+    border-radius: 6px;
+  }
+
+  .comment-modal-header {
+    padding: 0.5rem 0.6rem;
+  }
+
+  .comment-modal-header h2 {
+    font-size: 0.9rem;
+  }
+
+  .comment-modal-content {
+    padding: 0 0.6rem 0.6rem;
+  }
+
+  .poll-info h3 {
+    font-size: 0.75rem;
+  }
+
+  .poll-creator span {
+    font-size: 0.6rem;
+  }
+
+  .comment-form textarea {
+    padding: 3px 5px;
+    font-size: 0.6rem;
+    min-height: 22px;
+    height: 22px;
+  }
+
+  .comment-form button {
+    padding: 3px 5px;
+    font-size: 0.5rem;
+    min-width: 35px;
+  }
+
+  .comment-item {
+    padding: 0.25rem;
+  }
+
+  .comment-author {
+    font-size: 0.6rem;
+  }
+
+  .comment-text {
+    font-size: 0.6rem;
+  }
+
+  .comment-date {
+    font-size: 0.5rem;
+  }
+
+  .comment-like-btn {
+    padding: 0.08rem 0.15rem;
+    font-size: 0.55rem;
+  }
 }
 
 /* When textarea has content, align left */
