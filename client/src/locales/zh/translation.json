@@ -6,6 +6,8 @@
     "about": "关于",
     "wardrobe": "衣橱",
     "alita": "阿丽塔",
+    "livePolls": "投票",
+    "biosync": "生物同步",
     "cart": "购物车",
     "wishlist": "收藏夹",
     "login": "登录",
@@ -27,11 +29,30 @@
   },
   "home": {
     "heroTitle": "风格重新定义",
+    "heroTitleLine1": "风格",
+    "heroTitleLine2": "重新定义",
     "heroSubtitle": "现代时代的永恒优雅",
     "exploreButton": "立即探索"
   },
   "collections": {
     "title": "系列",
+    "newCollection": "新系列",
+    "viewAll": "查看全部",
+    "item1": {
+      "name": "永恒之锁",
+      "description": "18K金与钻石",
+      "alt": "优雅珠宝"
+    },
+    "item2": {
+      "name": "珍珠精华",
+      "description": "天然珍珠与白金",
+      "alt": "珍珠珠宝"
+    },
+    "item3": {
+      "name": "蓝宝石之梦",
+      "description": "蓝宝石与铂金",
+      "alt": "蓝宝石珠宝"
+    },
     "allProducts": "所有产品",
     "accessories": "配饰",
     "menClothing": "男装",

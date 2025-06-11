@@ -534,37 +534,37 @@ function Profile() {
               className={`tab-button ${activeTab === 'profile' ? 'active' : ''}`}
               onClick={() => setActiveTab('profile')}
             >
-              {t('profile.tabs.profile')}
+              PROFILE
             </button>
             <button
               className={`tab-button ${activeTab === 'wishlist' ? 'active' : ''}`}
               onClick={() => setActiveTab('wishlist')}
             >
-              {t('profile.tabs.wishlist')} ({userData.wishlistItems?.length || 0})
+              WISHLIST ({userData.wishlistItems?.length || 0})
             </button>
             <button
               className={`tab-button ${activeTab === 'cart' ? 'active' : ''}`}
               onClick={() => setActiveTab('cart')}
             >
-              {t('profile.tabs.cart')} ({userData.cartItems?.length || 0})
+              CART ({userData.cartItems?.length || 0})
             </button>
             <button
               className={`tab-button ${activeTab === 'purchases' ? 'active' : ''}`}
               onClick={() => setActiveTab('purchases')}
             >
-              {t('profile.tabs.purchases')} ({purchases.length})
+              PURCHASES ({purchases.length})
             </button>
             <button
               className={`tab-button ${activeTab === 'wardrobe' ? 'active' : ''}`}
               onClick={() => setActiveTab('wardrobe')}
             >
-              {t('profile.tabs.wardrobe')} ({userData.wardrobe?.length || 0})
+              WARDROBE ({userData.wardrobe?.length || 0})
             </button>
             <button
               className={`tab-button ${activeTab === 'notifications' ? 'active' : ''}`}
               onClick={() => setActiveTab('notifications')}
             >
-              {t('profile.tabs.notifications')}
+              NOTIFICATIONS
               {notifications.filter(n => !n.read).length > 0 && (
                 <span className="notification-badge">
                   {notifications.filter(n => !n.read).length}
@@ -576,34 +576,34 @@ function Profile() {
           <div className="profile-content">
             {activeTab === 'profile' && (
               <div className="profile-summary">
-                <div className="summary-card">
+                <div className="summary-card" onClick={() => setActiveTab('wishlist')}>
                   <Heart className="summary-icon" />
                   <div className="summary-info">
-                    <h3>{t('profile.summary.wishlistItems')}</h3>
+                    <h3>Wishlist Items</h3>
                     <p>{userData.wishlistItems?.length || 0}</p>
                   </div>
                 </div>
 
-                <div className="summary-card">
+                <div className="summary-card" onClick={() => setActiveTab('cart')}>
                   <ShoppingCart className="summary-icon" />
                   <div className="summary-info">
-                    <h3>{t('profile.summary.cartItems')}</h3>
+                    <h3>Cart Items</h3>
                     <p>{userData.cartItems?.length || 0}</p>
                   </div>
                 </div>
 
-                <div className="summary-card">
+                <div className="summary-card" onClick={() => setActiveTab('purchases')}>
                   <ShoppingBag className="summary-icon" />
                   <div className="summary-info">
-                    <h3>{t('profile.summary.purchases')}</h3>
+                    <h3>Purchases</h3>
                     <p>{purchases.length}</p>
                   </div>
                 </div>
 
-                <div className="summary-card">
+                <div className="summary-card" onClick={() => setActiveTab('wardrobe')}>
                   <User className="summary-icon" />
                   <div className="summary-info">
-                    <h3>{t('profile.summary.wardrobeItems')}</h3>
+                    <h3>Wardrobe Items</h3>
                     <p>{userData.wardrobe?.length || 0}</p>
                   </div>
                 </div>

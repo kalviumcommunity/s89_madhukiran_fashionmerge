@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Heart, User, ShoppingCart, LogOut, ShoppingBag, Menu, X } from 'lucide-react';
+import { Heart, User, ShoppingCart, ShoppingBag, Menu, X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import './NavBar.css';
@@ -41,18 +41,7 @@ const Navbar = ({ scrolled }) => {
     setMobileMenuOpen(false);
   };
 
-  const handleLogout = () => {
-    // Clear user data from localStorage
-    localStorage.removeItem('userId');
-    localStorage.removeItem('token');
-    setIsLoggedIn(false);
 
-    // Navigate to home page
-    navigate('/home');
-
-    // Trigger storage event for other components to detect the change
-    window.dispatchEvent(new Event('storage'));
-  };
 
   return (
     <>
@@ -103,8 +92,31 @@ const Navbar = ({ scrolled }) => {
           </svg>
           {t('navbar.alita')}
         </a>
-        <a onClick={() => isLoggedIn ? handleNavigation('/profile') : handleNavigation('/login')} className="nav-title" style={{ fontSize: '11px', fontWeight: 'bold' }}>
-          {isLoggedIn ? t('navbar.profile') : t('navbar.login')}
+        <a onClick={() => handleNavigation('/biosync')} className="nav-title" style={{ fontSize: '11px', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '4px' }}>
+          <svg className="wellness-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="biosyncGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#00BCD4" />
+                <stop offset="50%" stopColor="#4CAF50" />
+                <stop offset="100%" stopColor="#9C27B0" />
+              </linearGradient>
+            </defs>
+            {/* Modern brain/neural network design */}
+            <circle cx="12" cy="12" r="9" stroke="url(#biosyncGradient)" strokeWidth="2" fill="none" opacity="0.8"/>
+            <circle cx="12" cy="12" r="6" stroke="url(#biosyncGradient)" strokeWidth="1.5" fill="none" opacity="0.6"/>
+            <circle cx="12" cy="12" r="3" fill="url(#biosyncGradient)" opacity="0.9"/>
+            {/* Neural connection points */}
+            <circle cx="8" cy="8" r="1.5" fill="url(#biosyncGradient)" opacity="0.7"/>
+            <circle cx="16" cy="8" r="1.5" fill="url(#biosyncGradient)" opacity="0.7"/>
+            <circle cx="8" cy="16" r="1.5" fill="url(#biosyncGradient)" opacity="0.7"/>
+            <circle cx="16" cy="16" r="1.5" fill="url(#biosyncGradient)" opacity="0.7"/>
+            {/* Connection lines */}
+            <line x1="8" y1="8" x2="12" y2="12" stroke="url(#biosyncGradient)" strokeWidth="1" opacity="0.5"/>
+            <line x1="16" y1="8" x2="12" y2="12" stroke="url(#biosyncGradient)" strokeWidth="1" opacity="0.5"/>
+            <line x1="8" y1="16" x2="12" y2="12" stroke="url(#biosyncGradient)" strokeWidth="1" opacity="0.5"/>
+            <line x1="16" y1="16" x2="12" y2="12" stroke="url(#biosyncGradient)" strokeWidth="1" opacity="0.5"/>
+          </svg>
+          {t('navbar.biosync')}
         </a>
       </div>
       <div className="nav-right">
@@ -113,11 +125,13 @@ const Navbar = ({ scrolled }) => {
         {isLoggedIn && (
           <ShoppingBag size={20} onClick={() => handleNavigation('/purchases')} style={{ cursor: 'pointer' }} title="My Purchases" />
         )}
-        {isLoggedIn ? (
-          <LogOut size={20} onClick={handleLogout} style={{ cursor: 'pointer' }} title="Logout" />
-        ) : (
-          <User size={20} onClick={() => handleNavigation('/login')} style={{ cursor: 'pointer' }} title="Login" />
-        )}
+        {/* Profile icon - always visible, navigates to profile or login */}
+        <User
+          size={20}
+          onClick={() => isLoggedIn ? handleNavigation('/profile') : handleNavigation('/login')}
+          style={{ cursor: 'pointer' }}
+          title={isLoggedIn ? "Profile" : "Login"}
+        />
 
         {/* Mobile menu toggle button - only shows hamburger, not X */}
         <button className="mobile-menu-button" onClick={toggleMobileMenu} aria-label="Toggle menu">

@@ -7,6 +7,7 @@
     "wardrobe": "WARDROBE",
     "alita": "ALITA",
     "livePolls": "POLLS",
+    "biosync": "BIOSYNC",
     "cart": "CART",
     "wishlist": "WISHLIST",
     "login": "LOGIN",
@@ -28,11 +29,30 @@
   },
   "home": {
     "heroTitle": "STYLE (RE)DEFINED",
+    "heroTitleLine1": "STYLE",
+    "heroTitleLine2": "(RE)DEFINED",
     "heroSubtitle": "TIMELESS ELEGANCE FOR THE MODERN ERA",
     "exploreButton": "DISCOVER NOW"
   },
   "collections": {
     "title": "Collections",
+    "newCollection": "NEW COLLECTION",
+    "viewAll": "VIEW ALL",
+    "item1": {
+      "name": "The Eternal Lock",
+      "description": "18K Gold & Diamond",
+      "alt": "Elegant jewelry piece"
+    },
+    "item2": {
+      "name": "Pearl Essence",
+      "description": "Natural Pearls & White Gold",
+      "alt": "Pearl jewelry piece"
+    },
+    "item3": {
+      "name": "Sapphire Dreams",
+      "description": "Blue Sapphire & Platinum",
+      "alt": "Sapphire jewelry piece"
+    },
     "allProducts": "All Products",
     "accessories": "Accessories",
     "menClothing": "Men's Clothing",
@@ -414,6 +434,103 @@
     },
     "actions": {
       "remove": "Remove"
+    }
+  },
+  "biosync": {
+    "title": "BioSync - Wellness Hub",
+    "subtitle": "Your Personal Wellness & Inspiration Companion",
+    "description": "Transform your daily routine with mindful practices, creative inspiration, and community support. BioSync helps you balance your inner well-being with your outer style.",
+    "features": {
+      "moodTracking": "Daily Mood & Wellness Check-ins",
+      "meditation": "Guided Meditations & Breathing",
+      "inspiration": "Creative Inspiration Feed",
+      "workshops": "Virtual Wellness Workshops",
+      "challenges": "Personalized Wellness Challenges",
+      "community": "Community Circles & Support"
+    },
+    "moodTracker": {
+      "title": "Daily Mood Check-in",
+      "question": "How are you feeling today?",
+      "moods": {
+        "excellent": "Excellent",
+        "good": "Good",
+        "okay": "Okay",
+        "low": "Low",
+        "stressed": "Stressed"
+      },
+      "submit": "Log Mood",
+      "success": "Mood logged successfully!",
+      "streak": "{{count}} day streak",
+      "analytics": "View Analytics"
+    },
+    "meditation": {
+      "title": "Mindful Moments",
+      "categories": {
+        "morning": "Morning Energizers",
+        "evening": "Evening Wind-downs",
+        "stress": "Stress Relief",
+        "focus": "Deep Focus",
+        "sleep": "Sleep Preparation"
+      },
+      "durations": {
+        "short": "5 min",
+        "medium": "10 min",
+        "long": "15 min"
+      },
+      "breathing": {
+        "title": "Breathing Exercise",
+        "inhale": "Inhale",
+        "hold": "Hold",
+        "exhale": "Exhale",
+        "start": "Start",
+        "pause": "Pause",
+        "complete": "Complete"
+      }
+    },
+    "inspiration": {
+      "title": "Daily Inspiration",
+      "categories": {
+        "quotes": "Motivational Quotes",
+        "stories": "Short Stories",
+        "art": "Art Pieces",
+        "prompts": "Creative Prompts"
+      },
+      "refresh": "New Inspiration",
+      "save": "Save to Favorites"
+    },
+    "challenges": {
+      "title": "Wellness Challenges",
+      "active": "Active Challenges",
+      "completed": "Completed",
+      "join": "Join Challenge",
+      "progress": "Progress",
+      "reward": "Earn Reward",
+      "types": {
+        "gratitude": "7-Day Gratitude",
+        "mindfulness": "Mindful Moments",
+        "creativity": "Creative Spark",
+        "movement": "Daily Movement"
+      }
+    },
+    "community": {
+      "title": "Wellness Circles",
+      "join": "Join Circle",
+      "create": "Create Circle",
+      "circles": {
+        "mindfulness": "Mindfulness & Meditation",
+        "creativity": "Creative Expression",
+        "wellness": "Daily Wellness",
+        "support": "Peer Support"
+      },
+      "share": "Share Experience",
+      "support": "Offer Support"
+    },
+    "analytics": {
+      "title": "Wellness Analytics",
+      "moodTrends": "Mood Trends",
+      "streaks": "Current Streaks",
+      "achievements": "Achievements",
+      "insights": "Personal Insights"
     }
   }
 }

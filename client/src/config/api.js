@@ -72,6 +72,30 @@ export const POLLS_ENDPOINTS = {
   MARK_NOTIFICATION_READ: (notificationId) => `${BASE_URL}/api/polls/notifications/${notificationId}/read`,
 };
 
+// BioSync endpoints
+export const BIOSYNC_ENDPOINTS = {
+  PROFILE: `${BASE_URL}/api/biosync/profile`,
+  LOG_MOOD: `${BASE_URL}/api/biosync/mood`,
+  MOOD_HISTORY: (limit = 30) => `${BASE_URL}/api/biosync/mood/history?limit=${limit}`,
+  LOG_MEDITATION: `${BASE_URL}/api/biosync/meditation`,
+  MEDITATION_HISTORY: `${BASE_URL}/api/biosync/meditation/history`,
+  JOIN_CHALLENGE: `${BASE_URL}/api/biosync/challenges/join`,
+  UPDATE_CHALLENGE: (challengeId) => `${BASE_URL}/api/biosync/challenges/${challengeId}/progress`,
+  GET_CHALLENGES: `${BASE_URL}/api/biosync/challenges`,
+  SAVE_INSPIRATION: `${BASE_URL}/api/biosync/inspiration/save`,
+  GET_INSPIRATION: (type = null, limit = 20) => {
+    const queryParams = new URLSearchParams();
+    if (type) queryParams.append('type', type);
+    queryParams.append('limit', limit.toString());
+    return `${BASE_URL}/api/biosync/inspiration?${queryParams}`;
+  },
+  REMOVE_INSPIRATION: (inspirationId) => `${BASE_URL}/api/biosync/inspiration/${inspirationId}`,
+  GET_ANALYTICS: `${BASE_URL}/api/biosync/analytics`,
+  GET_ACHIEVEMENTS: `${BASE_URL}/api/biosync/achievements`,
+  UPDATE_PREFERENCES: `${BASE_URL}/api/biosync/preferences`,
+  GET_PREFERENCES: `${BASE_URL}/api/biosync/preferences`,
+};
+
 // WebSocket endpoint
 export const SOCKET_URL = (isProduction || isViteProduction)
   ? 'https://s89-madhukiran-fashionmerge.onrender.com' // Same as backend URL
@@ -86,5 +110,6 @@ export default {
   STRIPE_ENDPOINTS,
   PURCHASES_ENDPOINTS,
   POLLS_ENDPOINTS,
+  BIOSYNC_ENDPOINTS,
   SOCKET_URL,
 };
