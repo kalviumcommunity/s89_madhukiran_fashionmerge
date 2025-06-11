@@ -14,8 +14,14 @@ const HeroSection = () => {
       id="home-section"
       className="hero-section">
       <div className="hero-left">
+
         <div className="hero-content">
-          <h1>{t('home.heroTitle')}</h1>
+          <h1>
+            <br />
+            <br />
+            <span className="title-line-1">{t('home.heroTitleLine1')}</span>
+            <span className="title-line-2">{t('home.heroTitleLine2')}</span>
+          </h1>
           <div className="divider"></div>
           <p>{t('home.heroSubtitle')}</p>
           <button className="discover-btn" onClick={handleDiscoverClick}>{t('home.exploreButton')}</button>

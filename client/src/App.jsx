@@ -17,6 +17,7 @@ import Wardrobe from './pages/wardrobe';
 import Purchases from './pages/Purchases';
 import Profile from './pages/Profile';
 import Polls from './pages/Polls';
+import BioSync from './pages/BioSync';
 import MusicPlayer from './components/MusicPlayer';
 import AuthDebug from './components/AuthDebug';
 import AuthHandler from './components/AuthHandler';
@@ -63,6 +64,7 @@ function App() {
         <Route path="/purchases" element={<Purchases />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/polls" element={<Polls />} />
+        <Route path="/biosync" element={<BioSync />} />
         <Route path="/auth-debug" element={<AuthDebug />} />
       </Routes>
 

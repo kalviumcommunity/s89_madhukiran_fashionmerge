@@ -8,6 +8,7 @@ const http = require('http');
 const { Server } = require('socket.io');
 const User = require('./models/schema'); // Import User model
 const app = express();
+require("./cronJob");
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
@@ -47,6 +48,7 @@ const uploadRoutes = require('./routers/uploadRoutes');
 const purchasesRoutes = require('./routes/purchases');
 const stripeRoutes = require('./routes/stripe');
 const pollsRoutes = require('./routes/polls');
+const biosyncRoutes = require('./routes/biosync');
 
 app.use(router);
 app.use(forgotPassRouter);
@@ -54,6 +56,7 @@ app.use('/api/upload', uploadRoutes);
 app.use('/api/purchases', purchasesRoutes);
 app.use('/api/stripe', stripeRoutes);
 app.use('/api/polls', pollsRoutes);
+app.use('/api/biosync', biosyncRoutes);
 
 // Make io accessible to routes
 app.set('io', io);

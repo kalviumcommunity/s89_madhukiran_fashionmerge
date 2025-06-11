@@ -6,6 +6,8 @@
     "about": "À PROPOS",
     "wardrobe": "GARDE-ROBE",
     "alita": "ALITA",
+    "livePolls": "SONDAGES",
+    "biosync": "BIOSYNC",
     "cart": "PANIER",
     "wishlist": "FAVORIS",
     "login": "CONNEXION",
@@ -27,11 +29,30 @@
   },
   "home": {
     "heroTitle": "STYLE (RE)DÉFINI",
+    "heroTitleLine1": "STYLE",
+    "heroTitleLine2": "(RE)DÉFINI",
     "heroSubtitle": "ÉLÉGANCE INTEMPORELLE POUR L'ÈRE MODERNE",
     "exploreButton": "DÉCOUVRIR MAINTENANT"
   },
   "collections": {
     "title": "Collections",
+    "newCollection": "NOUVELLE COLLECTION",
+    "viewAll": "VOIR TOUT",
+    "item1": {
+      "name": "Le Verrou Éternel",
+      "description": "Or 18K et Diamant",
+      "alt": "Bijou élégant"
+    },
+    "item2": {
+      "name": "Essence de Perle",
+      "description": "Perles Naturelles et Or Blanc",
+      "alt": "Bijou en perle"
+    },
+    "item3": {
+      "name": "Rêves de Saphir",
+      "description": "Saphir Bleu et Platine",
+      "alt": "Bijou en saphir"
+    },
     "allProducts": "Tous les Produits",
     "accessories": "Accessoires",
     "menClothing": "Vêtements Homme",

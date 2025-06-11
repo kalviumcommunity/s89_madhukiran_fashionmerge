@@ -28,7 +28,7 @@ const LivePollsPreview = () => {
         <div className="polls-info-content">
           <div className="polls-info-image">
             <img
-              src="https://res.cloudinary.com/dwr6mvypn/image/upload/v1747330497/cld-sample-5.png"
+              src="https://res.cloudinary.com/dwr6mvypn/image/upload/v1748855846/fas_1_vo2giu.jpg"
               alt="Live Polls"
               className="polls-image"
             />

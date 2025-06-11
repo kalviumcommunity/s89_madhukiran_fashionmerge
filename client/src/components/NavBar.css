@@ -159,6 +159,27 @@
   color: #666;
 }
 
+/* Wellness Icon Styling */
+.wellness-icon {
+  transition: all 0.3s ease;
+  filter: drop-shadow(0 0 3px rgba(0, 188, 212, 0.2));
+}
+
+.wellness-icon:hover {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 6px rgba(0, 188, 212, 0.4));
+  animation: wellnessIconPulse 0.6s ease-in-out;
+}
+
+@keyframes wellnessIconPulse {
+  0%, 100% {
+    transform: scale(1.1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
 /* Mobile logo (hidden by default) */
 .mobile-logo {
   display: none;
@@ -270,6 +291,11 @@
     width: 13px;
     height: 13px;
   }
+
+  .wellness-icon {
+    width: 13px;
+    height: 13px;
+  }
 }
 
 /* Standard Desktops */
@@ -307,6 +333,11 @@
   }
 
   .chipset-icon {
+    width: 12px;
+    height: 12px;
+  }
+
+  .wellness-icon {
     width: 12px;
     height: 12px;
   }
@@ -352,6 +383,11 @@
   }
 
   .chipset-icon {
+    width: 11px;
+    height: 11px;
+  }
+
+  .wellness-icon {
     width: 11px;
     height: 11px;
   }
@@ -403,6 +439,11 @@
   }
 
   .chipset-icon {
+    width: 10px;
+    height: 10px;
+  }
+
+  .wellness-icon {
     width: 10px;
     height: 10px;
   }

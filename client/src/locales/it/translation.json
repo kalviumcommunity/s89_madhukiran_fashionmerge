@@ -6,6 +6,8 @@
     "about": "CHI SIAMO",
     "wardrobe": "GUARDAROBA",
     "alita": "ALITA",
+    "livePolls": "SONDAGGI",
+    "biosync": "BIOSYNC",
     "cart": "CARRELLO",
     "wishlist": "PREFERITI",
     "login": "ACCEDI",
@@ -27,11 +29,30 @@
   },
   "home": {
     "heroTitle": "STILE (RI)DEFINITO",
+    "heroTitleLine1": "STILE",
+    "heroTitleLine2": "(RI)DEFINITO",
     "heroSubtitle": "ELEGANZA SENZA TEMPO PER L'ERA MODERNA",
     "exploreButton": "SCOPRI ORA"
   },
   "collections": {
     "title": "Collezioni",
+    "newCollection": "NUOVA COLLEZIONE",
+    "viewAll": "VEDI TUTTO",
+    "item1": {
+      "name": "Il Lucchetto Eterno",
+      "description": "Oro 18K e Diamante",
+      "alt": "Gioiello elegante"
+    },
+    "item2": {
+      "name": "Essenza di Perla",
+      "description": "Perle Naturali e Oro Bianco",
+      "alt": "Gioiello di perle"
+    },
+    "item3": {
+      "name": "Sogni di Zaffiro",
+      "description": "Zaffiro Blu e Platino",
+      "alt": "Gioiello di zaffiro"
+    },
     "allProducts": "Tutti i Prodotti",
     "accessories": "Accessori",
     "menClothing": "Abbigliamento Uomo",

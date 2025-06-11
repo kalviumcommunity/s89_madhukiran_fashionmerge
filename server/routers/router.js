@@ -9,6 +9,29 @@ const CartItem = require('../models/cartItem');
 // JWT Secret Key
 const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret_key';
 
+// Root route for health check / keep-alive ping
+router.get('/', (req, res) => {
+    res.status(200).json({
+        success: true,
+        message: 'Fashion Merge API is running',
+        timestamp: new Date().toISOString(),
+        status: 'healthy'
+    });
+});
+
+// Dedicated health check endpoint with more details
+router.get('/health', (req, res) => {
+    res.status(200).json({
+        success: true,
+        message: 'Fashion Merge API Health Check',
+        timestamp: new Date().toISOString(),
+        status: 'healthy',
+        uptime: process.uptime(),
+        environment: process.env.NODE_ENV || 'development',
+        version: '1.0.0'
+    });
+});
+
 // Middleware to Verify JWT
 const authenticateJWT = (req, res, next) => {
     console.log('Authenticating request to:', req.originalUrl);

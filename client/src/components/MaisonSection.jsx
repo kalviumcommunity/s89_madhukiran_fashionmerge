@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import './MaisonSection.css';
 
@@ -91,7 +91,7 @@ const MaisonSection = () => {
       {/* Placeholder background image for immediate loading */}
       <div className="maison-video-placeholder">
         <img
-          src="https://res.cloudinary.com/dwr6mvypn/image/upload/c_fill,w_1920,h_1080,q_auto:good/v1748248369/eqxgamdashsp104xs5wi.jpg"
+          src="https://www.vancleefarpels.com/content/dam/vancleefarpels/La-Maison/videos/the-making-of-your-flowerlace-creation/VCA_2022_Craftsmanship_Flowerlace_ring-4K.mp4"
           alt="Maison background"
           className="placeholder-image"
         />
@@ -107,7 +107,7 @@ const MaisonSection = () => {
           playsInline
           preload="none"
         >
-          <source src="https://res.cloudinary.com/dwr6mvypn/video/upload/v1748248369/eqxgamdashsp104xs5wi.mp4" />
+          <source src="https://www.vancleefarpels.com/content/dam/vancleefarpels/La-Maison/videos/the-making-of-your-flowerlace-creation/VCA_2022_Craftsmanship_Flowerlace_ring-4K.mp4" />
           {t('maison.videoAlt')}
         </video>
       )}
