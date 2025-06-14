@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { marked } from "marked";
 import DOMPurify from "dompurify";
-import { Send, Image, X } from "lucide-react";
+import { Send, Image, X, Mic, MicOff, Volume2, VolumeX, Play, Pause } from "lucide-react";
 import { v4 as uuidv4 } from 'uuid'; // Import uuid for generating unique user IDs
 import { useTranslation } from 'react-i18next';
 import { useChatbotStore } from "./chatbotStore";
@@ -63,6 +63,19 @@ const Chatbot = () => {
   const inputRef = useRef(null);
   const fileInputRef = useRef(null);
   const [historyLoaded, setHistoryLoaded] = useState(false);
+
+  // Voice-related state
+  const [isListening, setIsListening] = useState(false);
+  const [isSpeaking, setIsSpeaking] = useState(false);
+  const [voiceEnabled, setVoiceEnabled] = useState(true);
+  const [voiceVolume, setVoiceVolume] = useState(0.95); // Default sweet voice volume
+  const [speechRecognition, setSpeechRecognition] = useState(null);
+  const [speechSynthesis, setSpeechSynthesis] = useState(null);
+  const [availableVoices, setAvailableVoices] = useState([]);
+  const [selectedVoice, setSelectedVoice] = useState(null);
+  const recognitionRef = useRef(null);
+  const utteranceRef = useRef(null);
+  const speechQueueRef = useRef([]);
 
   // Check login status on component mount and when localStorage changes
   useEffect(() => {
@@ -183,6 +196,515 @@ const Chatbot = () => {
       setHistoryLoaded(true);
     }
   }, [isLoggedIn, messages.length, historyLoaded, setStoreMessages, t]);
+
+  // Initialize speech recognition and synthesis
+  useEffect(() => {
+    // Check if browser supports speech recognition
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (SpeechRecognition) {
+      const recognition = new SpeechRecognition();
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      recognition.lang = 'en-US';
+
+      recognition.onstart = () => {
+        setIsListening(true);
+        console.log('Voice recognition started');
+      };
+
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        console.log('Voice input:', transcript);
+        setInputValue(transcript);
+        setIsListening(false);
+      };
+
+      recognition.onerror = (event) => {
+        console.error('Speech recognition error:', event.error);
+        setIsListening(false);
+        setError('Voice recognition error. Please try again.');
+      };
+
+      recognition.onend = () => {
+        setIsListening(false);
+        console.log('Voice recognition ended');
+      };
+
+      recognitionRef.current = recognition;
+      setSpeechRecognition(recognition);
+    }
+
+    // Check if browser supports speech synthesis
+    if (window.speechSynthesis) {
+      console.log('🔊 Speech synthesis is supported');
+      setSpeechSynthesis(window.speechSynthesis);
+
+      // Load available voices
+      const loadVoices = () => {
+        const voices = window.speechSynthesis.getVoices();
+        console.log('🔊 Loading voices, count:', voices.length);
+        console.log('🔊 Available voices:', voices.map(v => `${v.name} (${v.lang})`));
+        setAvailableVoices(voices);
+
+        // Auto-select the best voice
+        if (voices.length > 0) {
+          selectBestVoice(voices);
+        } else {
+          console.log('⚠️ No voices available yet');
+        }
+      };
+
+      // Load voices immediately if available
+      loadVoices();
+
+      // Also listen for voices changed event (some browsers load voices asynchronously)
+      window.speechSynthesis.onvoiceschanged = () => {
+        console.log('🔊 Voices changed event fired');
+        loadVoices();
+      };
+    } else {
+      console.log('❌ Speech synthesis is not supported in this browser');
+    }
+
+    // Add user interaction handler to initialize speech synthesis
+    const initializeSpeechSynthesis = () => {
+      if ('speechSynthesis' in window && !window.speechSynthesisUserInteractionInitiated) {
+        console.log('Initializing speech synthesis on user interaction...');
+        try {
+          // Create a silent utterance to initialize speech synthesis
+          const initUtterance = new SpeechSynthesisUtterance('');
+          initUtterance.volume = 0;
+          window.speechSynthesis.speak(initUtterance);
+          window.speechSynthesisUserInteractionInitiated = true;
+          console.log('Speech synthesis initialized successfully');
+        } catch (error) {
+          console.warn('Failed to initialize speech synthesis:', error);
+        }
+      }
+    };
+
+    // Add event listeners for user interaction
+    document.addEventListener('click', initializeSpeechSynthesis, { once: true });
+    document.addEventListener('keydown', initializeSpeechSynthesis, { once: true });
+    document.addEventListener('touchstart', initializeSpeechSynthesis, { once: true });
+
+    return () => {
+      document.removeEventListener('click', initializeSpeechSynthesis);
+      document.removeEventListener('keydown', initializeSpeechSynthesis);
+      document.removeEventListener('touchstart', initializeSpeechSynthesis);
+    };
+  }, []);
+
+  // Function to select the most naturally sounding sweet female voice
+  const selectBestVoice = (voices) => {
+    console.log('🔊 Selecting sweetest female voice from', voices.length, 'available voices');
+
+    // Priority list of the sweetest, most natural female voices
+    const sweetFemaleVoices = [
+      // Premium Neural voices (most natural and sweet)
+      'Microsoft Aria Online (Natural) - English (United States)',
+      'Microsoft Jenny Online (Natural) - English (United States)',
+      'Microsoft Emma Online (Natural) - English (United States)',
+      'Microsoft Michelle Online (Natural) - English (United States)',
+      'Microsoft Ana Online (Natural) - English (United States)',
+
+      // Google's sweetest female voices
+      'Google US English Female',
+      'Google UK English Female',
+      'en-US-Neural2-F',
+      'en-US-Neural2-H',
+      'en-GB-Neural2-A',
+      'en-GB-Neural2-C',
+
+      // Apple's sweetest voices (known for natural sound)
+      'Samantha',        // Very natural and sweet
+      'Allison',         // Warm and friendly
+      'Ava',            // Soft and pleasant
+      'Susan',          // Clear and sweet
+      'Karen',          // Gentle tone
+      'Victoria',       // Elegant and sweet
+      'Princess',       // Playful and sweet
+      'Vicki',          // Warm female voice
+
+      // Microsoft standard voices (still good quality)
+      'Microsoft Zira - English (United States)',
+      'Microsoft Hazel - English (Great Britain)',
+      'Microsoft Eva - English (Australia)',
+      'Microsoft Linda - English (Canada)',
+
+      // Additional sweet-sounding voices
+      'Anna',
+      'Amelie',
+      'Emma',
+      'Chloe',
+      'Grace',
+      'Sophia'
+    ];
+
+    let bestVoice = null;
+
+    // Find the sweetest available female voice
+    for (const preferredName of sweetFemaleVoices) {
+      bestVoice = voices.find(voice =>
+        voice.name.toLowerCase().includes(preferredName.toLowerCase()) ||
+        voice.name === preferredName
+      );
+      if (bestVoice) {
+        console.log('� Selected sweet female voice:', bestVoice.name);
+        setSelectedVoice(bestVoice);
+        return;
+      }
+    }
+
+    // If no preferred voice found, look for neural/premium female voices
+    if (!bestVoice) {
+      bestVoice = voices.find(voice =>
+        voice.lang.startsWith('en') &&
+        (voice.name.toLowerCase().includes('neural') ||
+         voice.name.toLowerCase().includes('premium') ||
+         voice.name.toLowerCase().includes('enhanced') ||
+         voice.name.toLowerCase().includes('natural')) &&
+        (voice.name.toLowerCase().includes('female') ||
+         voice.name.toLowerCase().includes('woman') ||
+         voice.name.toLowerCase().includes('aria') ||
+         voice.name.toLowerCase().includes('jenny') ||
+         voice.name.toLowerCase().includes('emma') ||
+         voice.name.toLowerCase().includes('michelle'))
+      );
+      if (bestVoice) {
+        console.log('� Selected premium female voice:', bestVoice.name);
+      }
+    }
+
+    // Fallback to any sweet-sounding female voice
+    if (!bestVoice) {
+      const femaleKeywords = ['female', 'woman', 'girl', 'lady', 'samantha', 'allison', 'ava', 'susan', 'karen', 'victoria', 'anna', 'emma', 'chloe', 'grace', 'sophia', 'aria', 'jenny', 'michelle', 'zira', 'hazel'];
+
+      bestVoice = voices.find(voice =>
+        voice.lang.startsWith('en') &&
+        femaleKeywords.some(keyword => voice.name.toLowerCase().includes(keyword))
+      );
+      if (bestVoice) {
+        console.log('� Selected female voice:', bestVoice.name);
+      }
+    }
+
+    // Final fallback to first English voice
+    if (!bestVoice) {
+      bestVoice = voices.find(voice => voice.lang.startsWith('en'));
+      if (bestVoice) {
+        console.log('🔊 Selected first English voice:', bestVoice.name);
+      }
+    }
+
+    // Last resort - use any voice
+    if (!bestVoice && voices.length > 0) {
+      bestVoice = voices[0];
+      console.log('🔊 Using first available voice as last resort:', bestVoice.name);
+    }
+
+    if (bestVoice) {
+      console.log('� Final selected sweet voice:', bestVoice.name, 'Language:', bestVoice.lang);
+      setSelectedVoice(bestVoice);
+    } else {
+      console.log('❌ No suitable voice found');
+    }
+  };
+
+  // Voice functions
+  const startListening = () => {
+    if (recognitionRef.current && !isListening) {
+      try {
+        recognitionRef.current.start();
+      } catch (error) {
+        console.error('Error starting voice recognition:', error);
+        setError('Could not start voice recognition. Please try again.');
+      }
+    }
+  };
+
+  const stopListening = () => {
+    if (recognitionRef.current && isListening) {
+      recognitionRef.current.stop();
+    }
+  };
+
+  const speakText = (text) => {
+    console.log('🔊 speakText called with:', text?.substring(0, 50) + '...');
+    console.log('🔊 voiceEnabled:', voiceEnabled);
+    console.log('🔊 speechSynthesis available:', !!speechSynthesis);
+    console.log('🔊 selectedVoice:', selectedVoice?.name);
+    console.log('🔊 speechSynthesis.speaking:', speechSynthesis?.speaking);
+    console.log('🔊 speechSynthesis.pending:', speechSynthesis?.pending);
+
+    if (!voiceEnabled) {
+      console.log('❌ Voice is disabled, not speaking');
+      return;
+    }
+
+    if (!speechSynthesis) {
+      console.log('❌ Speech synthesis not available');
+      return;
+    }
+
+    if (!text || text.trim() === '') {
+      console.log('❌ No text to speak');
+      return;
+    }
+
+    // More aggressive speech cancellation
+    try {
+      // Cancel any existing speech
+      if (speechSynthesis.speaking || speechSynthesis.pending) {
+        console.log('🔊 Stopping existing speech...');
+        speechSynthesis.cancel();
+
+        // Wait longer for complete cancellation
+        setTimeout(() => {
+          // Double-check cancellation worked
+          if (speechSynthesis.speaking || speechSynthesis.pending) {
+            console.log('🔊 Speech still active, forcing another cancel...');
+            speechSynthesis.cancel();
+          }
+
+          // Start new speech after ensuring clean state
+          setTimeout(() => {
+            startNewSpeech(text);
+          }, 100);
+        }, 300);
+      } else {
+        // No existing speech, start immediately
+        startNewSpeech(text);
+      }
+    } catch (error) {
+      console.warn('⚠️ Error in speech management:', error);
+      // Fallback: try to start speech anyway
+      setTimeout(() => {
+        startNewSpeech(text);
+      }, 500);
+    }
+  };
+
+  const startNewSpeech = (text) => {
+    console.log('🔊 startNewSpeech called with:', text?.substring(0, 50) + '...');
+
+    // Clean the text for better speech
+    const cleanText = text
+      .replace(/\*\*(.*?)\*\*/g, '$1') // Remove bold markdown
+      .replace(/\*(.*?)\*/g, '$1') // Remove italic markdown
+      .replace(/`(.*?)`/g, '$1') // Remove code markdown
+      .replace(/#{1,6}\s/g, '') // Remove headers
+      .replace(/\n+/g, '. ') // Replace newlines with periods
+      .replace(/\s+/g, ' ') // Normalize spaces
+      .trim();
+
+    console.log('🔊 Cleaned text:', cleanText?.substring(0, 50) + '...');
+
+    if (!cleanText) {
+      console.log('❌ No clean text to speak');
+      return;
+    }
+
+    // Check if voices are available
+    const voices = speechSynthesis.getVoices();
+    console.log('🔊 Available voices:', voices.length);
+
+    if (voices.length === 0) {
+      console.log('⚠️ No voices available, waiting for voices to load...');
+      // Wait for voices to load and retry
+      setTimeout(() => {
+        const newVoices = speechSynthesis.getVoices();
+        if (newVoices.length > 0) {
+          console.log('🔊 Voices loaded, retrying speech...');
+          selectBestVoice(newVoices);
+          startNewSpeech(text);
+        } else {
+          console.log('❌ Still no voices available after waiting');
+        }
+      }, 500);
+      return;
+    }
+
+    try {
+      console.log('🔊 Creating speech utterance...');
+      const utterance = new SpeechSynthesisUtterance(cleanText);
+
+      // Configure voice settings for sweet, natural delivery
+      utterance.rate = 0.85; // Slower pace for a sweeter, more gentle delivery
+      utterance.pitch = 1.1; // Slightly higher pitch for a sweeter female voice
+      utterance.volume = voiceVolume; // User-adjustable volume
+
+      console.log('� Sweet voice utterance created with settings:', {
+        rate: utterance.rate,
+        pitch: utterance.pitch,
+        volume: utterance.volume,
+        text: cleanText.substring(0, 50) + '...'
+      });
+
+      // Use the pre-selected best voice or find a good default
+      if (selectedVoice) {
+        utterance.voice = selectedVoice;
+        console.log('🔊 Using selected voice:', selectedVoice.name);
+      } else {
+        // Try to find a good English voice
+        const englishVoices = voices.filter(voice => voice.lang.startsWith('en'));
+        if (englishVoices.length > 0) {
+          utterance.voice = englishVoices[0];
+          console.log('🔊 Using default English voice:', englishVoices[0].name);
+        } else {
+          console.log('🔊 No voice selected, using system default');
+        }
+      }
+
+      utterance.onstart = () => {
+        setIsSpeaking(true);
+        console.log('✅ Speech started successfully:', cleanText.substring(0, 50) + '...');
+      };
+
+      utterance.onend = () => {
+        setIsSpeaking(false);
+        console.log('✅ Speech finished successfully');
+      };
+
+      utterance.onerror = (event) => {
+        setIsSpeaking(false);
+
+        // Handle specific error types
+        if (event.error === 'interrupted') {
+          console.log('🔊 Speech was interrupted (normal when cancelling previous speech)');
+          // This is normal behavior when we cancel previous speech, don't treat as error
+          return;
+        } else if (event.error === 'canceled') {
+          console.log('🔊 Speech was canceled - this is normal');
+          // This is also normal behavior, don't retry
+          return;
+        } else {
+          console.warn('❌ Speech synthesis error:', event.error);
+
+          // Only retry for actual errors
+          if (event.error === 'network' || event.error === 'synthesis-failed' || event.error === 'synthesis-unavailable') {
+            console.log('🔄 Retrying speech due to error:', event.error);
+            setTimeout(() => {
+              console.log('🔄 Attempting retry...');
+              const retryUtterance = new SpeechSynthesisUtterance(cleanText);
+              retryUtterance.rate = 0.85; // Sweet, gentle pace
+              retryUtterance.pitch = 1.1; // Sweeter female pitch
+              retryUtterance.volume = voiceVolume; // User-adjustable volume
+
+              // Use available voice
+              const voices = speechSynthesis.getVoices();
+              const englishVoices = voices.filter(voice => voice.lang.startsWith('en'));
+              if (englishVoices.length > 0) {
+                retryUtterance.voice = englishVoices[0];
+              }
+
+              retryUtterance.onstart = () => {
+                setIsSpeaking(true);
+                console.log('✅ Retry speech started successfully');
+              };
+              retryUtterance.onend = () => {
+                setIsSpeaking(false);
+                console.log('✅ Retry speech finished successfully');
+              };
+              retryUtterance.onerror = (retryEvent) => {
+                console.warn('❌ Retry speech also failed:', retryEvent.error);
+                setIsSpeaking(false);
+              };
+              speechSynthesis.speak(retryUtterance);
+            }, 1000);
+          } else {
+            console.error('❌ Unhandled speech error:', event.error);
+          }
+        }
+      };
+
+      utteranceRef.current = utterance;
+
+      console.log('Calling speechSynthesis.speak()...');
+      console.log('speechSynthesis.speaking before speak():', speechSynthesis.speaking);
+      console.log('speechSynthesis.pending before speak():', speechSynthesis.pending);
+
+      // Fix for speech cancellation issue - ensure speech synthesis is ready
+      if (speechSynthesis.paused) {
+        speechSynthesis.resume();
+      }
+
+      // Additional browser compatibility fixes
+      speechSynthesis.speak(utterance);
+
+      // Chrome/Edge fix: Resume if it gets paused immediately
+      setTimeout(() => {
+        if (speechSynthesis.paused) {
+          console.log('Speech was paused, resuming...');
+          speechSynthesis.resume();
+        }
+      }, 100);
+
+      // Additional fix for some browsers that need a second attempt
+      setTimeout(() => {
+        if (!speechSynthesis.speaking && !speechSynthesis.pending) {
+          console.log('Speech did not start, attempting second try...');
+          speechSynthesis.speak(utterance);
+        }
+      }, 200);
+
+      console.log('speechSynthesis.speak() called');
+      console.log('speechSynthesis.speaking after speak():', speechSynthesis.speaking);
+      console.log('speechSynthesis.pending after speak():', speechSynthesis.pending);
+
+    } catch (error) {
+      console.error('❌ Error creating speech utterance:', error);
+      setIsSpeaking(false);
+    }
+  };
+
+  const stopSpeaking = () => {
+    try {
+      if (speechSynthesis && speechSynthesis.speaking) {
+        speechSynthesis.cancel();
+        setIsSpeaking(false);
+        console.log('Speech stopped by user');
+      }
+    } catch (error) {
+      console.warn('Error stopping speech:', error);
+      setIsSpeaking(false);
+    }
+  };
+
+  // Volume control functions
+  const setVolume = (volume) => {
+    console.log('🔊 Set volume called with:', volume);
+    const newVolume = Math.max(0.0, Math.min(1.0, volume));
+    setVoiceVolume(newVolume);
+
+    // Auto-disable voice when volume is 0
+    if (newVolume === 0) {
+      setVoiceEnabled(false);
+      if (isSpeaking) {
+        stopSpeaking();
+      }
+      console.log('🔊 Voice disabled due to 0 volume');
+    } else if (!voiceEnabled && newVolume > 0) {
+      // Auto-enable voice when volume is increased from 0
+      setVoiceEnabled(true);
+      console.log('🔊 Voice enabled due to volume increase');
+    }
+
+    console.log('🔊 Volume set to:', newVolume);
+  };
+
+  // Get appropriate volume icon based on volume level
+  const getVolumeIcon = () => {
+    if (!voiceEnabled || voiceVolume === 0) {
+      return <VolumeX size={20} />;
+    } else if (voiceVolume < 0.5) {
+      return <Volume2 size={20} style={{ opacity: 0.7 }} />;
+    } else {
+      return <Volume2 size={20} />;
+    }
+  };
+
+
 
   // Effect to adjust textarea height when input value changes or component mounts
   useEffect(() => {
@@ -608,6 +1130,25 @@ const Chatbot = () => {
       // Update store state
       addMessage(botMessage);
 
+      // Speak the bot response if voice is enabled
+      console.log('Checking if should speak bot response...');
+      console.log('voiceEnabled:', voiceEnabled);
+      console.log('botMessage.text:', botMessage.text?.substring(0, 50) + '...');
+
+      if (voiceEnabled && botMessage.text) {
+        console.log('Will speak bot response in 800ms...');
+        // Add a delay to ensure the message is rendered and any previous speech is stopped
+        setTimeout(() => {
+          console.log('Timeout reached, calling speakText...');
+          speakText(botMessage.text);
+        }, 800);
+      } else {
+        console.log('Not speaking because:', {
+          voiceEnabled,
+          hasText: !!botMessage.text
+        });
+      }
+
       // Save chat history
       if (isLoggedIn) {
         // Save to server if logged in
@@ -696,8 +1237,59 @@ const Chatbot = () => {
           </svg>
         </div>
         <div className="chatbot-info">
-          <h1 className="chatbot-title">{t('alita.chatbotTitle')}</h1>
-          <p className="chatbot-status">{t('alita.chatbotStatus')}</p>
+          <h1 className="chatbot-title">{t('alita.chatbotTitle')} 🎤</h1>
+          <p className="chatbot-status">
+            {isSpeaking ? '🗣️ Speaking...' : t('alita.chatbotStatus')}
+            {selectedVoice && (
+              <span className="voice-quality-indicator">
+                {selectedVoice.name.includes('Neural') || selectedVoice.name.includes('Premium') ?
+                  ' • 🎯 Premium Voice' :
+                  selectedVoice.name.includes('Google') || selectedVoice.name.includes('Microsoft') ?
+                  ' • ✨ Enhanced Voice' :
+                  ' • 🔊 Standard Voice'
+                }
+              </span>
+            )}
+          </p>
+        </div>
+        <div className="voice-controls">
+          {/* Volume control with hover slider */}
+          <div className="volume-control-container">
+            <div className="volume-icon">
+              {getVolumeIcon()}
+            </div>
+
+            {/* Hover volume slider */}
+            <div className="volume-hover-panel">
+              <input
+                type="range"
+                min="0"
+                max="1.0"
+                step="0.05"
+                value={voiceVolume}
+                onChange={(e) => {
+                  setVolume(parseFloat(e.target.value));
+                }}
+                className="volume-hover-slider"
+                title={`Volume: ${Math.round(voiceVolume * 100)}%`}
+              />
+              <span className="volume-percentage">
+                {Math.round(voiceVolume * 100)}%
+              </span>
+            </div>
+          </div>
+
+          {/* Stop speaking button */}
+          {isSpeaking && (
+            <button
+              type="button"
+              className="voice-control-btn stop-speaking"
+              onClick={stopSpeaking}
+              title="Stop speaking"
+            >
+              <Pause size={20} />
+            </button>
+          )}
         </div>
       </div>
 
@@ -801,15 +1393,32 @@ const Chatbot = () => {
             <Image size={20} />
           </button>
 
+          {/* Voice input button */}
+          {speechRecognition && (
+            <button
+              type="button"
+              className={`voice-input-button ${isListening ? 'listening' : ''}`}
+              onClick={isListening ? stopListening : startListening}
+              disabled={isTyping}
+              title={isListening ? 'Stop listening' : 'Start voice input'}
+            >
+              {isListening ? <MicOff size={20} /> : <Mic size={20} />}
+            </button>
+          )}
+
           {/* Text input - using textarea for multiline support */}
           <textarea
             ref={inputRef}
             value={inputValue}
             onChange={handleInputChange}
             onKeyDown={handleKeyDown}
-            placeholder={t('alita.inputPlaceholder', 'Ask about fashion trends, styling advice...')}
+            placeholder={
+              isListening
+                ? '🎤 Listening... Speak now!'
+                : t('alita.inputPlaceholder', 'Ask about fashion trends, styling advice...')
+            }
             className="chatbot-input"
-            disabled={isTyping}
+            disabled={isTyping || isListening}
             rows={1}
           />
 
