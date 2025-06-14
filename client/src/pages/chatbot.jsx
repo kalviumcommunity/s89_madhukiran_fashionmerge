@@ -1402,7 +1402,7 @@ const Chatbot = () => {
               disabled={isTyping}
               title={isListening ? 'Stop listening' : 'Start voice input'}
             >
-              {isListening ? <MicOff size={20} /> : <Mic size={20} />}
+              {isListening ? <MicOff size={22} /> : <Mic size={22} />}
             </button>
           )}
 
