@@ -79,11 +79,46 @@
     padding: 12px 32px;
     border: none;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    transition: color 4s cubic-bezier(0.165, 0.84, 0.44, 1);
   }
 
+  /* Initial styling for the ::before pseudo-element */
+  .discover-btn::before {
+    content: '';
+    position: absolute;
+    background: white;
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    top: 100%;
+    left: 100%;
+    transition: all 3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    z-index: -1;
+    transform: scale(0.3);
+    opacity: 0.95;
+  }
+
+  /* On hover, move the ::before element into view */
+  .discover-btn:hover::before {
+    top: -60px;
+    left: -60px;
+    transform: scale(2.5);
+    opacity: 1;
+  }
+
+  /* On active (click), change the background color instantly */
+  .discover-btn:active::before {
+    background: #f0f0f0;
+    transition: background 0s;
+  }
+
+  /* Change text color to black on hover for visibility */
   .discover-btn:hover {
-    background-color: rgba(0, 0, 0, 0.9);
+    color: black;
+    transition-delay: 0.2s;
   }
 
   .hero-right {
