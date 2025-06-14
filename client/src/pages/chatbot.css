@@ -48,7 +48,7 @@
 
     .voice-controls {
       position: absolute;
-      right: 2rem;
+      right: 3rem;
     }
 
     .volume-hover-panel {
@@ -663,7 +663,7 @@
     display: flex;
     gap: 0.5rem;
     position: absolute;
-    right: 1.2rem;
+    right: 2.5rem;
     align-items: center;
     z-index: 10;
   }
@@ -751,7 +751,7 @@
     appearance: none;
     width: 14px;
     height: 14px;
-    background: #222;
+    background: #000000;
     border-radius: 50%;
     cursor: pointer;
     transition: all 0.2s;
@@ -759,13 +759,13 @@
 
   .volume-hover-slider::-webkit-slider-thumb:hover {
     transform: scale(1.2);
-    background: #333;
+    background: #1a1a1a;
   }
 
   .volume-hover-slider::-moz-range-thumb {
     width: 14px;
     height: 14px;
-    background: #222;
+    background: #000000;
     border-radius: 50%;
     cursor: pointer;
     border: none;
@@ -832,7 +832,7 @@
     color: #6b7280;
     border-radius: 50%;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.2s;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   }
 
@@ -840,19 +840,24 @@
     color: #222;
     border-color: #d9e4f5;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-    transform: translateY(-1px);
   }
 
   .voice-input-button.listening {
-    background: linear-gradient(to right, #fee2e2, #fef3c7);
-    color: #dc2626;
-    border-color: #fecaca;
-    animation: pulse 1s infinite;
+    background-color: #ef4444;
+    color: white;
+    border-color: #dc2626;
+    animation: pulse 1.5s infinite;
   }
 
   .voice-input-button:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+  }
+
+  /* Make microphone icon slightly larger for better visual balance */
+  .voice-input-button svg {
+    width: 22px;
+    height: 22px;
   }
 
   @keyframes pulse {
@@ -861,8 +866,8 @@
       opacity: 1;
     }
     50% {
-      transform: scale(1.05);
-      opacity: 0.8;
+      transform: scale(1.02);
+      opacity: 0.9;
     }
   }
 
@@ -870,7 +875,7 @@
   @media (max-width: 480px) {
     .voice-controls {
       gap: 0.3rem;
-      right: 0.8rem;
+      right: 1.5rem;
     }
 
     .volume-icon {
@@ -897,7 +902,6 @@
       font-size: 0.65rem;
       min-width: 30px;
     }
-  }
 
     .voice-control-btn,
     .voice-input-button {
@@ -905,9 +909,14 @@
       height: 2.2rem;
     }
 
-    .voice-control-btn svg,
-    .voice-input-button svg {
+    .voice-control-btn svg {
       width: 16px;
       height: 16px;
     }
+
+    .voice-input-button svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
   
